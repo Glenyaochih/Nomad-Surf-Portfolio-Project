@@ -1,0 +1,68 @@
+.footerBg {
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  p {
+    color: #fff;
+  }
+
+  i {
+    color: #fff;
+  }
+
+  .row>* {
+    margin-top: 0 !important;
+  }
+
+  padding-top: 220px;
+
+  @include mobile {
+    padding-top: 90px;
+  }
+
+  // 背景圖
+  background-image: url(/public/footer/footer-bg-lg.png);
+  background-position: top;
+  background-repeat: no-repeat;
+
+  @include mobile {
+    background-image: url(/public/footer/footer_bg_sm.png);
+  }
+
+  .footerHeader {
+    margin-bottom: 48px;
+
+    @include mobile {
+      margin-bottom: 16px;
+    }
+  }
+
+  .footerContent {
+    margin-bottom: 72px;
+
+    @include mobile {
+      margin-bottom: 60px;
+    }
+
+    hr {
+      border: 1px #fff solid;
+    }
+
+    .icon24 {
+      font-size: 24px;
+      line-height: 1;
+    }
+  }
+
+  .copyright {
+    padding: 20px auto;
+
+    @include mobile {
+      margin-bottom: 24px;
+      padding: 4px auto;
+    }
+  }
+
+}
