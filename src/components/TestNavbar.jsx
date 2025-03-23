@@ -10,8 +10,8 @@ export default function TestNavbar() {
     <>
       <nav className='navbar navbar-expand-lg bg-body-tertiary'>
         <div className='container-fluid'>
-          <a className='navbar-brand' href='#'>
-            Navbar
+          <a className='navbar-brand fw-700' href='#'>
+            DRIFTER
           </a>
           <button
             className='navbar-toggler'

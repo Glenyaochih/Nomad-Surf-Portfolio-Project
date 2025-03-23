@@ -5,7 +5,7 @@ export default function OceanFooter() {
 			<div className="footerBg">
 				<div className="container d-flex flex-column">
 					<div className="footerHeader">
-						<h2 className="fw-bold">海上之翼 Wings of the Sea</h2>
+						<p className="fw-bold fs-lg-3 h7">海上之翼 Wings of the Sea</p>
 					</div>
 
 					<div className="footerContent row flex-sm-row-reverse flex-column">

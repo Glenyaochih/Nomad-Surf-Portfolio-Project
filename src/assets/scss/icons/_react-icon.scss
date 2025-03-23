@@ -1,0 +1,15 @@
+.react-icon {
+  font-size: 24px;
+
+  @include mobile {
+    font-size: 20px;
+  }
+
+  .cart-empty-icon {
+    font-size: 80px;
+
+    @include mobile {
+      font-size: 68px;
+    }
+  }
+}

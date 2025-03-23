@@ -15,7 +15,7 @@ export default function ProductListPage() {
                 </a>
               </li>
               <li className='breadcrumb-item active' aria-current='page'>
-                Library
+                產品
               </li>
             </ol>
           </nav>

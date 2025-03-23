@@ -3,6 +3,7 @@ import App from '../App';
 import HomePage from '../pages/HomePage';
 import ProductListPage from '../pages/ProductListPage'
 import ProductDetailPage from '../pages/ProductDetailPage'
+import ShoppingCartPage from '../pages/ShoppingCartPage';
 
 const route = [
   {
@@ -20,6 +21,10 @@ const route = [
       {
         path: 'product/:id',
         element: <ProductDetailPage />,
+      },
+      {
+        path: 'cart',
+        element: <ShoppingCartPage />,
       },
     ],
   },
