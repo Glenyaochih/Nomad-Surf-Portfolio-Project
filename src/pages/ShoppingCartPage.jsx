@@ -9,7 +9,7 @@ import {
 export default function ShoppingCartPage() {
   return (
     <>
-      <div>
+      <div className='shopping-cart'>
         <section>
           <div className='py-5 py-lg-13'>
             <nav aria-label='breadcrumb'>
@@ -19,7 +19,10 @@ export default function ShoppingCartPage() {
                     首頁
                   </a>
                 </li>
-                <li className='breadcrumb-item active fs-8 fs-lg-7' aria-current='page'>
+                <li
+                  className='breadcrumb-item active fs-8 fs-lg-7'
+                  aria-current='page'
+                >
                   購物車
                 </li>
               </ol>
@@ -34,7 +37,6 @@ export default function ShoppingCartPage() {
                   <div className='text-center'>
                     <MdAddShoppingCart className='cart-empty-icon' />
                     <p className='h7 fs-lg-5'>
-                      {' '}
                       購物車空空如也
                       <span className='d-none d-lg-inline'>，</span>
                       <br className='d-lg-none' />
@@ -59,27 +61,24 @@ export default function ShoppingCartPage() {
                         backgroundColor: 'rgba(255,255,255,0.1)',
                         borderRadius: '16px',
                       }}
-                      className='d-flex align-items-center p-2'
+                      className='d-flex align-items-end align-items-lg-center p-2 p-lg-4'
                     >
-                      <div>
+                      <div className=' w-100 d-flex'>
                         <img
-                          className='object-fit-cover'
-                          style={{
-                            height: '85px',
-                            maxWidth: '80px',
-                            borderRadius: '8px',
-                          }}
+                          className='object-fit-cover shopping-cart-product-img'
                           src='/public/products/short-board-01-Isometric-projection.png'
                           alt='surf-board'
                         />
+                        <div className='ms-2 ms-lg-7'>
+                          <p className='fs-lg-5 mb-lg-4'>衝浪板</p>
+                          <p className='fs-8 fs-lg-7'>長板樣式</p>
+                        </div>
                       </div>
-                      <div className='ms-2 w-100'>
-                        <p className='fs-lg-5'>衝浪板</p>
-                        <p className='fs-8'>長板樣式</p>
-                        <p className='text'>
+                      <div className='w-100 h-100'>
+                        <p className='fs-lg-5 text-end'>
                           NT
                           <span className='me-1'>
-                            <MdAttachMoney />
+                            <MdAttachMoney className='fs-lg-3' />
                           </span>
                           5000
                         </p>
@@ -88,26 +87,26 @@ export default function ShoppingCartPage() {
                   </label>
                 </div>
                 <div className='w-100 mt-2'>
-                  <div className='d-flex justify-content-end'>
+                  <div className='d-flex justify-content-end pt-5 pt-lg-8'>
                     <button
                       type='button'
-                      className='btn btn-outline-light btn-sm'
+                      className='btn btn-outline-light btn-sm py-lg-2 px-lg-4 fs-lg-6'
                     >
-                      <MdEdit />
+                      <MdEdit className='me-2' />
                       編輯
                     </button>
                     <button
                       type='button'
-                      className='btn btn-outline-light btn-sm'
+                      className='btn btn-outline-light btn-sm py-lg-2 px-lg-4 fs-lg-6'
                     >
-                      <MdClose />
+                      <MdClose className='me-2' />
                       取消
                     </button>
                     <button
                       type='button'
-                      className='btn btn-accent-200 btn-sm ms-4'
+                      className='btn btn-accent-200 btn-sm ms-4 py-lg-2 px-lg-4 fs-lg-6'
                     >
-                      <MdDelete />
+                      <MdDelete className='me-2' />
                       刪除
                     </button>
                   </div>
@@ -116,20 +115,22 @@ export default function ShoppingCartPage() {
             </section>
             <section>
               <div className='pb-14'>
-                <h5 className='mb-5'>收貨人資訊</h5>
+                <div className='pb-5 pb-lg-9'>
+                  <h6 className='fs-lg-5'>收貨人資訊</h6>
+                </div>
                 <div>
                   <div className='row row-cols-1 row-cols-lg-2'>
                     <div className='col'>
                       <div className='pb-3'>
                         <label
                           htmlFor='CustomerNameInput'
-                          className='form-label'
+                          className='form-label fs-8'
                         >
                           姓名*
                         </label>
                         <input
                           type='text'
-                          className='form-control'
+                          className='form-control fs-7'
                           id='CustomerNameInput'
                           placeholder='Glen'
                         />
@@ -139,13 +140,13 @@ export default function ShoppingCartPage() {
                       <div>
                         <label
                           htmlFor='CustomerTelInput'
-                          className='form-label'
+                          className='form-label fs-8'
                         >
                           聯絡電話*
                         </label>
                         <input
                           type='tel'
-                          className='form-control'
+                          className='form-control fs-7'
                           id='CustomerTelInput'
                           placeholder='0912345678'
                         />
@@ -155,13 +156,13 @@ export default function ShoppingCartPage() {
                   <div className='pt-3'>
                     <label
                       htmlFor='CustomerAddressInput'
-                      className='form-label'
+                      className='form-label fs-8'
                     >
                       配送地址
                     </label>
                     <input
                       type='name'
-                      className='form-control'
+                      className='form-control fs-7'
                       id='CustomerAddressInput'
                       placeholder='100台北市中正區重慶南路一段122號'
                     />
@@ -171,7 +172,9 @@ export default function ShoppingCartPage() {
             </section>
             <section>
               <div>
-                <h5 className='mb-5'>付款方式</h5>
+                <div className='pb-5 pb-lg-9'>
+                  <h6 className='fs-lg-5'>付款方式</h6>
+                </div>
                 <div className='row row-cols-1 row-cols-lg-2 gy-4'>
                   <div className='col'>
                     <div
@@ -189,7 +192,7 @@ export default function ShoppingCartPage() {
                           id='flexRadioDefault1'
                         />
                         <label
-                          className='form-check-label'
+                          className='form-check-label fs-lg-6'
                           htmlFor='flexRadioDefault1'
                         >
                           貨到付款
@@ -213,7 +216,7 @@ export default function ShoppingCartPage() {
                           id='credit-card'
                         />
                         <label
-                          className='form-check-label'
+                          className='form-check-label fs-lg-6'
                           htmlFor='credit-card'
                         >
                           信用卡
@@ -224,13 +227,13 @@ export default function ShoppingCartPage() {
                 </div>
               </div>
               {/* credit-card-inf-section */}
-              <div className='pt-2 pb-14'>
+              <div className='pt-2 pt-lg-4 pb-14'>
                 <div className='pb-3'>
                   <label htmlFor='creditCardNumInput' className='form-label'>
                     信用卡號*
                   </label>
                   <input
-                    className='form-control'
+                    className='form-control fs-7'
                     id='creditCardNumInput'
                     type='tel'
                     inputmode='numeric'
@@ -245,13 +248,13 @@ export default function ShoppingCartPage() {
                     <div className='pb-3'>
                       <label
                         htmlFor='creditCardExDateInput'
-                        className='form-label'
+                        className='form-label '
                       >
-                        到期日*
+                        有效期限*
                       </label>
                       <input
                         type='text'
-                        className='form-control'
+                        className='form-control fs-7'
                         id='creditCardExDateInput'
                         placeholder='MM/YY'
                       />
@@ -260,11 +263,11 @@ export default function ShoppingCartPage() {
                   <div className='col'>
                     <div className='pb-3'>
                       <label htmlFor='creditCardIdInput' className='form-label'>
-                        識別碼*
+                        安全碼*
                       </label>
                       <input
                         type='number'
-                        className='form-control'
+                        className='form-control fs-7'
                         id='creditCardIdInput'
                         placeholder='CVC'
                       />
@@ -295,22 +298,22 @@ export default function ShoppingCartPage() {
               <div className='pt-9 pb-7'>
                 <div className='pb-5'>
                   <div className='d-flex'>
-                    <p className='fs-8'>金額</p>
-                    <p className='ms-auto'>25000</p>
+                    <p className='fs-8 fs-lg-6 fs-lg-6'>金額</p>
+                    <p className='ms-auto fs-8 fs-lg-6'>NT<MdAttachMoney className='fs-7 fs-lg-5'/> 25000</p>
                   </div>
                   <div className='d-flex py-1'>
-                    <p className='fs-8'>運費</p>
-                    <p className='ms-auto'>500</p>
+                    <p className='fs-8 fs-lg-6'>運費</p>
+                    <p className='ms-auto fs-8 fs-lg-6'>NT<MdAttachMoney className='fs-7 fs-lg-5'/> 500</p>
                   </div>
                   <div className='d-flex'>
-                    <p className='fs-8'>折價卷</p>
-                    <p className='ms-auto'>-100</p>
+                    <p className='fs-8 fs-lg-6'>折價卷</p>
+                    <p className='ms-auto fs-8 fs-lg-6'>- NT<MdAttachMoney className='fs-7 fs-lg-5'/> 100</p>
                   </div>
                 </div>
 
                 <div className='d-flex'>
-                  <p>總計</p>
-                  <p className='ms-auto'>25500</p>
+                  <p className='fs-lg-5'>總計</p>
+                  <p className='ms-auto fs-6 fs-lg-5'>NT<MdAttachMoney className='fs-5 fs-lg-3'/>25500</p>
                 </div>
               </div>
               <div class='d-grid gap-2'>
