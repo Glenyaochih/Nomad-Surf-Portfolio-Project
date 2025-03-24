@@ -6,5 +6,11 @@
 @import 'bootstrap/scss/bootstrap.scss';
 @import'./utilities';
 
+@import './base/base';
+@import './helper/media';
+@import'./icons/react-icon';
+@import './layout//footer';
+@import'./pages/shopping-cart-page.scss';
+
 
 @import "bootstrap/scss/utilities/api";
