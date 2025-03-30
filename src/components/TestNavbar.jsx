@@ -5,6 +5,7 @@ export default function TestNavbar() {
     { path: '/', name: '首頁' },
     { path: '/products', name: '產品列表' },
     { path: '/cart', name: '購物車' },
+    { path: '/article', name: '教學文章' },
   ];
   return (
     <>

@@ -1,0 +1,165 @@
+.backend {
+
+  // Main content styles
+  .main {
+    padding: 0 40px;
+
+    @media (max-width: 768px) {
+      padding: 0 12px;
+    }
+
+    // App navigation
+    .appNav {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    // User image
+    .userImage {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    // Table styles
+    .tableBorder {
+      border-left: 1px solid rgba(106, 106, 106, 1);
+      border-right: 1px solid rgba(106, 106, 106, 1);
+    }
+
+    .table> :not(caption)>*>* {
+      border-bottom: 1px solid rgba(106, 106, 106, 1);
+    }
+
+    // Form elements
+    select {
+      width: 130px;
+    }
+
+    .deleteButton {
+      font-size: 16px;
+    }
+
+    .form-select.bg-primary-400 {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+      font-size: 16px;
+    }
+
+    // Table container
+    .table-container {
+      border-radius: 10px;
+      max-height: 724px;
+      overflow-y: auto;
+      position: relative;
+
+      thead th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 1;
+      }
+    }
+
+    // Product manager table
+    .productManager {
+      thead th {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #161b26;
+        color: white;
+        border-bottom: none;
+      }
+
+      input {
+        width: 24px;
+        height: 24px;
+        background: #6a6a6a;
+        border: #6a6a6a;
+      }
+
+      tbody {
+
+        th,
+        td {
+          min-width: 100px;
+          max-width: 205px;
+          text-align: center;
+          padding: 54px 0;
+          background-color: #1d222c;
+          color: white;
+
+          @media (max-width: 1666px) {
+            min-width: 120px;
+          }
+
+          @media (max-width: 1400px) {
+            min-width: 130px;
+          }
+        }
+      }
+
+      .productDescribe {
+        width: 221px;
+      }
+    }
+
+    // Pagination
+    .pagination {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      .pagesButton {
+        width: 44px;
+        height: 44px;
+        color: #ffffff;
+        background-color: #1d222c;
+
+        &:focus {
+          border-bottom: 1px solid #fad344;
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      @media (max-width: 992px) {
+        justify-content: start;
+        padding-left: 15px;
+      }
+    }
+  }
+
+  // Responsive styles
+  .web {
+    display: block !important;
+  }
+
+  .app {
+    display: none !important;
+  }
+
+  @media (max-width: 991.98px) {
+    .main {
+      .table-responsive-wrapper {
+        margin: 0 -15px;
+      }
+
+      .table-responsive {
+        padding: 0 15px;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .web {
+      display: none !important;
+    }
+
+    .app {
+      display: block !important;
+    }
+  }
+}

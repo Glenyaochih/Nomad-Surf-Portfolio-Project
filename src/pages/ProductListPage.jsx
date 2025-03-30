@@ -1,8 +1,19 @@
 import { MdOutlineAddShoppingCart,} from 'react-icons/md'
 import RecommendCarousel from '../components/RecommendCarousel';
-import OceanFooter from '../components/OceanFooter';
+import axios from 'axios';
+
 
 export default function ProductListPage() {
+  const JSON_SERVER= import.meta.env.VITE_JSON_SERVER_HOST
+  const Products = async()=>{
+    try {
+      const res = await axios.get(`${JSON_SERVER}/comments`)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  Products();
   return (
     <>
       <div className='container pt-lg-13 pb-lg-16 pt-8 pb-15'>
@@ -52,7 +63,7 @@ export default function ProductListPage() {
               <div>
                 <a href=''>
                   <img
-                    src='/public/products/short-board-01-bottom-view.png'
+                    src='img/products/short-board-01-isometric-projection.png'
                     className='card-img-top rounded-5 object-fit-cover'
                     style={{ height: 260 }}
                     alt='...'

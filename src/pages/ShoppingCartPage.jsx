@@ -66,7 +66,7 @@ export default function ShoppingCartPage() {
                       <div className=' w-100 d-flex'>
                         <img
                           className='object-fit-cover shopping-cart-product-img'
-                          src='/public/products/short-board-01-Isometric-projection.png'
+                          src='img/products/short-board-01-isometric-projection.png'
                           alt='surf-board'
                         />
                         <div className='ms-2 ms-lg-7'>
@@ -236,7 +236,7 @@ export default function ShoppingCartPage() {
                     className='form-control fs-7'
                     id='creditCardNumInput'
                     type='tel'
-                    inputmode='numeric'
+                    inputMode='numeric'
                     pattern='[0-9\s]{13,19}'
                     autocomplete='cc-number'
                     maxlength='19'

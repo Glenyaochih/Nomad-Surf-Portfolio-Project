@@ -1,0 +1,75 @@
+.surfKnowledge-banner {
+  height: 486px;
+  width: 100%;
+  background-image: url('img/surfKnowledge/duck-diving-banner.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @include mobile {
+    height: 300px;
+  }
+}
+
+.surfKnowledge-card {
+  img {
+    height: 300px;
+
+    @include mobile {
+      height: 180px;
+    }
+  }
+}
+
+.surfKnowledge-crouse-card {
+  img {
+    height: 300px;
+
+    @include mobile {
+      height: 240px;
+    }
+  }
+}
+
+
+.more-article {
+  &::before {
+    content: '';
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: 89px;
+    width: 120px;
+    height: 98px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    z-index: 1;
+
+    @include mobile {
+      width: 60px;
+      height: 40px;
+      right: 48px;
+    }
+  }
+}
+
+.surfKnowledge-decoration {
+  height: 160px;
+  width: 100%;
+  background-image: url('');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('img/surfKnowledge/surfKnowledge-decoration-lg.png');
+
+  @include mobile {
+    height: 48px;
+    background-image: url('img/surfKnowledge/surfKnowledge-decoration-sm.png');
+  }
+}

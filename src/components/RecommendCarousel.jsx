@@ -4,14 +4,14 @@ import 'swiper/css'
 
 export default function RecommendCarousel() {
 	const [carouselData] = useState([
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-bottom-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-front-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-bottom-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-front-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-bottom-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-front-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-bottom-view.png' },
-		{ title: 'GP-1', content: 'POP UP EASY', image: 'public/products/short-board-01-front-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-bottom-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-front-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-bottom-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-front-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-bottom-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-front-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-bottom-view.png' },
+		{ title: 'GP-1', content: 'POP UP EASY', image: 'img/products/short-board-01-front-view.png' },
 	])
 
 	return (

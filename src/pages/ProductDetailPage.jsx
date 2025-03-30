@@ -24,21 +24,6 @@ export default function ProductDetailPage() {
           </ol>
         </nav>
       </section>
-      <section>
-        <div className='d-flex align-items-center'>
-          <p className='h1 fs-6 fs-lg-2'>Banana Board</p>
-          <div className='ms-auto p-2 '>
-            <MdFavoriteBorder size={20} />
-          </div>
-        </div>
-      </section>
-      <section>
-        <ProductDetailCarousel />
-        <div className='d-flex align-items-center'>
-          <p className='h2 fs-6 '>NT<span><MdAttachMoney size={24}/></span>25000</p>
-          <button type="button" className="btn btn-outline-light ms-auto"><span><MdOutlineAddShoppingCart size={20}/></span>加入購物車</button>
-        </div>
-      </section>
       <hr className='my-7'/>
     </>
   );

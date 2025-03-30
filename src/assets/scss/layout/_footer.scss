@@ -23,12 +23,12 @@
   }
 
   // 背景圖
-  background-image: url(/public/footer/footer-bg-lg.png);
+  background-image: url(img/footer/footer-bg-lg.png);
   background-position: top;
   background-repeat: no-repeat;
 
   @include mobile {
-    background-image: url(/public/footer/footer-bg-sm.png);
+    background-image: url(img/footer/footer_bg_sm.png);
   }
 
   .footerHeader {
