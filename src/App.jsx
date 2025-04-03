@@ -7,7 +7,7 @@ function App() {
     <>
       <div id='app'>
         <TestNavbar />
-        <div className='container'>
+        <div>
           <Outlet />
         </div>
         <OceanFooter />

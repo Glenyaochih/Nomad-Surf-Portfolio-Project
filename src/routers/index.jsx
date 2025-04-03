@@ -8,6 +8,10 @@ import SurfKnowledge from '../pages/SurfKnowledge';
 import Admin from '../pages/Admin';
 const route = [
   {
+    path:'admin',
+    element:<Admin/>
+  },
+  {
     path: '/',
     element: <App />,
     children: [
@@ -31,10 +35,7 @@ const route = [
         path: 'article',
         element: <SurfKnowledge />,
       },
-      {
-        path:'admin',
-        element:<Admin/>
-      }
+      
     ],
   },
 ];
