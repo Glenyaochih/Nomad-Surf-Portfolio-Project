@@ -37,7 +37,7 @@ export default function OceanFooter() {
                 <div className='d-flex flex-column gy-2'>
                   {aboutRoutes.map((route) => {
                     return (
-                      <p className='py-1 py-sm-2'>
+                      <p key={route.name} className='py-1 py-sm-2'>
                         <Link to={route.path}>{route.name}</Link>
                       </p>
                     );

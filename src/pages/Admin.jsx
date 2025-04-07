@@ -1,13 +1,13 @@
-import { useState } from "react";
-import AdminManagementPage from "./AdminManagmentPage";
-import AdminLoadingPage from "./AdminLoadingPage";
+import AdminManagementPage from "./AdminManagementPage";
+import AdminLoginPage from "./AdminLoginPage";
+import { useSelector } from "react-redux";
 
 export default function Admin() {
-  const [isLoading,setIsLoading]=useState(false);
+  const isLogin = useSelector((state)=>state.adminLogin.isManagementPageOpen)
   return (
     <>
       {
-        isLoading?(<AdminManagementPage/>):(<AdminLoadingPage/>)
+        isLogin?(<AdminManagementPage/>):(<AdminLoginPage/>)
       }
     </>
   );
