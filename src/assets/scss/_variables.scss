@@ -1013,7 +1013,7 @@ $input-padding-y-lg: $input-btn-padding-y-lg !default;
 $input-padding-x-lg: $input-btn-padding-x-lg !default;
 $input-font-size-lg: $input-btn-font-size-lg !default;
 
-$input-bg: var(--#{$prefix}body-bg) !default;
+$input-bg: rgba(0, 0, 0, 0) !default; //var(--#{$prefix}body-bg) !default;
 $input-disabled-color: null !default;
 $input-disabled-bg: var(--#{$prefix}secondary-bg) !default;
 $input-disabled-border-color: null !default;
@@ -1063,7 +1063,7 @@ $form-check-transition: null !default;
 
 $form-check-input-active-filter: brightness(90%) !default;
 
-$form-check-input-bg: rgba(255, 255, 255, 0.1) !default; //$input-bg !default;
+$form-check-input-bg: rgba(0, 0, 0, 0.1) !default; //$input-bg !default;
 $form-check-input-border: var(--#{$prefix}border-width) solid var(--#{$prefix}border-color) !default;
 $form-check-input-border-radius: 0.25em !default;
 $form-check-radio-border-radius: 50% !default;

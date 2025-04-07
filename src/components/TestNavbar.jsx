@@ -5,13 +5,14 @@ export default function TestNavbar() {
     { path: '/', name: '首頁' },
     { path: '/products', name: '產品列表' },
     { path: '/cart', name: '購物車' },
+    { path: '/article', name: '教學文章' },
   ];
   return (
     <>
-      <nav className='navbar navbar-expand-lg bg-body-tertiary'>
+      <nav className='sticky-top navbar navbar-expand-lg bg-body-tertiary'>
         <div className='container-fluid'>
           <a className='navbar-brand fw-700' href='#'>
-            DRIFTER
+            Nomad
           </a>
           <button
             className='navbar-toggler'
