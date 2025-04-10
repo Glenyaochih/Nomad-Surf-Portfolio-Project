@@ -52,7 +52,7 @@
     // Table container
     .table-container {
       border-radius: 10px;
-      max-height: 724px;
+      max-height: 616px;
       overflow-y: auto;
       position: relative;
 
@@ -60,7 +60,7 @@
         position: sticky;
         top: 0;
         background-color: #fff;
-        z-index: 1;
+        z-index: 0;
       }
     }
 
