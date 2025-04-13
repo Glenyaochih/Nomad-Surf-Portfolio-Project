@@ -1,7 +1,7 @@
 import { Modal } from 'bootstrap';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductModalOpen } from '../redux/slice/modalSlice';
+import { setProductModalOpen } from '../../redux/slice/modalSlice';
 
 export default function AdminAddProductModal() {
   const adminAddProductModalLink = useRef(null);
@@ -215,6 +215,77 @@ export default function AdminAddProductModal() {
                       />
                     </div>
                   </div>
+
+                  <div className='row'>
+                    <div className='mb-3 col-md-6'>
+                      <label htmlFor='grade' className='form-label h5'>
+                        衝浪板分級
+                      </label>
+                      <input
+                        // value={modalData.origin_price}
+                        // onChange={handleModalInputChange}
+                        name='grade'
+                        id='grade'
+                        type='text'
+                        min='0'
+                        className='form-control'
+                        placeholder='請輸入級別'
+                      />
+                    </div>
+                    <div className='mb-3 col-md-6'>
+                      <label htmlFor='fin_system' className='form-label h5'>
+                        fin系統
+                      </label>
+                      <select
+                        // value={modalData.price}
+                        // onChange={handleModalInputChange}
+                        name='fin_system'
+                        id='fin_system'
+                        type='number'
+                        min='0'
+                        className='form-select w-100'
+                        placeholder='請輸入售價'
+                      >
+                        <option value='1'>One</option>
+                        <option value='2'>Two</option>
+                        <option value='3'>Three</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className='row'>
+                    <div className='mb-3 col-md-6'>
+                      <label htmlFor='size' className='form-label h5'>
+                        尺寸
+                      </label>
+                      <input
+                        // value={modalData.origin_price}
+                        // onChange={handleModalInputChange}
+                        name='size'
+                        id='size'
+                        type='text'
+                        min='0'
+                        className='form-control'
+                        placeholder={'5\'6" x 18 3/4" x 2 3/8" x 26.3L'}
+                      />
+                    </div>
+                    <div className='mb-3 col-md-6'>
+                      <label htmlFor='color' className='form-label h5'>
+                        顏色
+                      </label>
+                      <input
+                        // value={modalData.price}
+                        // onChange={handleModalInputChange}
+                        name='color'
+                        id='color'
+                        type='text'
+                        min='0'
+                        className='form-control'
+                        placeholder='請輸入售價'
+                      />
+                    </div>
+                  </div>
+
                   <hr />
 
                   <div className='mb-3'>

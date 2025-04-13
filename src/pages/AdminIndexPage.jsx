@@ -13,7 +13,7 @@ export default function AdminIndexPage() {
               >
                 <img
                   className='img-fluid'
-                  src='../assets/images/Ocean-Wings-logo-lg.svg'
+                  src='img/logo/Homepage/Desktop/Logo_L.png'
                 />
               </a>
               <ul className='nav nav-underline flex-column'>
@@ -27,7 +27,7 @@ export default function AdminIndexPage() {
                     商品管理
                   </Link>
                 </li>
-                <li >
+                <li>
                   <div className='nav-item'>
                     <Link to={'comment'} className='nav-link fs-6 mb-9'>
                       心得牆

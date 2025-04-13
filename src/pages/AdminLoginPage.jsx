@@ -1,8 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { adminLogin, checkAuthStatus, setAccount } from '../redux/slice/adminLoginSlice';
+import {
+  adminLoginAsync,
+  checkAuthStatusAsync,
+  setAccount,
+} from '../redux/slice/adminLoginSlice';
 import { useEffect } from 'react';
 import axios from 'axios';
-
 
 export default function AdminLoginPage() {
   const dispatch = useDispatch();
@@ -14,7 +17,7 @@ export default function AdminLoginPage() {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(adminLogin());
+    dispatch(adminLoginAsync());
   };
   useEffect(() => {
     const token = document.cookie.replace(
@@ -22,8 +25,8 @@ export default function AdminLoginPage() {
       '$1'
     );
     axios.defaults.headers.common['Authorization'] = token;
-    dispatch(checkAuthStatus())
-  }, []);
+    dispatch(checkAuthStatusAsync());
+  }, [dispatch]);
 
   return (
     <>

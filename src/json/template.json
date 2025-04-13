@@ -8,7 +8,7 @@
     "description": "知名衝浪板",
     "content": "受到大白鯊外觀的啟發，衝浪傳奇 Kelly Slater 攜手在峇里島的製板師 Mike Woo，運用 I-Bolic 技術和火山岩積層，打造出這款名為「Great White Twin」的衝浪板。",
     "grade": "A",
-    "hasDiscount": false,
+    "hasDiscount": 1,
     "is_enabled": 1,
     "imageUrl": "https://firebasestorage.googleapis.com/v0/b/glenyao-e1435.appspot.com/o/surfboard%2FSD_GWT_V_B.webp?alt=media&token=e3d57ccb-e701-4f82-91a1-a3722f9e933c",
     "imagesUrl": [
