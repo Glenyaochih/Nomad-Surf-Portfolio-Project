@@ -1,0 +1,63 @@
+{
+  "data": {
+    "title": "Great White Twin",
+    "category": "surfboard",
+    "origin_price": 32340,
+    "price": 32000,
+    "unit": "個",
+    "description": "知名衝浪板",
+    "content": "受到大白鯊外觀的啟發，衝浪傳奇 Kelly Slater 攜手在峇里島的製板師 Mike Woo，運用 I-Bolic 技術和火山岩積層，打造出這款名為「Great White Twin」的衝浪板。",
+    "grade": "A",
+    "hasDiscount": 1,
+    "is_enabled": 1,
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/glenyao-e1435.appspot.com/o/surfboard%2FSD_GWT_V_B.webp?alt=media&token=e3d57ccb-e701-4f82-91a1-a3722f9e933c",
+    "imagesUrl": [
+      "https://firebasestorage.googleapis.com/v0/b/glenyao-e1435.appspot.com/o/surfboard%2FSD_GWT_V_D.webp?alt=media&token=50aca00d-8615-44bf-ae9d-3dad94b76377",
+      "https://firebasestorage.googleapis.com/v0/b/glenyao-e1435.appspot.com/o/surfboard%2FSD_GWT_V_R.webp?alt=media&token=13e91f58-f1ee-481a-839d-449638a8fa45"
+    ],
+    "system": ["FUTURES", "FCS-2"],
+    "sizes": [
+      {
+        "size": "5'6\" x 18 3/4\" x 2 3/8\" x 26.3L",
+        "stock": 5
+      },
+      {
+        "size": "5'7\" x 19 1/16\" x 2 7/16\" x 27.5L",
+        "stock": 5
+      },
+      {
+        "size": "5'8\" x 19 3/8\" x 2 1/2\" x 29.0L",
+        "stock": 5
+      },
+      {
+        "size": "5'9\" x 19 5/8\" x 2 9/16\" x 30.5L",
+        "stock": 5
+      },
+      {
+        "size": "5'10\" x 19 15/16\" x 2 5/8\" x 32.0L",
+        "stock": 5
+      },
+      {
+        "size": "5'11\" x 20 3/16\" x 2 11/16\" x 34.0L",
+        "stock": 5
+      },
+      {
+        "size": "6'0\" x 20 1/2\" x 2 13/16\" x 36.0L",
+        "stock": 5
+      },
+      {
+        "size": "6'2\" x 21\" x 2 3/4\" x 37.7L",
+        "stock": 5
+      },
+      {
+        "size": "6'4\" x 21 9/16\" x 2 7/8\" x 41.2L",
+        "stock": 5
+      },
+      {
+        "size": "6'6\" x 22 1/8\" x 2 5/16\" x 44.3L",
+        "stock": 5
+      }
+    ],
+    "colors": ["#aab4c7"]
+  }
+}

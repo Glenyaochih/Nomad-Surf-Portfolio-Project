@@ -1,4 +1,4 @@
-import { createHashRouter } from 'react-router-dom';
+import { createHashRouter} from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import ProductListPage from '../pages/ProductListPage';
@@ -6,10 +6,29 @@ import ProductDetailPage from '../pages/ProductDetailPage';
 import ShoppingCartPage from '../pages/ShoppingCartPage';
 import SurfKnowledge from '../pages/SurfKnowledge';
 import Admin from '../pages/Admin';
+import AdminChildrenMember from '../pages/AdminChildrenMember';
+import AdminChildrenComment from '../pages/AdminChildrenComment';
+import AdminChildrenProduct from '../pages/AdminChildrenProduct';
+
+
 const route = [
   {
-    path:'admin',
-    element:<Admin/>
+    path: 'admin',
+    element: <Admin />,
+    children:[
+      {
+        index:true,
+        element:<AdminChildrenProduct/>
+      },
+      {
+        path:'members',
+        element:<AdminChildrenMember/>
+      },
+      {
+        path:'comment',
+        element:<AdminChildrenComment/>
+      }
+    ]
   },
   {
     path: '/',
@@ -35,7 +54,6 @@ const route = [
         path: 'article',
         element: <SurfKnowledge />,
       },
-      
     ],
   },
 ];

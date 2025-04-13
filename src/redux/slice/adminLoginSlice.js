@@ -22,7 +22,7 @@ export const adminLoginSlice = createSlice({
   },
 });
 
-export const adminLogin = createAsyncThunk(
+export const adminLoginAsync = createAsyncThunk(
   'login/AdminLogin',
   async (_, { dispatch, getState, rejectWithValue }) => {
     try {
@@ -38,7 +38,7 @@ export const adminLogin = createAsyncThunk(
   }
 );
 
-export const checkAuthStatus = createAsyncThunk(
+export const checkAuthStatusAsync = createAsyncThunk(
   'check/adminCheck',
   async (_, { dispatch, rejectWithValue }) => {
     try {

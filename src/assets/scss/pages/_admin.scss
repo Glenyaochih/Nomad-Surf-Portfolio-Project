@@ -37,7 +37,7 @@
 
     // Form elements
     select {
-      width: 130px;
+      width: 150px;
     }
 
     .deleteButton {
@@ -52,15 +52,16 @@
     // Table container
     .table-container {
       border-radius: 10px;
-      max-height: 724px;
+      max-height: 616px;
       overflow-y: auto;
       position: relative;
+      table-layout: fixed;
 
       thead th {
         position: sticky;
         top: 0;
         background-color: #fff;
-        z-index: 1;
+        z-index: 0;
       }
     }
 
@@ -74,13 +75,6 @@
         border-bottom: none;
       }
 
-      input {
-        width: 24px;
-        height: 24px;
-        background: #6a6a6a;
-        border: #6a6a6a;
-      }
-
       tbody {
 
         th,
@@ -88,8 +82,7 @@
           min-width: 100px;
           max-width: 205px;
           text-align: center;
-          padding: 54px 0;
-          background-color: #1d222c;
+          padding: 22px 0;
           color: white;
 
           @media (max-width: 1666px) {

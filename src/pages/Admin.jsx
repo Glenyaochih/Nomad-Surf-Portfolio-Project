@@ -1,4 +1,4 @@
-import AdminManagementPage from "./AdminManagementPage";
+import AdminIndexPage from "./AdminIndexPage";
 import AdminLoginPage from "./AdminLoginPage";
 import { useSelector } from "react-redux";
 
@@ -7,7 +7,7 @@ export default function Admin() {
   return (
     <>
       {
-        isLogin?(<AdminManagementPage/>):(<AdminLoginPage/>)
+        isLogin?(<AdminIndexPage/>):(<AdminLoginPage/>)
       }
     </>
   );
