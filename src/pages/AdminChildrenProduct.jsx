@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductModalOpen } from '../redux/slice/modalSlice';
+import {
+  setCheckAndEditProductOpen,
+  setAddProductModalOpen,
+} from '../redux/slice/modalSlice';
 import AdminAddProductModal from '../components/modal/AdminAddProductModal';
+import AdminCheckAndEditProductModal from '../components/modal/AdminCheckAndEditProductModal';
 import { useEffect, useState } from 'react';
 import { adminGetProductsAsync } from '../redux/slice/adminGetProductsSlice';
 import { MdModeEditOutline, MdCheck } from 'react-icons/md';
@@ -8,9 +12,13 @@ import { MdModeEditOutline, MdCheck } from 'react-icons/md';
 export default function AdminChildrenProduct() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
-  const [editState, setEditState] = useState('');
-  const productModalOpen = () => {
-    dispatch(setProductModalOpen(true));
+  const [editState, setEditState] = useState('-ONUm2Q95YsQV2AWEY0K');
+  //Modal area
+  const addProductModalOpen = () => {
+    dispatch(setAddProductModalOpen(true));
+  };
+  const editProductModalOpen = (state, data) => {
+    dispatch(setCheckAndEditProductOpen({ open: true, state, data }));
   };
 
   useEffect(() => {
@@ -20,6 +28,7 @@ export default function AdminChildrenProduct() {
   return (
     <>
       <AdminAddProductModal />
+      <AdminCheckAndEditProductModal />
       <div>
         <div className='banner mb-4'>
           <h5 className='fs-5 mt-4 mb-7'>商品管理</h5>
@@ -39,7 +48,7 @@ export default function AdminChildrenProduct() {
 
             <div>
               <button
-                onClick={productModalOpen}
+                onClick={addProductModalOpen}
                 className='btn btn-primary-500 text-white border deleteButton px-4 me-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>新增產品
@@ -60,7 +69,7 @@ export default function AdminChildrenProduct() {
             tabIndex='0'
           >
             <table className='table productManager rounded-table table-container table-hover'>
-              <thead className=''>
+              <thead>
                 <tr>
                   <th scope='col' style={{ width: '80px' }}>
                     <input
@@ -119,21 +128,24 @@ export default function AdminChildrenProduct() {
               </thead>
               <tbody className='border rounded-bottom'>
                 {products.map((product, index) => (
-                  <>
-                    {product.id !== editState && (
-                      <tr
-                        key={product.id}
-                        className='tableBorder'
-                        htmlFor={product.id}
-                      >
+                  <tr className='tableBorder' key={product.id}>
+                    {product.id !== editState ? (
+                      <>
                         <th scope='col' className='align-middle'>
-                          <input
-                            className='form-check-input'
-                            type='checkbox'
-                            value=''
-                            id={product.id}
-                          />
-                          <label className='mt-1'>{index + 1}</label>
+                          <div className='form-check'>
+                            <label
+                              className='form-check-label'
+                              htmlFor={product.id}
+                            >
+                              {index + 1}
+                            </label>
+                            <input
+                              className='form-check-input'
+                              type='checkbox'
+                              value=''
+                              id={product.id}
+                            />
+                          </div>
                         </th>
                         <td className='align-middle'>td#AHAGA68</td>
                         <td className='align-middle'>{product.title}</td>
@@ -142,12 +154,22 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>{product.origin_price}</td>
                         <td className='align-middle'>{product.price}</td>
                         <td className='align-middle'>
-                          <button className='btn btn-outline-primary btn-sm'>
+                          <button
+                            className='btn btn-outline-primary btn-sm'
+                            onClick={() => {
+                              editProductModalOpen('size', product.sizes);
+                            }}
+                          >
                             查看
                           </button>
                         </td>
                         <td className='align-middle'>
-                          <button className='btn btn-outline-primary btn-sm'>
+                          <button
+                            className='btn btn-outline-primary btn-sm'
+                            onClick={() => {
+                              editProductModalOpen('color', product.sizes);
+                            }}
+                          >
                             查看
                           </button>
                         </td>
@@ -178,10 +200,9 @@ export default function AdminChildrenProduct() {
                             <MdModeEditOutline />
                           </button>
                         </td>
-                      </tr>
-                    )}
-                    {product.id === editState && (
-                      <tr key={product.id} className='tableBorder'>
+                      </>
+                    ) : (
+                      <>
                         <th scope='row' className='align-middle'>
                           <label className='mt-1'>{index + 1}</label>
                         </th>
@@ -208,7 +229,7 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <select
-                              class='form-select fs-7'
+                              className='form-select fs-7'
                               aria-label='Default select example'
                             >
                               <option value='longBoard'>longBoard</option>
@@ -221,7 +242,7 @@ export default function AdminChildrenProduct() {
                           <div className='d-flex justify-content-center'>
                             <select
                               style={{ maxWidth: '150px', height: '40px' }}
-                              class='form-select fs-7'
+                              className='form-select fs-7'
                               aria-label='Default select example'
                             >
                               <option value='A'>A</option>
@@ -252,14 +273,27 @@ export default function AdminChildrenProduct() {
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
-                            <button className='btn btn-outline-primary btn-sm'>
+                            <button
+                              className='btn btn-outline-primary btn-sm'
+                              onClick={() => {
+                                editProductModalOpen('editSize', product.sizes);
+                              }}
+                            >
                               編輯
                             </button>
                           </div>
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
-                            <button className='btn btn-outline-primary btn-sm'>
+                            <button
+                              className='btn btn-outline-primary btn-sm'
+                              onClick={() => {
+                                editProductModalOpen(
+                                  'editColor',
+                                  product.colors
+                                );
+                              }}
+                            >
                               編輯
                             </button>
                           </div>
@@ -316,9 +350,9 @@ export default function AdminChildrenProduct() {
                             <MdCheck />
                           </button>
                         </td>
-                      </tr>
+                      </>
                     )}
-                  </>
+                  </tr>
                 ))}
               </tbody>
             </table>

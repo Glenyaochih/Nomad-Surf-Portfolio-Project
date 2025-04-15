@@ -20,7 +20,6 @@ export const adminGetProductsAsync =createAsyncThunk(
   async(_,{dispatch})=>{
     try {
       const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/admin/products?page`);
-     
       dispatch(adminGetProductsSlice.actions.setProducts(res.data.products))
 
     } catch (error) {
