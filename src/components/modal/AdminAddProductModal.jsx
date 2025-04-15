@@ -1,7 +1,7 @@
 import { Modal } from 'bootstrap';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductModalOpen } from '../../redux/slice/modalSlice';
+import { setAddProductModalOpen } from '../../redux/slice/modalSlice';
 
 export default function AdminAddProductModal() {
   const adminAddProductModalLink = useRef(null);
@@ -23,7 +23,7 @@ export default function AdminAddProductModal() {
 
   const productModalClose = () => {
     adminAddProductModalSelf.current.hide();
-    dispatch(setProductModalOpen(false));
+    dispatch(setAddProductModalOpen(false));
   };
 
   return (
@@ -33,13 +33,13 @@ export default function AdminAddProductModal() {
         className='modal fade'
         tabIndex='-1'
         style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-        aria-hidden='true'
+        aria-hidden='false'
       >
         <div className='modal-dialog modal-xl modal-dialog-scrollable'>
           <div className='modal-content border-0'>
             <div className='modal-header bg-dark text-white'>
               <h5 id='productModalLabel' className='modal-title'>
-                {/* <span>{modalType === 'create' ? '新增產品' : '編輯產品'}</span> */}
+                新增產品
               </h5>
               <button
                 type='button'
@@ -53,9 +53,11 @@ export default function AdminAddProductModal() {
                 <div className='col-sm-4'>
                   <div className='mb-2'>
                     <div className='mb-5'>
-                      <label htmlFor='fileInput' className='form-label'>
-                        {' '}
-                        圖片上傳{' '}
+                      <label
+                        htmlFor='fileInput'
+                        className='form-label bg-primary-500'
+                      >
+                        圖片上傳
                       </label>
                       <input
                         type='file'
@@ -116,24 +118,12 @@ export default function AdminAddProductModal() {
                     </div>
                   </div>
                   <div className='btn-group w-100'>
-                    {/* {modalData.imagesUrl.length < 5 &&
-                      modalData.imagesUrl[modalData.imagesUrl.length - 1] !==
-                        '' && (
-                        <button
-                          className='btn btn-outline-primary btn-sm d-blocks'
-                          onClick={addImageHandler}
-                        >
-                          新增圖片
-                        </button>
-                      )}
-                    {modalData.imagesUrl.length > 1 && (
-                      <button
-                        className='btn btn-outline-danger btn-sm d-block'
-                        onClick={removeImageHandler}
-                      >
-                        刪除圖片
-                      </button>
-                    )} */}
+                    <button className='btn btn-outline-primary btn-sm d-block'>
+                      新增圖片
+                    </button>
+                    <button className='btn btn-outline-danger btn-sm d-block'>
+                      刪除圖片
+                    </button>
                   </div>
                 </div>
                 <div className='col-sm-8'>
@@ -204,8 +194,6 @@ export default function AdminAddProductModal() {
                         售價
                       </label>
                       <input
-                        // value={modalData.price}
-                        // onChange={handleModalInputChange}
                         name='price'
                         id='price'
                         type='number'
@@ -222,8 +210,6 @@ export default function AdminAddProductModal() {
                         衝浪板分級
                       </label>
                       <input
-                        // value={modalData.origin_price}
-                        // onChange={handleModalInputChange}
                         name='grade'
                         id='grade'
                         type='text'
@@ -252,40 +238,36 @@ export default function AdminAddProductModal() {
                       </select>
                     </div>
                   </div>
-
+                  <hr />
                   <div className='row'>
-                    <div className='mb-3 col-md-6'>
-                      <label htmlFor='size' className='form-label h5'>
-                        尺寸
+                    <div className=' mb-3 col-md-6'>
+                      <label htmlFor='grade' className='form-label h5'>
+                        衝浪板分級
                       </label>
                       <input
-                        // value={modalData.origin_price}
-                        // onChange={handleModalInputChange}
-                        name='size'
-                        id='size'
+                        name='grade'
+                        id='grade'
                         type='text'
                         min='0'
                         className='form-control'
-                        placeholder={'5\'6" x 18 3/4" x 2 3/8" x 26.3L'}
-                      />
-                    </div>
-                    <div className='mb-3 col-md-6'>
-                      <label htmlFor='color' className='form-label h5'>
-                        顏色
-                      </label>
-                      <input
-                        // value={modalData.price}
-                        // onChange={handleModalInputChange}
-                        name='color'
-                        id='color'
-                        type='text'
-                        min='0'
-                        className='form-control'
-                        placeholder='請輸入售價'
+                        placeholder='請輸入級別'
                       />
                     </div>
                   </div>
-
+                  <div className='btn-group w-100'>
+                    <button
+                      className='btn btn-outline-secondary d-block'
+                      type='button'
+                    >
+                      新增
+                    </button>
+                    <button
+                      className='btn btn-outline-secondary d-block'
+                      type='button'
+                    >
+                      刪除
+                    </button>
+                  </div>
                   <hr />
 
                   <div className='mb-3'>
