@@ -12,7 +12,7 @@ export const modalSlice = createSlice({
   },
   reducers: {
     setAddProductModalOpen(state, action) {
-      state.productModalOpen = action.payload;
+      state.addProductModalOpen = action.payload;
     },
     setCheckAndEditProductOpen(state, action) {
       state.checkAndEditProductModalOpen.open = action.payload.open;

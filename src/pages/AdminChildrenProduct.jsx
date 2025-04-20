@@ -12,8 +12,8 @@ import { MdModeEditOutline, MdCheck } from 'react-icons/md';
 export default function AdminChildrenProduct() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
-  const [editState, setEditState] = useState('-ONUm2Q95YsQV2AWEY0K');
-  //Modal area
+  const [editState] = useState('-ONUm2Q95YsQV2AWEY0K');
+
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
@@ -107,6 +107,9 @@ export default function AdminChildrenProduct() {
                     尺寸
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
+                    顏色
+                  </th>
+                  <th scope='col' style={{ width: '200px' }}>
                     FIN 系統
                   </th>
                   <th scope='col' style={{ width: '150px' }}>
@@ -172,6 +175,9 @@ export default function AdminChildrenProduct() {
                           >
                             查看
                           </button>
+                        </td>
+                        <td className='align-middle'>
+                          <div className='d-flex justify-content-center'></div>
                         </td>
                         <td className='align-middle'>
                           {product.is_enabled ? (
@@ -296,6 +302,19 @@ export default function AdminChildrenProduct() {
                             >
                               編輯
                             </button>
+                          </div>
+                        </td>
+                        <td className='align-middle'>
+                          <div className='d-flex justify-content-center'>
+                            <select
+                              style={{ maxWidth: '150px', height: '40px' }}
+                              className='form-select fs-7'
+                              aria-label='Default select example'
+                            >
+                              <option value='A'>A</option>
+                              <option value='B'>B</option>
+                              <option value='C'>C</option>
+                            </select>
                           </div>
                         </td>
                         <td className='align-middle'>
