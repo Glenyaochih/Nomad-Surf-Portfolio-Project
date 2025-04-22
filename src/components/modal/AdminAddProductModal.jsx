@@ -292,6 +292,7 @@ export default function AdminAddProductModal() {
                         售價
                       </label>
                       <input
+                        value={modalData.price}
                         onChange={handleProductModalInputChange}
                         name='price'
                         id='price'
@@ -326,7 +327,7 @@ export default function AdminAddProductModal() {
                         fin系統
                       </label>
                       <select
-                        // value={modalData.system}
+                        value={modalData.fin_system}
                         onChange={handleProductModalInputChange}
                         name='fin_system'
                         id='fin_system'

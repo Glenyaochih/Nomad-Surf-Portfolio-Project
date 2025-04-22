@@ -8,18 +8,43 @@ import AdminCheckAndEditProductModal from '../components/modal/AdminCheckAndEdit
 import { useEffect, useState } from 'react';
 import { adminGetProductsAsync } from '../redux/slice/adminGetProductsSlice';
 import { MdModeEditOutline, MdCheck } from 'react-icons/md';
+import {
+  adminDelProductsAsync,
+  setDelProductInputChange,
+} from '../redux/slice/adminDelProductSlice';
 
 export default function AdminChildrenProduct() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
-  const [editState] = useState('-ONUm2Q95YsQV2AWEY0K');
+  const [editState, setEditState] = useState('');
+
+  //modal section
 
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
-  const editProductModalOpen = (state, data) => {
+  const checkAndEditProductModalOpen = (state, data) => {
     dispatch(setCheckAndEditProductOpen({ open: true, state, data }));
   };
+
+  //modal section ******
+
+  //delete section ******
+  const handleProductDelInputChange = (e, productId) => {
+    const { checked } = e.target;
+    dispatch(setDelProductInputChange({ checked, productId }));
+  };
+
+  const confirmDelProduct = () => {
+    dispatch(adminDelProductsAsync());
+  };
+  //delete section ******
+
+  //edit section ******
+  const editProductHandler = (product) => {
+    setEditState(product.id);
+  };
+  //edit section ******
 
   useEffect(() => {
     dispatch(adminGetProductsAsync());
@@ -53,8 +78,11 @@ export default function AdminChildrenProduct() {
               >
                 <i className='bi bi-trash text-white me-1'></i>新增產品
               </button>
-              <button className='btn btn-primary-500 text-white border deleteButton px-4'>
-                <i className='bi bi-trash text-white me-1'></i>刪除
+              <button
+                onClick={confirmDelProduct}
+                className='btn btn-primary-500 text-white border deleteButton px-4'
+              >
+                <i className='bi bi-trash text-white me-1'></i>刪除產品
               </button>
             </div>
           </div>
@@ -72,18 +100,10 @@ export default function AdminChildrenProduct() {
               <thead>
                 <tr>
                   <th scope='col' style={{ width: '80px' }}>
-                    <input
-                      className='form-check-input me-2'
-                      type='checkbox'
-                      value=''
-                      id='flexCheckDefault'
-                    />
-                    <label
-                      className='form-check-label mt-1'
-                      htmlFor='flexCheckDefault'
-                    >
-                      #
-                    </label>
+                    ＃
+                  </th>
+                  <th scope='col' style={{ width: '200px' }}>
+                    功能鍵
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
                     商品編號
@@ -124,9 +144,6 @@ export default function AdminChildrenProduct() {
                   <th scope='col' style={{ width: '300px' }}>
                     描述
                   </th>
-                  <th scope='col' style={{ width: '200px' }}>
-                    功能鍵
-                  </th>
                 </tr>
               </thead>
               <tbody className='border rounded-bottom'>
@@ -136,20 +153,33 @@ export default function AdminChildrenProduct() {
                       <>
                         <th scope='col' className='align-middle'>
                           <div className='form-check'>
+                            <input
+                              onChange={(e) => {
+                                handleProductDelInputChange(e, product.id);
+                              }}
+                              className='form-check-input ms-0'
+                              type='checkbox'
+                              value={product.id}
+                              id={product.id}
+                            />
                             <label
                               className='form-check-label'
                               htmlFor={product.id}
                             >
                               {index + 1}
                             </label>
-                            <input
-                              className='form-check-input'
-                              type='checkbox'
-                              value=''
-                              id={product.id}
-                            />
                           </div>
                         </th>
+                        <td className='align-middle'>
+                          <button
+                            className='btn'
+                            onClick={() => {
+                              editProductHandler(product);
+                            }}
+                          >
+                            <MdModeEditOutline />
+                          </button>
+                        </td>
                         <td className='align-middle'>td#AHAGA68</td>
                         <td className='align-middle'>{product.title}</td>
                         <td className='align-middle'>{product.category}</td>
@@ -160,7 +190,10 @@ export default function AdminChildrenProduct() {
                           <button
                             className='btn btn-outline-primary btn-sm'
                             onClick={() => {
-                              editProductModalOpen('size', product.sizes);
+                              checkAndEditProductModalOpen(
+                                'size',
+                                product.sizes
+                              );
                             }}
                           >
                             查看
@@ -170,7 +203,10 @@ export default function AdminChildrenProduct() {
                           <button
                             className='btn btn-outline-primary btn-sm'
                             onClick={() => {
-                              editProductModalOpen('color', product.sizes);
+                              checkAndEditProductModalOpen(
+                                'color',
+                                product.sizes
+                              );
                             }}
                           >
                             查看
@@ -201,17 +237,17 @@ export default function AdminChildrenProduct() {
                           />
                         </td>
                         <td className='align-middle'>{product.description}</td>
-                        <td className='align-middle'>
-                          <button className='btn'>
-                            <MdModeEditOutline />
-                          </button>
-                        </td>
                       </>
                     ) : (
                       <>
                         <th scope='row' className='align-middle'>
                           <label className='mt-1'>{index + 1}</label>
                         </th>
+                        <td className='align-middle'>
+                          <button className='btn'>
+                            <MdCheck />
+                          </button>
+                        </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center '>
                             <input
@@ -282,7 +318,10 @@ export default function AdminChildrenProduct() {
                             <button
                               className='btn btn-outline-primary btn-sm'
                               onClick={() => {
-                                editProductModalOpen('editSize', product.sizes);
+                                checkAndEditProductModalOpen(
+                                  'editSize',
+                                  product.sizes
+                                );
                               }}
                             >
                               編輯
@@ -294,7 +333,7 @@ export default function AdminChildrenProduct() {
                             <button
                               className='btn btn-outline-primary btn-sm'
                               onClick={() => {
-                                editProductModalOpen(
+                                checkAndEditProductModalOpen(
                                   'editColor',
                                   product.colors
                                 );
@@ -363,11 +402,6 @@ export default function AdminChildrenProduct() {
                             id='exampleFormControlTextarea1'
                             rows='3'
                           ></textarea>
-                        </td>
-                        <td className='align-middle'>
-                          <button className='btn'>
-                            <MdCheck />
-                          </button>
                         </td>
                       </>
                     )}
