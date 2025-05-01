@@ -5,7 +5,7 @@ export default function AdminIndexPage() {
     <>
       <div className='backend d-flex vh-100'>
         <section className='aside col-2 web'>
-          <div className='d-flex flex-column justify-content-between flex-shrink-0 text-white bg-primary-400 h-100 pt-9 px-7 pb-7'>
+          <div className='d-flex flex-column justify-content-between flex-shrink-0   h-100 pt-9 px-7 pb-7'>
             <div>
               <a
                 href='/'
@@ -16,7 +16,7 @@ export default function AdminIndexPage() {
                   src='img/logo/Homepage/Desktop/Logo_L.png'
                 />
               </a>
-              <ul className='nav nav-underline flex-column'>
+              <ul className='nav  flex-column'>
                 <li className='nav-item '>
                   <Link to={'members'} className='nav-link fs-6 mb-9'>
                     顧客管理

@@ -24,7 +24,9 @@ export default function AdminAddProductModal() {
   const modalOpen = useSelector((state) => state.modal.addProductModalOpen);
   const modalData = useSelector((state) => state.adminPostProduct.initData);
   const dispatch = useDispatch();
-  console.log(modalData);
+  //data section
+
+  //data section
   //modal section
   useEffect(() => {
     adminAddProductModalSelf.current = new Modal(
@@ -157,7 +159,7 @@ export default function AdminAddProductModal() {
                       <img
                         className='img-fluid'
                         src={modalData.imageUrl}
-                        alt=''
+                        alt='surfboard'
                       />
                     )}
 
@@ -246,15 +248,19 @@ export default function AdminAddProductModal() {
                       <label htmlFor='category' className='form-label h5'>
                         分類
                       </label>
-                      <input
+                      <select
                         value={modalData.category}
                         onChange={handleProductModalInputChange}
                         name='category'
                         id='category'
-                        type='text'
-                        className='form-control'
-                        placeholder='請輸入分類'
-                      />
+                        type='select'
+                        className='form-select w-100'
+                      >
+                        <option value=''>請選擇類別</option>
+                        <option value='longBoard'>longBoard</option>
+                        <option value='shortBoard'>shortBoard</option>
+                        <option value='midLength'>midLength</option>
+                      </select>
                     </div>
                     <div className='mb-5 col-md-6'>
                       <label htmlFor='unit' className='form-label h5'>
@@ -316,7 +322,7 @@ export default function AdminAddProductModal() {
                         type='select'
                         className='form-select w-100'
                       >
-                        <option selected>請幫衝浪板分級</option>
+                        <option value=''>請幫衝浪板分級</option>
                         <option value='A'>A</option>
                         <option value='B'>B</option>
                         <option value='C'>C</option>
@@ -334,20 +340,37 @@ export default function AdminAddProductModal() {
                         type='select'
                         className='form-select w-100'
                       >
-                        <option selected>請選擇Fin系統</option>
+                        <option value=''>請選擇Fin系統</option>
                         <option value='FCS-1'>FCS-1</option>
                         <option value='FCS-2'>FCS-2</option>
                         <option value='Futures'>Futures</option>
                       </select>
                     </div>
                   </div>
+                  <div className='row'>
+                    <div className='mb-5 col-md-6'>
+                      <label htmlFor='product_num' className='form-label h5'>
+                        產品編號
+                      </label>
+                      <input
+                        value={modalData.product_num}
+                        onChange={handleProductModalInputChange}
+                        name='product_num'
+                        id='product_num'
+                        type='number'
+                        min='0'
+                        className='form-control'
+                        placeholder='請輸入原價'
+                      />
+                    </div>
+                  </div>
                   <hr />
                   <h5>衝浪板尺寸</h5>
                   <div className='row gy-7 py-7'>
-                    {modalData.sizes?.map((size, index) => {
+                    {modalData?.sizes?.map((size, index) => {
                       const sizeMatch =
-                        size.size.match(/^\d+'\d+"/) ||
-                        size.size.match(/^\d+'/);
+                        size?.size?.match(/^\d+'\d+"/) ||
+                        size?.size?.match(/^\d+'/);
                       return (
                         <div className='col-md-6' key={index}>
                           <div className='card bg-primary-500 border border-light'>
@@ -356,12 +379,14 @@ export default function AdminAddProductModal() {
                                 <h6 className='card-title mt-0 mb-0'>
                                   {sizeMatch}
                                 </h6>
-                                <button
-                                  className='btn'
-                                  onClick={() => deleteSizeHandler(index)}
-                                >
-                                  <MdDeleteOutline />
-                                </button>
+                                {modalData.sizes.length > 1 && (
+                                  <button
+                                    className='btn'
+                                    onClick={() => deleteSizeHandler(index)}
+                                  >
+                                    <MdDeleteOutline />
+                                  </button>
+                                )}
                               </div>
                               <div className='input-group input-group-sm py-2'>
                                 <span
@@ -434,15 +459,16 @@ export default function AdminAddProductModal() {
                                   }}
                                   className='rounded-pill w-100'
                                 ></div>
-
-                                <button
-                                  className='btn'
-                                  onClick={() => {
-                                    deleteColorHandler(index);
-                                  }}
-                                >
-                                  <MdDeleteOutline />
-                                </button>
+                                {modalData.colors.length > 1 && (
+                                  <button
+                                    className='btn'
+                                    onClick={() => {
+                                      deleteColorHandler(index);
+                                    }}
+                                  >
+                                    <MdDeleteOutline />
+                                  </button>
+                                )}
                               </div>
                               <div className='input-group input-group-sm py-2'>
                                 <span
@@ -490,15 +516,16 @@ export default function AdminAddProductModal() {
                       );
                     })}
                   </div>
-                  <hr />
                   <div className='btn-group w-100'>
-                    <button
-                      onClick={addColorHandler}
-                      className='btn btn-outline-secondary btn-sm d-block'
-                      type='button'
-                    >
-                      新增
-                    </button>
+                    {modalData.colors.length < 10 && (
+                      <button
+                        onClick={addColorHandler}
+                        className='btn btn-outline-secondary btn-sm d-block'
+                        type='button'
+                      >
+                        新增
+                      </button>
+                    )}
                   </div>
 
                   <hr />

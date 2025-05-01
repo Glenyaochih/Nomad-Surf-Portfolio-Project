@@ -51,18 +51,18 @@
 
     // Table container
     .table-container {
-      border-radius: 12px;
-      max-height: 616px;
+      border-radius: 20px;
+      max-height: 663px;
       overflow-y: auto;
       position: relative;
       table-layout: fixed;
-      border: 1px solid #6a6a6a;
+
 
       thead th {
         position: sticky;
         top: 0;
         background-color: #fff;
-        z-index: 0;
+        z-index: 100;
       }
     }
 
@@ -84,7 +84,7 @@
           max-width: 205px;
           text-align: center;
           padding: 22px 0;
-          color: white;
+
 
           @media (max-width: 1666px) {
             min-width: 120px;

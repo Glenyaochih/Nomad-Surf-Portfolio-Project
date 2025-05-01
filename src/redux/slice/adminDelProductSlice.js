@@ -33,7 +33,7 @@ export const adminDelProductsAsync = createAsyncThunk(
           `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`
         );
         console.log(res);
-        dispatch(adminGetProductsAsync());
+        dispatch(adminGetProductsAsync({ page: 1, category: '' }));
       } catch (error) {
         console.log(error);
       }

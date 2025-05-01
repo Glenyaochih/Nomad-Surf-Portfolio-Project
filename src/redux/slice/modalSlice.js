@@ -4,23 +4,34 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     addProductModalOpen: false,
-    checkAndEditProductModalOpen: {
+    checkProductModalOpen: {
       open: false,
       state: '',
-      data: [],
+      data: {},
+    },
+    editProductModalOpen: {
+      open: false,
+      state: '',
     },
   },
   reducers: {
     setAddProductModalOpen(state, action) {
       state.addProductModalOpen = action.payload;
     },
-    setCheckAndEditProductOpen(state, action) {
-      state.checkAndEditProductModalOpen.open = action.payload.open;
-      state.checkAndEditProductModalOpen.data = action.payload.data;
-      state.checkAndEditProductModalOpen.state = action.payload.state;
+    setCheckProductOpen(state, action) {
+      state.checkProductModalOpen.data = action.payload.data;
+      state.checkProductModalOpen.open = action.payload.open;
+      state.checkProductModalOpen.state = action.payload.state;
+    },
+    setEditProductOpen(state, action) {
+      state.editProductModalOpen.open = action.payload.open;
+      state.editProductModalOpen.state = action.payload.state;
     },
   },
 });
-export const { setAddProductModalOpen, setCheckAndEditProductOpen } =
-  modalSlice.actions;
+export const {
+  setAddProductModalOpen,
+  setCheckProductOpen,
+  setEditProductOpen,
+} = modalSlice.actions;
 export default modalSlice.reducer;

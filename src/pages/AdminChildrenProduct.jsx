@@ -1,30 +1,45 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setCheckAndEditProductOpen,
+  setEditProductOpen,
   setAddProductModalOpen,
+  setCheckProductOpen,
 } from '../redux/slice/modalSlice';
 import AdminAddProductModal from '../components/modal/AdminAddProductModal';
-import AdminCheckAndEditProductModal from '../components/modal/AdminCheckAndEditProductModal';
 import { useEffect, useState } from 'react';
-import { adminGetProductsAsync } from '../redux/slice/adminGetProductsSlice';
+import {
+  adminGetProductsAsync,
+  setProductCategory,
+} from '../redux/slice/adminGetProductsSlice';
 import { MdModeEditOutline, MdCheck } from 'react-icons/md';
 import {
   adminDelProductsAsync,
   setDelProductInputChange,
 } from '../redux/slice/adminDelProductSlice';
+import {
+  setTempProduct,
+  adminPutProductAsync,
+  setPutProductInputChange,
+} from '../redux/slice/adminPutProductSlice';
+import AdminCheckProductModal from '../components/modal/AdminCheckProductModal';
+import AdminEditProductModal from '../components/modal/AdminEditProductModal';
+import AdminPagination from '../components/adminPagination';
 
 export default function AdminChildrenProduct() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
+  const tempProduct = useSelector((state) => state.adminPutProduct.tempProduct);
   const [editState, setEditState] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   //modal section
-
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
-  const checkAndEditProductModalOpen = (state, data) => {
-    dispatch(setCheckAndEditProductOpen({ open: true, state, data }));
+  const editProductModalOpen = (state, data) => {
+    dispatch(setEditProductOpen({ open: true, state, data }));
+  };
+  const checkProductModalOpen = (state, data) => {
+    dispatch(setCheckProductOpen({ open: true, state, data }));
   };
 
   //modal section ******
@@ -43,17 +58,36 @@ export default function AdminChildrenProduct() {
   //edit section ******
   const editProductHandler = (product) => {
     setEditState(product.id);
+    dispatch(setTempProduct(product));
   };
+
+  const handleProductPutInputChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    dispatch(setPutProductInputChange({ name, value, checked, type }));
+  };
+
+  const confirmEditProduct = () => {
+    dispatch(adminPutProductAsync());
+  };
+
   //edit section ******
+  //filter section
+  const categoryFilterHandler = (newCategory) => {
+    dispatch(setProductCategory(newCategory));
+    dispatch(adminGetProductsAsync({ page: 1, category: newCategory }));
+  };
+
+  //filter section
 
   useEffect(() => {
-    dispatch(adminGetProductsAsync());
+    dispatch(adminGetProductsAsync({}));
   }, [dispatch]);
 
   return (
     <>
       <AdminAddProductModal />
-      <AdminCheckAndEditProductModal />
+      <AdminCheckProductModal />
+      <AdminEditProductModal />
       <div>
         <div className='banner mb-4'>
           <h5 className='fs-5 mt-4 mb-7'>商品管理</h5>
@@ -63,14 +97,15 @@ export default function AdminChildrenProduct() {
               className='form-select bg-primary-400 text-white h-100'
               aria-label='Default select example'
               defaultValue='defaultOptionValue'
+              onChange={(e) => {
+                categoryFilterHandler(e.target.value);
+              }}
             >
-              <option value='defaultOptionValue'>類別</option>
-              <option value='商品編號'>商品編號</option>
-              <option value='商品名稱'>商品名稱</option>
-              <option value='階級'>階級</option>
-              <option value='價格'>價格</option>
+              <option value=''>衝浪板類別</option>
+              <option value='longBoard'>長板</option>
+              <option value='midLength'>中長板</option>
+              <option value='shortBoard'>短板</option>
             </select>
-
             <div>
               <button
                 onClick={addProductModalOpen}
@@ -88,7 +123,7 @@ export default function AdminChildrenProduct() {
           </div>
         </div>
 
-        <div className='table-responsive pt-4'>
+        <div className='table-responsive'>
           <div
             className='table-container'
             data-bs-spy='scroll'
@@ -100,7 +135,7 @@ export default function AdminChildrenProduct() {
               <thead>
                 <tr>
                   <th scope='col' style={{ width: '80px' }}>
-                    ＃
+                    #
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
                     功能鍵
@@ -147,7 +182,7 @@ export default function AdminChildrenProduct() {
                 </tr>
               </thead>
               <tbody className='border rounded-bottom'>
-                {products.map((product, index) => (
+                {products?.map((product, index) => (
                   <tr className='tableBorder' key={product.id}>
                     {product.id !== editState ? (
                       <>
@@ -174,13 +209,15 @@ export default function AdminChildrenProduct() {
                           <button
                             className='btn'
                             onClick={() => {
+                              setIsEditing(true);
                               editProductHandler(product);
                             }}
+                            disabled={isEditing}
                           >
                             <MdModeEditOutline />
                           </button>
                         </td>
-                        <td className='align-middle'>td#AHAGA68</td>
+                        <td className='align-middle'>{product.product_num}</td>
                         <td className='align-middle'>{product.title}</td>
                         <td className='align-middle'>{product.category}</td>
                         <td className='align-middle'>{product.grade}</td>
@@ -190,11 +227,9 @@ export default function AdminChildrenProduct() {
                           <button
                             className='btn btn-outline-primary btn-sm'
                             onClick={() => {
-                              checkAndEditProductModalOpen(
-                                'size',
-                                product.sizes
-                              );
+                              checkProductModalOpen('size', product);
                             }}
+                            disabled={isEditing}
                           >
                             查看
                           </button>
@@ -203,18 +238,14 @@ export default function AdminChildrenProduct() {
                           <button
                             className='btn btn-outline-primary btn-sm'
                             onClick={() => {
-                              checkAndEditProductModalOpen(
-                                'color',
-                                product.sizes
-                              );
+                              checkProductModalOpen('color', product);
                             }}
+                            disabled={isEditing}
                           >
                             查看
                           </button>
                         </td>
-                        <td className='align-middle'>
-                          <div className='d-flex justify-content-center'></div>
-                        </td>
+                        <td className='align-middle'>{product.fin_system}</td>
                         <td className='align-middle'>
                           {product.is_enabled ? (
                             <span className='text-success'>上架</span>
@@ -230,11 +261,19 @@ export default function AdminChildrenProduct() {
                           )}
                         </td>
                         <td className='align-middle'>
-                          <img
-                            style={{ height: '88px', maxWidth: '88px' }}
-                            src={product.imageUrl}
-                            className='rounded object-fit-cover'
-                          />
+                          <a
+                            className='btn'
+                            onClick={() => {
+                              checkProductModalOpen('photo', product);
+                            }}
+                          >
+                            <img
+                              style={{ height: '88px', maxWidth: '88px' }}
+                              src={product.imageUrl || null}
+                              alt={product.title || null}
+                              className='rounded object-fit-cover'
+                            />
+                          </a>
                         </td>
                         <td className='align-middle'>{product.description}</td>
                       </>
@@ -244,34 +283,49 @@ export default function AdminChildrenProduct() {
                           <label className='mt-1'>{index + 1}</label>
                         </th>
                         <td className='align-middle'>
-                          <button className='btn'>
+                          <button
+                            className='btn'
+                            onClick={() => {
+                              setIsEditing(false);
+                              setEditState('');
+                              confirmEditProduct();
+                            }}
+                          >
                             <MdCheck />
                           </button>
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center '>
                             <input
+                              value={tempProduct.product_num}
+                              onChange={handleProductPutInputChange}
+                              name='product_num'
                               style={{ maxWidth: '150px', height: '40px' }}
                               type='text'
                               className='form-control fs-7'
-                              placeholder='請輸入產品編號'
                             />
                           </div>
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <input
-                              style={{ maxWidth: '150px', height: '40px' }}
-                              type='text'
                               className='form-control fs-7'
-                              placeholder='Glen'
+                              value={tempProduct.title}
+                              onChange={handleProductPutInputChange}
+                              name='title'
+                              type='text'
+                              style={{ maxWidth: '150px', height: '40px' }}
                             />
                           </div>
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <select
-                              className='form-select fs-7'
+                              className='form-select fas-7'
+                              value={tempProduct.category}
+                              onChange={handleProductPutInputChange}
+                              name='category'
+                              type='select'
                               aria-label='Default select example'
                             >
                               <option value='longBoard'>longBoard</option>
@@ -283,8 +337,12 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <select
-                              style={{ maxWidth: '150px', height: '40px' }}
                               className='form-select fs-7'
+                              value={tempProduct.grade}
+                              onChange={handleProductPutInputChange}
+                              name='grade'
+                              type='select'
+                              style={{ maxWidth: '150px', height: '40px' }}
                               aria-label='Default select example'
                             >
                               <option value='A'>A</option>
@@ -296,16 +354,21 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <input
-                              style={{ maxWidth: '150px', height: '40px' }}
-                              type='number'
+                              value={tempProduct.origin_price}
+                              onChange={handleProductPutInputChange}
+                              name='origin_price'
                               className='form-control fs-7'
-                              placeholder='23000'
+                              type='number'
+                              style={{ maxWidth: '150px', height: '40px' }}
                             />
                           </div>
                         </td>
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <input
+                              value={tempProduct.price}
+                              onChange={handleProductPutInputChange}
+                              name='price'
                               style={{ maxWidth: '150px', height: '40px' }}
                               type='number'
                               className='form-control fs-7'
@@ -317,10 +380,7 @@ export default function AdminChildrenProduct() {
                             <button
                               className='btn btn-outline-primary btn-sm'
                               onClick={() => {
-                                checkAndEditProductModalOpen(
-                                  'editSize',
-                                  product.sizes
-                                );
+                                editProductModalOpen('editSize');
                               }}
                             >
                               編輯
@@ -332,7 +392,7 @@ export default function AdminChildrenProduct() {
                             <button
                               className='btn btn-outline-primary btn-sm'
                               onClick={() => {
-                                checkAndEditProductModalOpen(
+                                editProductModalOpen(
                                   'editColor',
                                   product.colors
                                 );
@@ -345,13 +405,18 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <select
+                              value={tempProduct.fin_system}
+                              onChange={handleProductPutInputChange}
+                              name='fin_system'
+                              type='select'
                               style={{ maxWidth: '150px', height: '40px' }}
                               className='form-select fs-7'
                               aria-label='Default select example'
                             >
-                              <option value='A'>A</option>
-                              <option value='B'>B</option>
-                              <option value='C'>C</option>
+                              <option value=''>請選擇Fin系統</option>
+                              <option value='FCS-1'>FCS-1</option>
+                              <option value='FCS-2'>FCS-2</option>
+                              <option value='Futures'>Futures</option>
                             </select>
                           </div>
                         </td>
@@ -388,14 +453,27 @@ export default function AdminChildrenProduct() {
                           </div>
                         </td>
                         <td>
-                          <img
-                            style={{ height: '88px', width: '88px' }}
-                            src={product.imageUrl}
-                            className='rounded object-fit-cover'
-                          />
+                          <a
+                            className='btn'
+                            onClick={() => {
+                              editProductModalOpen('editPhoto', {
+                                image: product.imageUrl,
+                                images: product.imagesUrl,
+                              });
+                            }}
+                          >
+                            <img
+                              style={{ height: '88px', width: '88px' }}
+                              src={product.imageUrl}
+                              className='rounded object-fit-cover'
+                            />
+                          </a>
                         </td>
                         <td className='align-middle'>
                           <textarea
+                            value={tempProduct.description}
+                            name='description'
+                            onChange={handleProductPutInputChange}
                             style={{ resize: 'none' }}
                             className='form-control fs-7'
                             id='exampleFormControlTextarea1'
@@ -410,17 +488,7 @@ export default function AdminChildrenProduct() {
             </table>
           </div>
         </div>
-        <div className='pagination pt-8 pb-6'>
-          <div className='web'>
-            <div className='pages d-flex justify-content-center align-items-center ms-15 me-13'>
-              <button className='pagesButton'>1</button>
-              <button className='pagesButton'>2</button>
-              <button className='pagesButton'>3</button>
-              <i className='bi bi-three-dots fs-3 text-white mx-3'></i>
-              <button className='pagesButton'>10</button>
-            </div>
-          </div>
-        </div>
+        <AdminPagination />
       </div>
     </>
   );

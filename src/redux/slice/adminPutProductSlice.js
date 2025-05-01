@@ -6,132 +6,151 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const adminPostProductSlice = createSlice({
-  name: 'adminPostProduct',
+  name: 'adminPutProduct',
   initialState: {
-    initData: [],
+    tempProduct: {
+      product_num: '',
+      category: '',
+      colors: [],
+      content: '',
+      description: '',
+      grade: '',
+      hasDiscount: 0,
+      imageUrl: '',
+      imagesUrl: [''],
+      is_enabled: 0,
+      origin_price: '',
+      price: '',
+      sizes: [],
+      fin_system: '',
+      title: '',
+      unit: '',
+    },
+    productId: '',
   },
   reducers: {
+    setTempProduct(state, action) {
+      const product = action.payload;
+      state.tempProduct = product;
+      state.productId = product.id;
+    },
     setPutProductInputChange: (state, action) => {
       const { value, name, checked, type } = action.payload;
-      state.initData[name] = type === 'checkbox' ? checked : value;
+      state.tempProduct[name] = type === 'checkbox' ? checked : value;
     },
     setPutImagesInputChange: (state, action) => {
       const { value, index } = action.payload;
-      const newImages = [...state.initData.imagesUrl];
+      const newImages = [...state.tempProduct.imagesUrl];
       newImages[index] = value;
-      state.initData.imagesUrl = newImages;
+      state.tempProduct.imagesUrl = newImages;
     },
     setPutSizesInputChange: (state, action) => {
       const { name, value, index } = action.payload;
-      state.initData.sizes[index] = {
-        ...state.initData.sizes[index],
+      state.tempProduct.sizes[index] = {
+        ...state.tempProduct.sizes[index],
         [name]: value,
       };
     },
     setPutColorsInputChange: (state, action) => {
       const { name, value, index } = action.payload;
-      state.initData.colors[index] = {
-        ...state.initData.colors[index],
+      state.tempProduct.colors[index] = {
+        ...state.tempProduct.colors[index],
         [name]: value,
       };
     },
 
     setPutAddSizeHandler: (state) => {
-      const newSizes = [...state.initData.sizes, { size: '', stock: 0 }];
-      state.initData.sizes = newSizes;
+      const newSizes = [...state.tempProduct.sizes, { size: '', stock: 0 }];
+      state.tempProduct.sizes = newSizes;
     },
 
     setPutAddColorHandler: (state) => {
       const newColors = [
-        ...state.initData.colors,
+        ...state.tempProduct.colors,
         { colorName: '', colorCode: '' },
       ];
-      state.initData.colors = newColors;
+      state.tempProduct.colors = newColors;
     },
 
     setPutAddImagesHandler: (state) => {
-      const newImages = [...state.initData.imagesUrl, ''];
-      state.initData.imagesUrl = newImages;
+      const newImages = [...state.tempProduct.imagesUrl, ''];
+      state.tempProduct.imagesUrl = newImages;
     },
 
     setPutDeleteImagesHandler: (state) => {
-      const newImages = [...state.initData.imagesUrl];
+      const newImages = [...state.tempProduct.imagesUrl];
       newImages.pop();
-      state.initData.imagesUrl = newImages;
+      state.tempProduct.imagesUrl = newImages;
     },
 
     setPutDeleteSizeHandler: (state, action) => {
       const { index } = action.payload;
-      const newSizes = [...state.initData.sizes];
-      newSizes.pop(index);
-      state.initData.sizes = newSizes;
+      const newSizes = [...state.tempProduct.sizes];
+      newSizes.splice(index, 1);
+      state.tempProduct.sizes = newSizes;
     },
     setPutDeleteColorHandler: (state, action) => {
       const { index } = action.payload;
-      const newColors = [...state.initData.colors];
-      newColors.pop(index);
-      state.initData.colors = newColors;
+      const newColors = [...state.tempProduct.colors];
+      newColors.splice(index, 1);
+      state.tempProduct.colors = newColors;
     },
 
     setUploadImageHandler: (state, action) => {
-      state.initData.imageUrl = action.payload;
+      state.tempProduct.imageUrl = action.payload;
     },
 
     setUploadImagesHandler: (state, action) => {
       const image = action.payload;
-      const newImages = [...state.initData.imagesUrl, image];
-      state.initData.imagesUrl = newImages;
-    },
-
-    setResetProductInitialState: (state) => {
-      state.initData = ''; //清空輸入框
+      const newImages = [...state.tempProduct.imagesUrl, image];
+      state.tempProduct.imagesUrl = newImages;
     },
   },
 });
 
 export const adminPutProductAsync = createAsyncThunk(
-  'postProduct/adminPostProduct',
+  'putProduct/adminPutProduct',
   async (_, { getState, dispatch }) => {
-    const initData = getState().adminPostProduct.initData;
+    const tempProduct = getState().adminPutProduct.tempProduct;
+    const id = getState().adminPutProduct.productId;
     const data = {
       data: {
-        ...initData,
-        origin_price: Number(initData.origin_price),
-        price: Number(initData.price),
-        sizes: initData.sizes.map((size) => ({
+        ...tempProduct,
+        origin_price: Number(tempProduct.origin_price),
+        price: Number(tempProduct.price),
+        sizes: tempProduct.sizes.map((size) => ({
           ...size,
           stock: Number(size.stock),
         })),
-        hasDiscount: initData.hasDiscount ? 1 : 0,
-        is_enabled: initData.is_enabled ? 1 : 0,
+        hasDiscount: tempProduct.hasDiscount ? 1 : 0,
+        is_enabled: tempProduct.is_enabled ? 1 : 0,
       },
     };
     try {
-      const res = await axios.post(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/product${id}`,
+      const res = await axios.put(
+        `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`,
         data
       );
-      dispatch(adminGetProductsAsync());
-      dispatch(setResetProductInitialState());
       console.log(res);
+      dispatch(adminGetProductsAsync({}));
     } catch (error) {
       console.log(error);
     }
   }
 );
 export const {
-  setPostProductInputChange,
-  setPostImagesInputChange,
-  setPostAddImagesHandler,
-  setPostDeleteImagesHandler,
+  setTempProduct,
+  setPutProductInputChange,
+  setPutImagesInputChange,
+  setPutAddImagesHandler,
+  setPutDeleteImagesHandler,
   setUploadImageHandler,
   setUploadImagesHandler,
-  setResetProductInitialState,
-  setPostAddSizeHandler,
-  setPostSizesInputChange,
-  setPostDeleteSizeHandler,
-  setPostAddColorHandler,
-  setPostDeleteColorHandler,
-  setPostColorsInputChange,
+  setPutAddSizeHandler,
+  setPutSizesInputChange,
+  setPutDeleteSizeHandler,
+  setPutAddColorHandler,
+  setPutDeleteColorHandler,
+  setPutColorsInputChange,
 } = adminPostProductSlice.actions;
 export default adminPostProductSlice.reducer;
