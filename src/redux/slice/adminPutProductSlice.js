@@ -5,24 +5,6 @@ import { adminGetProductsAsync } from './adminGetProductsSlice';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-// const initialProductPostState = {
-//   category: '',
-//   colors: [],
-//   content: '',
-//   description: '',
-//   grade: '',
-//   hasDiscount: 0,
-//   imageUrl: '',
-//   imagesUrl: [''],
-//   is_enabled: 0,
-//   origin_price: '',
-//   price: '',
-//   sizes: [],
-//   fin_system: '',
-//   title: '',
-//   unit: '',
-// };
-
 export const adminPostProductSlice = createSlice({
   name: 'adminPostProduct',
   initialState: {

@@ -309,7 +309,6 @@ export default function AdminChildrenProduct() {
                               style={{ maxWidth: '150px', height: '40px' }}
                               type='number'
                               className='form-control fs-7'
-                              placeholder='23000'
                             />
                           </div>
                         </td>
