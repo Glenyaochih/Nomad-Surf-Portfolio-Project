@@ -1,0 +1,11 @@
+.navbar-cust {
+  .logo-img {
+    width: 48px;
+    height: 48px;
+
+    @include mobile {
+      width: 42px;
+      height: 42px;
+    }
+  }
+}

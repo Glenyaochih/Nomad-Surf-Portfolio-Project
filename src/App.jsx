@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import TestNavbar from './components/TestNavbar';
+import Navbar from './components/Navbar';
 import OceanFooter from './components/OceanFooter';
 
 function App() {
   return (
     <>
       <div id='app'>
-        <TestNavbar />
+        <Navbar />
         <div>
           <Outlet />
         </div>

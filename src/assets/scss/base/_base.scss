@@ -3,14 +3,13 @@ h2,
 h3,
 h4,
 h5 {
-    // margin-bottom: 0;
+    margin-bottom: 0;
     letter-spacing: 0.05em;
-
 }
 
 h6 {
     margin-bottom: 0;
-    letter-spacing: 0.02em
+    letter-spacing: .125em;
 }
 
 img {
@@ -31,7 +30,7 @@ a {
     text-decoration: none;
 
     &:hover {
-        color: $primary-200;
+        color: $primary-400;
     }
 }
 

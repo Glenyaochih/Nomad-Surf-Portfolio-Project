@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setAdminGetProductLoading } from '../loadingSlice';
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -49,6 +51,7 @@ export const adminGetProductsAsync = createAsyncThunk(
     let url = params.category
       ? `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${params.page}&category=${params.category}`
       : `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${params.page}`;
+    dispatch(setAdminGetProductLoading(true));
     try {
       const res = await axios.get(url);
       dispatch(adminGetProductsSlice.actions.setProducts(res.data.products));
@@ -58,6 +61,8 @@ export const adminGetProductsAsync = createAsyncThunk(
       );
     } catch (error) {
       error;
+    } finally {
+      dispatch(setAdminGetProductLoading(false));
     }
   }
 );

@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { setScreenLoading } from '../loadingSlice';
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const adminLoginSlice = createSlice({
@@ -25,6 +27,7 @@ export const adminLoginSlice = createSlice({
 export const adminLoginAsync = createAsyncThunk(
   'login/AdminLogin',
   async (_, { dispatch, getState, rejectWithValue }) => {
+    dispatch(setScreenLoading(true));
     try {
       const account = getState().adminLogin.account; //getState <-- 取得slice 初始資料的方法
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
@@ -34,6 +37,8 @@ export const adminLoginAsync = createAsyncThunk(
       dispatch(adminLoginSlice.actions.setIsManagementOpen(true)); //派送頁面開啟的狀態
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(setScreenLoading(false));
     }
   }
 );
@@ -41,14 +46,17 @@ export const adminLoginAsync = createAsyncThunk(
 export const checkAuthStatusAsync = createAsyncThunk(
   'check/adminCheck',
   async (_, { dispatch, rejectWithValue }) => {
+    dispatch(setScreenLoading(true));
     try {
       await axios.post(`${BASE_URL}/v2/api/user/check`);
       dispatch(adminLoginSlice.actions.setIsManagementOpen(true));
     } catch (error) {
       return rejectWithValue(error.message);
+    } finally {
+      dispatch(setScreenLoading(false));
     }
   }
 );
 
-export const { setAccount } = adminLoginSlice.actions;
+export const { setAccount, setIsManagementOpen } = adminLoginSlice.actions;
 export default adminLoginSlice.reducer;

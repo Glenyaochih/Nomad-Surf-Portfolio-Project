@@ -1,28 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import {
   setEditProductOpen,
   setAddProductModalOpen,
   setCheckProductOpen,
 } from '../redux/slice/modalSlice';
-import AdminAddProductModal from '../components/modal/AdminAddProductModal';
-import { useEffect, useState } from 'react';
 import {
   adminGetProductsAsync,
   setProductCategory,
-} from '../redux/slice/adminGetProductsSlice';
+} from '../redux/slice/admin/adminGetProductsSlice';
 import { MdModeEditOutline, MdCheck } from 'react-icons/md';
 import {
   adminDelProductsAsync,
   setDelProductInputChange,
-} from '../redux/slice/adminDelProductSlice';
+} from '../redux/slice/admin/adminDelProductSlice';
 import {
   setTempProduct,
   adminPutProductAsync,
   setPutProductInputChange,
-} from '../redux/slice/adminPutProductSlice';
+} from '../redux/slice/admin/adminPutProductSlice';
+import AdminAddProductModal from '../components/modal/AdminAddProductModal';
 import AdminCheckProductModal from '../components/modal/AdminCheckProductModal';
 import AdminEditProductModal from '../components/modal/AdminEditProductModal';
-import AdminPagination from '../components/adminPagination';
+import AdminPagination from '../components/AdminPagination';
+import AdminGetProductLoading from '../components/loadings/AdminGetProductLoading';
 
 export default function AdminChildrenProduct() {
   const dispatch = useDispatch();
@@ -88,8 +89,9 @@ export default function AdminChildrenProduct() {
       <AdminAddProductModal />
       <AdminCheckProductModal />
       <AdminEditProductModal />
+
       <div>
-        <div className='banner mb-4'>
+        <div className=' banner mb-4'>
           <h5 className='fs-5 mt-4 mb-7'>商品管理</h5>
 
           <div className='d-flex justify-content-between align-items-center'>
@@ -123,9 +125,9 @@ export default function AdminChildrenProduct() {
           </div>
         </div>
 
-        <div className='table-responsive'>
+        <div className='table-responsive position-relative'>
           <div
-            className='table-container'
+            className='table-container border d-flex'
             data-bs-spy='scroll'
             data-bs-target='#productTableBody'
             data-bs-offset='0'
@@ -134,7 +136,7 @@ export default function AdminChildrenProduct() {
             <table className='table productManager rounded-table table-container table-hover'>
               <thead>
                 <tr>
-                  <th scope='col' style={{ width: '80px' }}>
+                  <th className='' scope='col' style={{ width: '80px' }}>
                     #
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
@@ -181,9 +183,9 @@ export default function AdminChildrenProduct() {
                   </th>
                 </tr>
               </thead>
-              <tbody className='border rounded-bottom'>
+              <tbody className='rounded-bottom'>
                 {products?.map((product, index) => (
-                  <tr className='tableBorder' key={product.id}>
+                  <tr className='' key={product.id}>
                     {product.id !== editState ? (
                       <>
                         <th scope='col' className='align-middle'>
@@ -487,6 +489,7 @@ export default function AdminChildrenProduct() {
               </tbody>
             </table>
           </div>
+          <AdminGetProductLoading />
         </div>
         <AdminPagination />
       </div>

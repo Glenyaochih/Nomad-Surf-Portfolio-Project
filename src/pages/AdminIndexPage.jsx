@@ -1,42 +1,64 @@
+import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
+import { adminLogoutAsync } from '../redux/slice/admin/adminLogoutSlice';
 
 export default function AdminIndexPage() {
+  const dispatch = useDispatch();
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    dispatch(adminLogoutAsync());
+  };
   return (
     <>
       <div className='backend d-flex vh-100'>
         <section className='aside col-2 web'>
           <div className='d-flex flex-column justify-content-between flex-shrink-0   h-100 pt-9 px-7 pb-7'>
             <div>
-              <a
-                href='/'
-                className='d-flex align-items-center mb-12 text-white text-decoration-none'
-              >
-                <img
-                  className='img-fluid'
-                  src='img/logo/Homepage/Desktop/Logo_L.png'
-                />
-              </a>
+              <div className='d-flex align-items-center pb-7'>
+                <div className='p-1'>
+                  <img
+                    style={{ height: '30px' }}
+                    src='img/logo/nomad-logo-black.svg'
+                    alt='nomad-logo-sm'
+                  />
+                </div>
+                <div>
+                  <p
+                    style={{ letterSpacing: '0.15rem', lineHeight: '1.2' }}
+                    className='fs-76 ps-2'
+                  >
+                    NOMAD SURFER
+                  </p>
+                </div>
+              </div>
               <ul className='nav  flex-column'>
                 <li className='nav-item '>
-                  <Link to={'members'} className='nav-link fs-6 mb-9'>
-                    顧客管理
+                  <Link to={'members'} className='nav-link mb-9'>
+                    <h6>顧客管理</h6>
                   </Link>
                 </li>
                 <li className='nav-item'>
-                  <Link to={'/admin'} className='nav-link fs-6 mb-9'>
-                    商品管理
+                  <Link to={'/admin'} className='nav-link  mb-9'>
+                    <h6> 商品管理 </h6>
                   </Link>
                 </li>
                 <li>
                   <div className='nav-item'>
                     <Link to={'comment'} className='nav-link fs-6 mb-9'>
-                      心得牆
+                      <h6> 心得牆 </h6>
                     </Link>
                   </div>
                 </li>
               </ul>
             </div>
-            <button className='btn btn-primary-400 border py-3'>登出</button>
+            <a
+              onClick={logoutHandler}
+              href='#'
+              className='btn btn-primary-400 border py-3'
+            >
+              登出
+            </a>
           </div>
         </section>
 
@@ -94,12 +116,12 @@ export default function AdminIndexPage() {
 
           <div className='web'>
             <div className='d-flex justify-content-between align-items-center pb-7'>
-              <i className='bi bi-search text-white fs-5 web'></i>
+              <i className='bi bi-search fs-5 web'></i>
               <div className='d-flex justify-content-center align-items-center'>
                 <div className='userImage rounded-circle bg-white fs-5 me-3'>
                   A
                 </div>
-                <div className='text-white fs-6'>Alice</div>
+                <div className='fs-6'>Alice</div>
               </div>
             </div>
           </div>

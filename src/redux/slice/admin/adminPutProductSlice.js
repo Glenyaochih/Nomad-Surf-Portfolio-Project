@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { adminGetProductsAsync } from './adminGetProductsSlice';
+import { setAdminGetProductLoading } from '../loadingSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -126,6 +127,7 @@ export const adminPutProductAsync = createAsyncThunk(
         is_enabled: tempProduct.is_enabled ? 1 : 0,
       },
     };
+    dispatch(setAdminGetProductLoading(true));
     try {
       const res = await axios.put(
         `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`,
@@ -135,6 +137,8 @@ export const adminPutProductAsync = createAsyncThunk(
       dispatch(adminGetProductsAsync({}));
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setAdminGetProductLoading(true));
     }
   }
 );

@@ -1,4 +1,4 @@
-import { createHashRouter} from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import ProductListPage from '../pages/ProductListPage';
@@ -10,25 +10,24 @@ import AdminChildrenMember from '../pages/AdminChildrenMember';
 import AdminChildrenComment from '../pages/AdminChildrenComment';
 import AdminChildrenProduct from '../pages/AdminChildrenProduct';
 
-
 const route = [
   {
     path: 'admin',
     element: <Admin />,
-    children:[
+    children: [
       {
-        index:true,
-        element:<AdminChildrenProduct/>
+        index: true,
+        element: <AdminChildrenProduct />,
       },
       {
-        path:'members',
-        element:<AdminChildrenMember/>
+        path: 'members',
+        element: <AdminChildrenMember />,
       },
       {
-        path:'comment',
-        element:<AdminChildrenComment/>
-      }
-    ]
+        path: 'comment',
+        element: <AdminChildrenComment />,
+      },
+    ],
   },
   {
     path: '/',

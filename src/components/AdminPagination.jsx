@@ -2,21 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   adminGetProductsAsync,
   setCurrentPage,
-} from '../redux/slice/adminGetProductsSlice';
-import {
-  MdKeyboardArrowLeft,
-  MdKeyboardArrowRight,
-  MdMoreHoriz,
-} from 'react-icons/md';
+} from '../redux/slice/admin/adminGetProductsSlice';
 
 export default function AdminPagination() {
   const dispatch = useDispatch();
 
   const productsPages = useSelector(
     (state) => state.adminGetProducts.rangePages
-  );
-  const { current_page, total_pages } = useSelector(
-    (state) => state.adminGetProducts.pageState
   );
   const currentCategory = useSelector(
     (state) => state.adminGetProducts.category
@@ -31,7 +23,7 @@ export default function AdminPagination() {
     <>
       <nav className='mt-7' aria-label='Page navigation exam'>
         <ul className='pagination py-3 fs-6'>
-          <li className=''>
+          {/* <li className=''>
             <a
               onClick={(e) => {
                 e.preventDefault();
@@ -42,10 +34,10 @@ export default function AdminPagination() {
             >
               <MdKeyboardArrowLeft size={30} />
             </a>
-          </li>
+          </li> */}
           {productsPages.map((page) => {
             return (
-              <li key={page} className='page-item'>
+              <li key={page} className='page-item px-1'>
                 <a
                   onClick={(e) => {
                     e.preventDefault();
@@ -59,7 +51,7 @@ export default function AdminPagination() {
               </li>
             );
           })}
-          <li className=''>
+          {/* <li className=''>
             <a className='page-link' href='#'>
               <MdMoreHoriz />
             </a>
@@ -87,7 +79,7 @@ export default function AdminPagination() {
             >
               <MdKeyboardArrowRight size={30} />
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>
