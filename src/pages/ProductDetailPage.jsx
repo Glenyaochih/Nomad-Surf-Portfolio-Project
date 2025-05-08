@@ -1,5 +1,9 @@
-import { MdFavoriteBorder,MdAttachMoney,MdOutlineAddShoppingCart   } from 'react-icons/md';
-import ProductDetailCarousel from '../components/ProductDetailCarousel';
+import {
+  MdFavoriteBorder,
+  MdAttachMoney,
+  MdOutlineAddShoppingCart,
+} from 'react-icons/md';
+import ProductDetailCarousel from '../components/carousel/ProductDetailCarousel';
 
 export default function ProductDetailPage() {
   return (
@@ -24,7 +28,7 @@ export default function ProductDetailPage() {
           </ol>
         </nav>
       </section>
-      <hr className='my-7'/>
+      <hr className='my-7' />
     </>
   );
 }

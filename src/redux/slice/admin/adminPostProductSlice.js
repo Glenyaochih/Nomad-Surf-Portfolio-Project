@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { adminGetProductsAsync } from './adminGetProductsSlice';
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const initialProductPostState = {
+  product_num: '',
   category: '',
-  colors: [],
+  colors: [{ colorName: '', colorCode: '' }],
   content: '',
   description: '',
   grade: '',
@@ -17,7 +17,7 @@ const initialProductPostState = {
   is_enabled: 0,
   origin_price: '',
   price: '',
-  sizes: [],
+  sizes: [{ size: '', stock: 0 }],
   fin_system: '',
   title: '',
   unit: '',
@@ -64,6 +64,7 @@ export const adminPostProductSlice = createSlice({
         ...state.initData.colors,
         { colorName: '', colorCode: '' },
       ];
+      console.log(newColors);
       state.initData.colors = newColors;
     },
 
@@ -79,15 +80,16 @@ export const adminPostProductSlice = createSlice({
     },
 
     setPostDeleteSizeHandler: (state, action) => {
-      const { index } = action.payload;
+      const index = action.payload;
+      console.log(index);
       const newSizes = [...state.initData.sizes];
-      newSizes.pop(index);
+      newSizes.splice(index, 1);
       state.initData.sizes = newSizes;
     },
     setPostDeleteColorHandler: (state, action) => {
-      const { index } = action.payload;
+      const index = action.payload;
       const newColors = [...state.initData.colors];
-      newColors.pop(index);
+      newColors.splice(index, 1);
       state.initData.colors = newColors;
     },
 
@@ -129,7 +131,7 @@ export const adminPostProductAsync = createAsyncThunk(
         `${BASE_URL}/v2/api/${API_PATH}/admin/product`,
         data
       );
-      dispatch(adminGetProductsAsync());
+      dispatch(adminGetProductsAsync({}));
       dispatch(setResetProductInitialState());
       console.log(res);
     } catch (error) {

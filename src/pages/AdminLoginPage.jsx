@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import axios from 'axios';
+
 import {
   adminLoginAsync,
   checkAuthStatusAsync,
   setAccount,
-} from '../redux/slice/adminLoginSlice';
-import { useEffect } from 'react';
-import axios from 'axios';
+} from '../redux/slice/admin/adminLoginSlice';
+import ScreenLoading from '../components/loadings/ScreenLoading';
 
 export default function AdminLoginPage() {
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ export default function AdminLoginPage() {
           className='h-100 w-100'
           style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
         >
-          <div className='container  h-100'>
+          <div className='container  h-100 text-white'>
             <div className='d-flex flex-column justify-content-center align-items-center  h-100'>
               <h1 className='mb-3 py-6'>
                 Welcome
@@ -51,6 +53,7 @@ export default function AdminLoginPage() {
                   </div>
                   <div className='col-sm-10'>
                     <input
+                      style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
                       name='username'
                       type='email'
                       id='inputEmail'
@@ -68,6 +71,7 @@ export default function AdminLoginPage() {
                   </div>
                   <div className='col-sm-10'>
                     <input
+                      style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
                       name='password'
                       type='password'
                       id='inputPassword'
@@ -89,6 +93,7 @@ export default function AdminLoginPage() {
             </div>
           </div>
         </div>
+        <ScreenLoading />
       </div>
     </>
   );

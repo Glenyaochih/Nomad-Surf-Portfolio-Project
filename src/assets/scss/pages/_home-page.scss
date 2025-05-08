@@ -1,0 +1,122 @@
+.banner-carousel {
+  height: 955px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+
+  @include mobile {
+    height: 500px;
+  }
+
+  .top-space {
+    padding-top: 510px;
+
+    @include mobile {
+      padding-top: 217px;
+    }
+  }
+}
+
+.latest-board {
+  img {
+    height: 450px;
+
+    @include mobile {
+      height: 350px;
+    }
+  }
+
+
+
+}
+
+
+
+//------------------------------------------------grade
+
+.mid-grade {
+  height: 650px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @include mobile {
+    background-position: -127px;
+    height: 400px;
+  }
+}
+
+.grade {
+  height: 650px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @include mobile {
+    height: 400px;
+  }
+}
+
+.top-space-l {
+  padding-top: 221px;
+  padding-left: 200px;
+
+  @include mobile {
+    padding-top: 123px;
+    padding-left: 0px;
+  }
+}
+
+.top-space-r {
+  padding-top: 221px;
+  padding-right: 200px;
+
+  @include mobile {
+    padding-top: 123px;
+    padding-right: 0px;
+  }
+}
+
+.filter-l {
+  background: linear-gradient(to right, rgba(10, 39, 56, 0.8), rgba(10, 39, 56, 0));
+
+  @include mobile {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.filter-r {
+  background: linear-gradient(to right, rgba(10, 39, 56, 0), rgba(10, 39, 56, 0.8));
+
+  @include mobile {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+
+
+//------------------------------------------------grade >   wave-condition
+
+.wave-condition {
+  img {
+    height: 310px;
+  }
+
+  @include mobile {
+    height: 310px;
+  }
+}
+
+.partners {
+  img {
+    height: 85px;
+  }
+}
+
+
+
+//------------------------------------------------ wave-condition
