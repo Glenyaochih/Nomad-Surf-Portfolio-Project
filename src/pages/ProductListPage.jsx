@@ -1,18 +1,17 @@
-import { MdOutlineAddShoppingCart,} from 'react-icons/md'
-import RecommendCarousel from '../components/RecommendCarousel';
+import { MdOutlineAddShoppingCart } from 'react-icons/md';
+import RecommendCarousel from '../components/carousel/RecommendCarousel';
 import axios from 'axios';
 
-
 export default function ProductListPage() {
-  const JSON_SERVER= import.meta.env.VITE_JSON_SERVER_HOST
-  const Products = async()=>{
+  const JSON_SERVER = import.meta.env.VITE_JSON_SERVER_HOST;
+  const Products = async () => {
     try {
-      const res = await axios.get(`${JSON_SERVER}/comments`)
-      console.log(res)
+      const res = await axios.get(`${JSON_SERVER}/comments`);
+      console.log(res);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   Products();
   return (
     <>
@@ -32,28 +31,13 @@ export default function ProductListPage() {
           </nav>
         </section>
         <section>
-          <button
-            type='button'
-            className='btn btn-primary-300'
-            value={'A'}
-            
-          >
+          <button type='button' className='btn btn-primary-300' value={'A'}>
             長板
           </button>
-          <button
-            type='button'
-            className='btn btn-primary-300'
-            value={'B'}
-            
-          >
+          <button type='button' className='btn btn-primary-300' value={'B'}>
             短板
           </button>
-          <button
-            type='button'
-            className='btn btn-primary-300'
-            value={''}
-            
-          >
+          <button type='button' className='btn btn-primary-300' value={''}>
             全部商品
           </button>
         </section>

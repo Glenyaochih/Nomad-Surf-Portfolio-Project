@@ -111,13 +111,13 @@ export default function AdminChildrenProduct() {
             <div>
               <button
                 onClick={addProductModalOpen}
-                className='btn btn-primary-500 text-white border deleteButton px-4 me-4'
+                className='btn btn-dark text-white border deleteButton px-4 me-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>新增產品
               </button>
               <button
                 onClick={confirmDelProduct}
-                className='btn btn-primary-500 text-white border deleteButton px-4'
+                className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除產品
               </button>

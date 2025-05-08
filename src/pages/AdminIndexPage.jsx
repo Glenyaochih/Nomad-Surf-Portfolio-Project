@@ -55,7 +55,7 @@ export default function AdminIndexPage() {
             <a
               onClick={logoutHandler}
               href='#'
-              className='btn btn-primary-400 border py-3'
+              className='btn btn-dark border py-3'
             >
               登出
             </a>

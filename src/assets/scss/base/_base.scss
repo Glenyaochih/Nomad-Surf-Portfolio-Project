@@ -1,15 +1,31 @@
+:lang(zh),
+:lang(zh-TW),
+:lang(zh-CN),
+:lang(zh-HK) {
+    font-family: 'Noto Sans TC', sans-serif;
+
+}
+
+:lang(en) {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.2;
+}
+
+
+
 h1,
 h2,
 h3,
 h4,
 h5 {
     margin-bottom: 0;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
 }
 
 h6 {
     margin-bottom: 0;
-    letter-spacing: .125em;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
 }
 
 img {
@@ -29,9 +45,9 @@ li {
 a {
     text-decoration: none;
 
-    &:hover {
-        color: $primary-400;
-    }
+    // &:hover {
+    //     color: $primary-400;
+    // }
 }
 
 p {
@@ -41,8 +57,8 @@ p {
     line-height: 1.5;
 }
 
-.btn {
+.btn-dark {
     &:hover {
-        font-weight: $font-weight-bold;
+        background: linear-gradient(to right, rgba(0, 200, 255, 0.4), rgba(0, 104, 255, 0.4));
     }
 }

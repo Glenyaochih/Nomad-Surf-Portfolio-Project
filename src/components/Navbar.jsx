@@ -11,11 +11,17 @@ export default function TestNavbar() {
 
   const routes_mobile = [
     { path: '/cart', name: '購物車' },
-    { path: '/cart', name: '會員登入' },
+    { path: '/member', name: '會員登入' },
   ];
 
   return (
     <>
+      <div className='bg-dark text-white py-2 '>
+        <h6 className='fs-8 text-center'>
+          夏季熱血促銷 |滿千免運，現在買板送腳繩 ; 購買兩萬以上的衝浪板，鰭
+          (FINs) 打8折
+        </h6>
+      </div>
       <nav className='navbar navbar-expand-lg bg-body-tertiary sticky-top py-lg-4 navbar-cust shadow-sm'>
         <div className='container'>
           <a className='navbar-brand p-2' href='#'>
@@ -50,7 +56,7 @@ export default function TestNavbar() {
           </button>
           <div
             className='offcanvas offcanvas-end'
-            tabindex='-1'
+            tabIndex='-1'
             id='offcanvasNavbar'
             aria-labelledby='offcanvasNavbarLabel'
           >

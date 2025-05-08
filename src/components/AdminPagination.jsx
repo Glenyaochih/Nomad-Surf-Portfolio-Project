@@ -43,7 +43,7 @@ export default function AdminPagination() {
                     e.preventDefault();
                     currentPageHandler(page);
                   }}
-                  className='page-link'
+                  className='page-link btn btn-dark text-dark'
                   href='#'
                 >
                   {page}

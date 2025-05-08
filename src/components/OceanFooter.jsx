@@ -1,4 +1,6 @@
 import { BsTwitterX, BsFacebook, BsInstagram, BsYoutube } from 'react-icons/bs';
+import { MdOutlineKeyboardArrowUp } from 'react-icons/md';
+
 import { Link } from 'react-router-dom';
 
 export default function OceanFooter() {
@@ -16,19 +18,31 @@ export default function OceanFooter() {
     <>
       <div className='footerBg py-7'>
         <div className='container d-flex flex-column'>
-          <div className='footerHeader d-flex align-items-center pb-9'>
-            <div className='p-1'>
-              <img src='img/logo/nomad-logo-white.svg' alt='nomad-logo-sm' />
+          <div className='d-flex justify-content-between align-items-center mb-9 mb-sm-12'>
+            <div className='footerHeader d-flex align-items-center'>
+              <div className='p-1'>
+                <img src='img/logo/nomad-logo-white.svg' alt='nomad-logo-sm' />
+              </div>
+              <div>
+                <p
+                  style={{ letterSpacing: '0.15rem', lineHeight: '1.2' }}
+                  className='fs-5 ps-2'
+                >
+                  NOMAD SURFER
+                </p>
+              </div>
             </div>
             <div>
-              <p
-                style={{ letterSpacing: '0.15rem', lineHeight: '1.2' }}
-                className='fs-5 ps-2'
+              <a
+                className='d-flex flex-column align-items-center px-3 py-4'
+                href='#'
               >
-                NOMAD SURFER
-              </p>
+                <MdOutlineKeyboardArrowUp />
+                <p className='d-none d-sm-block'>回到頂端</p>
+              </a>
             </div>
           </div>
+
           <div className='flex-column'>
             <div className='d-flex justify-content-sm-between flex-column flex-sm-row'>
               <div className='d-flex flex-column flex-sm-row gap-sm-14'>
@@ -71,7 +85,7 @@ export default function OceanFooter() {
               </div>
               <div className='pb-7'>
                 <div className='pb-3 pb-sm-5'>
-                  <p>追蹤我們</p>
+                  <p className='text-sm-end'>追蹤我們</p>
                 </div>
                 <div className='d-flex gap-sm-7 gap-7  text-white me-auto'>
                   <BsFacebook size={24} />
