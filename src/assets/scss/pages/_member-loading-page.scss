@@ -1,0 +1,12 @@
+.member-login {
+  height: 740px;
+  background-image: url('/public/img/memberLoading/member-loading-bg.webp');
+
+  @include mobile {
+    height: 543px;
+  }
+
+  .input-box {
+    max-width: 636px;
+  }
+}

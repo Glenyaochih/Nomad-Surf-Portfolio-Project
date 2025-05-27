@@ -1,23 +1,46 @@
+// === 字型引入 ===
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
-
+// === bootstrap 相關 ===
 @import 'bootstrap/scss/functions';
 @import './variables';
 @import 'bootstrap/scss/bootstrap.scss';
 @import'./utilities';
 
+// === swiper 預設樣式 ===
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+// === swiper 自定義樣式
+
+
+// === 組建樣式 ===
+@import'./components/products-offcanvas-filter';
+
+
+// === 通用樣式 ===
 @import './base/base';
 @import './helper/media';
 @import'./icons/react-icon';
+
+// === layout樣式 ===
 @import './layout/footer';
 @import'./layout/navbar';
+
+
+// === 分頁樣式 ===
 @import'./pages/shopping-cart-page.scss';
 @import'./pages/surfKnowledge';
 @import'./pages/admin';
 @import'./pages/loading-page';
 @import'./pages/home-page';
+@import'./pages/product-detail-page';
+@import'./pages/product-list-page';
+@import'./pages/member-loading-page';
 
+// === bootstrap 工具API === 
 @import "bootstrap/scss/utilities/api";

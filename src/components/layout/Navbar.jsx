@@ -1,27 +1,24 @@
 import { NavLink } from 'react-router-dom';
 import { MdOutlineSearch, MdOutlineShoppingCart, MdMenu } from 'react-icons/md';
 import { FiUser } from 'react-icons/fi';
+import NavbarMarquee from '../carousel/Marquee';
+
 export default function TestNavbar() {
   const routes = [
     { path: '/', name: '最新衝浪板' },
-    { path: '/products', name: '所有商品' },
+    { path: 'products', name: '所有商品' },
     { path: 'wave', name: '即時浪況' },
-    { path: '/article', name: '沖澡地圖' },
+    { path: 'article', name: '沖澡地圖' },
   ];
 
-  const routes_mobile = [
+  const mobile_routes = [
     { path: '/cart', name: '購物車' },
     { path: '/member', name: '會員登入' },
   ];
 
   return (
     <>
-      <div className='bg-dark text-white py-2 '>
-        <h6 className='fs-8 text-center'>
-          夏季熱血促銷 |滿千免運，現在買板送腳繩 ; 購買兩萬以上的衝浪板，鰭
-          (FINs) 打8折
-        </h6>
-      </div>
+      <NavbarMarquee />
       <nav className='navbar navbar-expand-lg bg-body-tertiary sticky-top py-lg-4 navbar-cust shadow-sm'>
         <div className='container'>
           <a className='navbar-brand p-2' href='#'>
@@ -34,12 +31,24 @@ export default function TestNavbar() {
           {/* 手機版手機版搜尋與購物車 */}
           <ul className='d-flex d-md-none ms-auto'>
             <li>
-              <a href='' className='p-3'>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                href='#'
+                className='p-3'
+              >
                 <MdOutlineSearch />
               </a>
             </li>
             <li>
-              <a href='' className='p-3'>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                href='#'
+                className='p-3'
+              >
                 <MdOutlineShoppingCart />
               </a>
             </li>
@@ -64,7 +73,7 @@ export default function TestNavbar() {
               <a className='navbar-brand p-2' href='#'>
                 <img
                   style={{ width: '42px', height: '42px' }}
-                  src='img/logo/nomad-logo.svg'
+                  src='img/logo/nomad-logo-black.svg'
                   alt='nomad-logo-sm'
                 />
               </a>
@@ -93,7 +102,7 @@ export default function TestNavbar() {
               </ul>
               <hr />
               <ul className='navbar-nav d-sm-none'>
-                {routes_mobile.map((route) => {
+                {mobile_routes.map((route) => {
                   return (
                     <li className='nav-item' key={route.path}>
                       <NavLink className='nav-link' to={route.path}>
@@ -110,14 +119,14 @@ export default function TestNavbar() {
                   </a>
                 </li>
                 <li>
-                  <a href='' className='p-3'>
+                  <NavLink to={'/members'} className='p-3'>
                     <FiUser />
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href='' className='p-3'>
+                  <NavLink to={'/cart'} className='p-3'>
                     <MdOutlineShoppingCart />
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </div>

@@ -3,10 +3,30 @@
     height: 100px;
     max-width: 100px;
     border-radius: 8px;
+  }
+
+  .cart-empty {
+    padding-top: 152px;
+    padding-bottom: 182px;
 
     @include mobile {
-      height: 80px;
-      max-width: 85px;
+      padding-bottom: 152px;
+    }
+  }
+
+  .progress-bar {
+    .number-ball {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+    }
+
+    .number-line {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background-color: $neutral-60;
     }
   }
 }

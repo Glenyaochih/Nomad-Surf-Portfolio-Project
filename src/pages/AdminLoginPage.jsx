@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
                     />
                   </div>
                 </div>
-                <div className='d-grid  '>
+                <div className='d-grid'>
                   <button
                     type='submit'
                     className='btn btn-outline-light rounded-pill'

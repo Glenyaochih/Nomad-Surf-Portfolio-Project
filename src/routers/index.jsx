@@ -9,6 +9,7 @@ import Admin from '../pages/Admin';
 import AdminChildrenMember from '../pages/AdminChildrenMember';
 import AdminChildrenComment from '../pages/AdminChildrenComment';
 import AdminChildrenProduct from '../pages/AdminChildrenProduct';
+import MemberLoadingPage from '../pages/MemberLoadingPage';
 
 const route = [
   {
@@ -48,6 +49,10 @@ const route = [
       {
         path: 'cart',
         element: <ShoppingCartPage />,
+      },
+      {
+        path: 'members',
+        element: <MemberLoadingPage />,
       },
       {
         path: 'article',
