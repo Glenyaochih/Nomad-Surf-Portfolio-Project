@@ -1,0 +1,9 @@
+.filter-offcanvas {
+  input {
+    color: black;
+  }
+
+  input::placeholder {
+    color: $neutral-60;
+  }
+}

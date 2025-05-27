@@ -1,0 +1,34 @@
+.product-spec {
+
+  .color-label {
+    height: 32px;
+    width: 32px;
+  }
+
+  .color-input:checked~.color-label {
+    border: 4px solid black;
+  }
+
+
+  .overflow-y-box {
+    max-height: 880px;
+
+    @include mobile {
+      max-height: 100%
+    }
+  }
+
+  .overflow-y-box {
+    max-width: 880px;
+  }
+
+  .overflow-y-scroll {
+    scrollbar-width: none;
+  }
+
+  .overflow-y-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}

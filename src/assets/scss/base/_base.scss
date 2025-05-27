@@ -61,4 +61,12 @@ p {
     &:hover {
         background: linear-gradient(to right, rgba(0, 200, 255, 0.4), rgba(0, 104, 255, 0.4));
     }
+
+}
+
+.btn-outline-dark {
+    &:hover {
+        color: black;
+        background: linear-gradient(to right, rgba(0, 200, 255, 0.4), rgba(0, 104, 255, 0.4));
+    }
 }

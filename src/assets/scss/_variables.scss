@@ -337,6 +337,13 @@ $info-120: #1566B5;
 
 //---------------------------------info end
 
+//---------------------------------accent start
+$accent-10: #FFE0D7;
+$accent-20: #FFBBB0;
+$accent-100: #FF3A55;
+$accent-120: #B71D4F;
+
+//---------------------------------accent end
 
 //---------------------------------neutral start
 
@@ -388,14 +395,23 @@ $theme-colors: (
   "info-120":$info-120,
   //---------------------------------new info end
 
-  //---------------------------------accent start
+  //---------------------------------new accent start
+
+  'accent-10':$accent-10 ,
+  'accent-20':$accent-20 ,
+  'accent-100':$accent-100,
+  'accent-120':$accent-120 ,
+  //---------------------------------new accent end
+
+
+  //---------------------------------new neutral start
   'neutral-10': $neutral-10,
   'neutral-40': $neutral-40,
   'neutral-60': $neutral-60,
   'neutral-80': $neutral-80,
   ) !default;
 
-//---------------------------------accent end,,
+//---------------------------------new neutral start
 
 // scss-docs-end theme-colors-map
 
@@ -559,7 +575,7 @@ $body-emphasis-color: $black !default;
 //
 // Style anchor elements.
 
-$link-color: $primary !default;
+$link-color: $dark !default; //$primary !default;
 $link-decoration: underline !default;
 $link-shade-percentage: 0% !default;
 $link-hover-color: shift-color($link-color, $link-shade-percentage) !default;
@@ -655,8 +671,6 @@ $border-radius: 0.375rem !default;
 $border-radius-sm: 0.25rem !default;
 $border-radius-lg: 0.5rem !default;
 $border-radius-xl: 1rem !default;
-$border-radius-24: 1.5rem !default;
-$border-radius-30: 1.875rem !default;
 $border-radius-xxl: 2rem !default;
 $border-radius-pill: 50rem !default;
 // scss-docs-end border-radius-variables
@@ -675,7 +689,7 @@ $component-active-color: $white !default;
 $component-active-bg: $primary !default;
 
 // scss-docs-start focus-ring-variables
-$focus-ring-width: 0.25rem !default;
+$focus-ring-width: 0.1rem !default; //0.25rem !default;
 $focus-ring-opacity: 0.25 !default;
 $focus-ring-color: rgba($primary, $focus-ring-opacity) !default;
 $focus-ring-blur: 0 !default;
@@ -931,12 +945,12 @@ $input-btn-focus-color: $focus-ring-color !default;
 $input-btn-focus-blur: $focus-ring-blur !default;
 $input-btn-focus-box-shadow: $focus-ring-box-shadow !default;
 
-$input-btn-padding-y-sm: 0.5rem !default; //0.5rem !default;
-$input-btn-padding-x-sm: 2rem !default; //0.75rem !default;
+$input-btn-padding-y-sm: 0.5rem !default;
+$input-btn-padding-x-sm: 0.75rem !default;
 $input-btn-font-size-sm: $font-size-base !default;
 
 $input-btn-padding-y-lg: 0.5rem !default;
-$input-btn-padding-x-lg: 2rem !default; //1.5rem !default;
+$input-btn-padding-x-lg: 1.5rem !default;
 $input-btn-font-size-lg: $h6-font-size !default; //$h4-font-size !default;
 
 $input-btn-border-width: var(--#{$prefix}border-width) !default;
@@ -979,9 +993,9 @@ $btn-link-disabled-color: $gray-600 !default;
 $btn-link-focus-shadow-rgb: to-rgb(mix(color-contrast($link-color), $link-color, 15%)) !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius: var(--#{$prefix}border-radius-pill) !default; //var(--#{$prefix}border-radius) !default;
-$btn-border-radius-sm: var(--#{$prefix}border-radius-pill) !default; //var(--#{$prefix}border-radius-sm) !default;
-$btn-border-radius-lg: var(--#{$prefix}border-radius-pill) !default; //var(--#{$prefix}border-radius-lg) !default;
+$btn-border-radius: var(--#{$prefix}border-radius) !default;
+$btn-border-radius-sm: var(--#{$prefix}border-radius-sm) !default;
+$btn-border-radius-lg: var(--#{$prefix}border-radius-lg) !default;
 
 $btn-transition: color 0.15s ease-in-out,
   background-color 0.15s ease-in-out,
@@ -1082,16 +1096,16 @@ $form-check-transition: null !default;
 
 $form-check-input-active-filter: brightness(90%) !default;
 
-$form-check-input-bg: rgba(0, 0, 0, 0.1) !default; //$input-bg !default;
+$form-check-input-bg: $input-bg !default;
 $form-check-input-border: var(--#{$prefix}border-width) solid var(--#{$prefix}border-color) !default;
 $form-check-input-border-radius: 0.25em !default;
 $form-check-radio-border-radius: 50% !default;
-$form-check-input-focus-border: $input-focus-border-color !default;
+$form-check-input-focus-border: $primary-100 !default; //$input-focus-border-color !default;
 $form-check-input-focus-box-shadow: $focus-ring-box-shadow !default;
 
 $form-check-input-checked-color: $component-active-color !default;
-$form-check-input-checked-bg-color: $component-active-bg !default;
-$form-check-input-checked-border-color: $form-check-input-checked-bg-color !default;
+$form-check-input-checked-bg-color: $primary-100 !default; //$component-active-bg !default;
+$form-check-input-checked-border-color: $primary-100 !default; // $form-check-input-checked-bg-color !default;
 $form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>") !default;
 $form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$form-check-input-checked-color}'/></svg>") !default;
 
@@ -1768,10 +1782,10 @@ $breadcrumb-font-size: null !default;
 $breadcrumb-padding-y: 0 !default;
 $breadcrumb-padding-x: 0 !default;
 $breadcrumb-item-padding-x: 0.5rem !default;
-$breadcrumb-margin-bottom: 1rem !default;
+$breadcrumb-margin-bottom: null !default; //1rem !default;
 $breadcrumb-bg: null !default;
-$breadcrumb-divider-color: $white; //var(--#{$prefix}secondary-color) !default;
-$breadcrumb-active-color: $white; //var(--#{$prefix}secondary-color) !default;
+$breadcrumb-divider-color: #858585 !default; //var(--#{$prefix}secondary-color) !default;
+$breadcrumb-active-color: var(--#{$prefix}secondary-color) !default;
 $breadcrumb-divider: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8'><path d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='#{$breadcrumb-divider-color}'/></svg>"
 );
 //quote('/') !default;

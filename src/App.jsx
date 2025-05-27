@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import OceanFooter from './components/OceanFooter';
+import Navbar from './components/layout/Navbar';
+import OceanFooter from './components/layout/OceanFooter';
 
 function App() {
   return (
