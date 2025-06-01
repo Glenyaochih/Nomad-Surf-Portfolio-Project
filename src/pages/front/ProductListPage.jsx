@@ -1,6 +1,6 @@
-import ProductListCard from '../components/card/ProductListCard';
+import ProductListCard from '../../components/card/ProductListCard';
 import { useState } from 'react';
-import ProductFilterOffcanvas from '../components/offcanvas/ProductFilterOffcanvas';
+import ProductFilterOffcanvas from '../../components/offcanvas/ProductFilterOffcanvas';
 
 export default function ProductListPage() {
   const [testData] = useState([

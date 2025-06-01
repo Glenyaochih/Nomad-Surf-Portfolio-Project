@@ -13,6 +13,7 @@ export const modalSlice = createSlice({
       open: false,
       state: '',
     },
+    addCouponModalOpen: false,
   },
   reducers: {
     setAddProductModalOpen(state, action) {
@@ -27,9 +28,13 @@ export const modalSlice = createSlice({
       state.editProductModalOpen.open = action.payload.open;
       state.editProductModalOpen.state = action.payload.state;
     },
+    setAddCouponModalOpen(state, action) {
+      state.addCouponModalOpen = action.payload;
+    },
   },
 });
 export const {
+  setAddCouponModalOpen,
   setAddProductModalOpen,
   setCheckProductOpen,
   setEditProductOpen,

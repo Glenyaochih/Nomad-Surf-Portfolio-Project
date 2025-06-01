@@ -14,8 +14,8 @@ import {
   setPutImagesInputChange,
   setPutProductInputChange,
   setPutSizesInputChange,
-} from '../../redux/slice/admin/adminPutProductSlice';
-import { adminUploadImageAsync } from '../../redux/slice/admin/adminUploadImageSlice';
+} from '../../redux/slice/admin/products/adminPutProductSlice';
+import { adminUploadImageAsync } from '../../redux/slice/admin/products/adminUploadImageSlice';
 
 export default function AdminEditProductModal() {
   const adminEditProductModalLink = useRef(null);

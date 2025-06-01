@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { adminGetProductsAsync } from './adminGetProductsSlice';
-import { setAdminGetProductLoading } from '../loadingSlice';
+import { setAdminGetLoading } from '../adminLoadingSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const adminPostProductSlice = createSlice({
-  name: 'adminPutProduct',
+  name: 'adminPutCoupon',
   initialState: {
     tempProduct: {
       product_num: '',
@@ -127,7 +127,7 @@ export const adminPutProductAsync = createAsyncThunk(
         is_enabled: tempProduct.is_enabled ? 1 : 0,
       },
     };
-    dispatch(setAdminGetProductLoading(true));
+    dispatch(setAdminGetLoading(true));
     try {
       const res = await axios.put(
         `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`,
@@ -138,7 +138,7 @@ export const adminPutProductAsync = createAsyncThunk(
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(setAdminGetProductLoading(true));
+      dispatch(setAdminGetLoading(false));
     }
   }
 );

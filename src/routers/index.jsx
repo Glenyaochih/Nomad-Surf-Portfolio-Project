@@ -1,15 +1,17 @@
 import { createHashRouter } from 'react-router-dom';
 import App from '../App';
-import HomePage from '../pages/HomePage';
-import ProductListPage from '../pages/ProductListPage';
-import ProductDetailPage from '../pages/ProductDetailPage';
-import ShoppingCartPage from '../pages/ShoppingCartPage';
-import SurfKnowledge from '../pages/SurfKnowledge';
-import Admin from '../pages/Admin';
-import AdminChildrenMember from '../pages/AdminChildrenMember';
-import AdminChildrenComment from '../pages/AdminChildrenComment';
-import AdminChildrenProduct from '../pages/AdminChildrenProduct';
-import MemberLoadingPage from '../pages/MemberLoadingPage';
+import HomePage from '../pages/front/HomePage';
+import ProductListPage from '../pages/front/ProductListPage';
+import ProductDetailPage from '../pages/front/ProductDetailPage';
+import ShoppingCartPage from '../pages/front/ShoppingCartPage';
+import SurfKnowledge from '../pages/front/SurfKnowledge';
+import ShowerMapPage from '../pages/front/ShowerMapPage';
+import WaveReportPage from '../pages/front/WaveReportPage';
+import MemberLoadingPage from '../pages/front/MemberLoadingPage';
+import Admin from '../pages/admin/Admin';
+import AdminProductsPage from '../pages/admin/AdminProductsPage';
+import AdminOrdersPage from '../pages/admin/AdminOrdersPage';
+import AdminCouponsPage from '../pages/admin/AdminCouponsPage';
 
 const route = [
   {
@@ -18,15 +20,15 @@ const route = [
     children: [
       {
         index: true,
-        element: <AdminChildrenProduct />,
+        element: <AdminProductsPage />,
       },
       {
-        path: 'members',
-        element: <AdminChildrenMember />,
+        path: 'order',
+        element: <AdminOrdersPage />,
       },
       {
-        path: 'comment',
-        element: <AdminChildrenComment />,
+        path: 'coupon',
+        element: <AdminCouponsPage />,
       },
     ],
   },
@@ -57,6 +59,14 @@ const route = [
       {
         path: 'article',
         element: <SurfKnowledge />,
+      },
+      {
+        path: 'shower-map',
+        element: <ShowerMapPage />,
+      },
+      {
+        path: 'wave',
+        element: <WaveReportPage />,
       },
     ],
   },

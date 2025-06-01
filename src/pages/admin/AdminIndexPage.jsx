@@ -1,9 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
-import { adminLogoutAsync } from '../redux/slice/admin/adminLogoutSlice';
+import { adminLogoutAsync } from '../../redux/slice/admin/adminLogoutSlice';
+import AdminLoading from '../../components/loadings/AdminLoading';
 
 export default function AdminIndexPage() {
   const dispatch = useDispatch();
+  const routes = [
+    { path: '/admin', name: '商品管理' },
+    { path: 'coupon', name: '優惠卷管理' },
+    { path: 'order', name: '訂單管理' },
+  ];
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -34,21 +40,17 @@ export default function AdminIndexPage() {
               </div>
               <ul className='nav  flex-column'>
                 <li className='nav-item '>
-                  <Link to={'members'} className='nav-link mb-9'>
-                    <h6>顧客管理</h6>
-                  </Link>
-                </li>
-                <li className='nav-item'>
-                  <Link to={'/admin'} className='nav-link  mb-9'>
-                    <h6> 商品管理 </h6>
-                  </Link>
-                </li>
-                <li>
-                  <div className='nav-item'>
-                    <Link to={'comment'} className='nav-link fs-6 mb-9'>
-                      <h6> 心得牆 </h6>
-                    </Link>
-                  </div>
+                  {routes.map((item) => {
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className='nav-link mb-9'
+                      >
+                        <h6>{item.name}</h6>
+                      </Link>
+                    );
+                  })}
                 </li>
               </ul>
             </div>
@@ -129,6 +131,7 @@ export default function AdminIndexPage() {
             <Outlet />
           </div>
         </section>
+        <AdminLoading />
       </div>
     </>
   );

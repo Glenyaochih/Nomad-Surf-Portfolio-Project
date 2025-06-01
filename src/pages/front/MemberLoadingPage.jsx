@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import OutlineButton from '../components/button/outlineButton';
+import OutlineButton from '../../components/button/outlineButton';
 
 export default function MemberLoadingPage() {
   const [isMember, setIsMember] = useState(false);

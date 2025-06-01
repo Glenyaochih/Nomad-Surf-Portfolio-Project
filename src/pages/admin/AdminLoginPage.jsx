@@ -6,8 +6,8 @@ import {
   adminLoginAsync,
   checkAuthStatusAsync,
   setAccount,
-} from '../redux/slice/admin/adminLoginSlice';
-import ScreenLoading from '../components/loadings/ScreenLoading';
+} from '../../redux/slice/admin/adminLoginSlice';
+import ScreenLoading from '../../components/loadings/ScreenLoading';
 
 export default function AdminLoginPage() {
   const dispatch = useDispatch();

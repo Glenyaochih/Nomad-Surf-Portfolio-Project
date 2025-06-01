@@ -44,7 +44,7 @@ export default function ProductListCard({ item, cardBackground }) {
           <div className='card-move'>
             <img
               src={item.image}
-              className='card-img-top object-fit-contain '
+              className='card-img-top object-fit-contain'
               alt='longBoard'
             />
             <div className='card-body pt-3 pb-0'>

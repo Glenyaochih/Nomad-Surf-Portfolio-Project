@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { setAdminGetProductLoading } from '../loadingSlice';
+import { setAdminGetLoading } from '../adminLoadingSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -35,7 +35,7 @@ export const adminGetProductsSlice = createSlice({
       state.pageState = action.payload;
     },
 
-    setCurrentPage: (state, action) => {
+    setProductsCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
 
@@ -51,21 +51,21 @@ export const adminGetProductsAsync = createAsyncThunk(
     let url = params.category
       ? `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${params.page}&category=${params.category}`
       : `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${params.page}`;
-    dispatch(setAdminGetProductLoading(true));
+    dispatch(setAdminGetLoading(true));
     try {
       const res = await axios.get(url);
+      console.log(res);
       dispatch(adminGetProductsSlice.actions.setProducts(res.data.products));
-      console.log(res.data.products);
       dispatch(
         adminGetProductsSlice.actions.setProductsPagesRange(res.data.pagination)
       );
     } catch (error) {
       error;
     } finally {
-      dispatch(setAdminGetProductLoading(false));
+      dispatch(setAdminGetLoading(false));
     }
   }
 );
-export const { setCurrentPage, setProductCategory } =
+export const { setProductsCurrentPage, setProductCategory } =
   adminGetProductsSlice.actions;
 export default adminGetProductsSlice.reducer;

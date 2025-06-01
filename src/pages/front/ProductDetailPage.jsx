@@ -1,6 +1,6 @@
-import DarkButtonLinearG from '../components/button/DarkButtonLinearG';
-import RecommendCarousel from '../components/carousel/RecommendCarousel';
-import PickYourTimeAndGo from '../components/layout/PickYourTimeAndGo';
+import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
+import RecommendCarousel from '../../components/carousel/RecommendCarousel';
+import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
 
 export default function ProductDetailPage() {
   return (
