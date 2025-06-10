@@ -8,7 +8,7 @@ export default function TestNavbar() {
     { path: '/', name: '最新衝浪板' },
     { path: 'products', name: '所有商品' },
     { path: 'wave', name: '即時浪況' },
-    { path: 'article', name: '沖澡地圖' },
+    { path: 'shower-map', name: '沖澡地圖' },
   ];
 
   const mobile_routes = [

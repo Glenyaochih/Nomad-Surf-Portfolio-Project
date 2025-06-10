@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { Link } from 'react-router-dom';
+
 import OutlineButton from '../button/outlineButton';
 
 export default function ProductListCard({ item, cardBackground }) {
@@ -43,28 +43,42 @@ export default function ProductListCard({ item, cardBackground }) {
         >
           <div className='card-move'>
             <img
-              src={item.image}
-              className='card-img-top object-fit-contain '
+              src={item.imageUrl}
+              className='card-img-top object-fit-contain'
               alt='longBoard'
             />
             <div className='card-body pt-3 pb-0'>
               <div className='mb-3'>
                 <h6 className='mb-3'>
-                  <span className='fs-7 badge text-bg-success-20 fw-normal'>
-                    {item.grade}
+                  <span
+                    style={{
+                      backgroundColor:
+                        item.grade === 'A'
+                          ? '#B0E2FF'
+                          : item.grade === 'B'
+                            ? '#F8D598'
+                            : '#C5DCBB',
+                    }}
+                    className={`fs-7 badge fw-normal`}
+                  >
+                    {item.grade === 'A'
+                      ? '高階板'
+                      : item.grade === 'B'
+                        ? '中階板'
+                        : '低階版'}
                   </span>
                 </h6>
-                <h5 className='card-title mb-3'>{item.title}</h5>
+                <h5 className='card-title mb-3 fs-7 fs-sm-5'>{item.title}</h5>
                 <p className='fs-6'>${item.price}</p>
               </div>
-              <Link to={'/product/:id'}>
-                <OutlineButton
-                  btnName={'來去看看'}
-                  btnColor={'primary-100'}
-                  isVisible={0}
-                  isArrowVisible={true}
-                />
-              </Link>
+
+              <OutlineButton
+                destination={`/product/${item.id}`}
+                btnName={'來去看看'}
+                btnColor={'primary-100'}
+                isVisible={0}
+                isArrowVisible={true}
+              />
             </div>
           </div>
         </div>

@@ -1,13 +1,20 @@
+import { Link } from 'react-router-dom';
+
 export default function OutlineButton({
   btnName,
   btnColor,
   isVisible,
   isArrowVisible,
+  type,
+  event,
+  destination,
 }) {
   return (
     <>
-      <button
-        type='button'
+      <Link
+        to={destination}
+        onClick={event}
+        type={type}
         className={`btn border-0  p-0 fw-normal text-${btnColor} fs-7 icon-link icon-link-hover text-nowrap`}
         style={{ opacity: isVisible }}
       >
@@ -24,7 +31,7 @@ export default function OutlineButton({
         ) : (
           ''
         )}
-      </button>
+      </Link>
     </>
   );
 }

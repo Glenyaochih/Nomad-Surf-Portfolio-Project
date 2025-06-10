@@ -1,18 +1,16 @@
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
-export default function AdminGetProductLoading() {
-  const getProductLoading = useSelector(
-    (state) => state.loading.isAdminGetProductLoading
-  );
+export default function AdminLoading() {
+  const getLoading = useSelector((state) => state.loading.isAdminLoading);
 
   return (
     <>
-      {getProductLoading && (
+      {getLoading && (
         <div
           className='position-absolute d-flex justify-content-center align-items-center'
           style={{
             inset: 0,
-            backgroundColor: 'rgba(255,255,255,0.3)',
+            backgroundColor: 'rgba(255,255,255,0.5)',
             zIndex: 999,
           }}
         >

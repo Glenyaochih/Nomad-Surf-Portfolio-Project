@@ -1,38 +1,38 @@
+import AdminAddProductModal from '../../components/modal/AdminAddProductModal';
+import AdminCheckProductModal from '../../components/modal/AdminCheckProductModal';
+import AdminEditProductModal from '../../components/modal/AdminEditProductModal';
+import AdminPagination from '../../components/pagination/AdminPagination';
+import AdminLoading from '../../components/loadings/AdminLoading';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { MdModeEditOutline, MdCheck } from 'react-icons/md';
 import {
   setEditProductOpen,
   setAddProductModalOpen,
   setCheckProductOpen,
-} from '../redux/slice/modalSlice';
+} from '../../redux/slice/modalSlice';
 import {
   adminGetProductsAsync,
   setProductCategory,
-} from '../redux/slice/admin/adminGetProductsSlice';
-import { MdModeEditOutline, MdCheck } from 'react-icons/md';
+} from '../../redux/slice/admin/products/adminGetProductsSlice';
 import {
   adminDelProductsAsync,
   setDelProductInputChange,
-} from '../redux/slice/admin/adminDelProductSlice';
+} from '../../redux/slice/admin/products/adminDelProductSlice';
 import {
   setTempProduct,
   adminPutProductAsync,
   setPutProductInputChange,
-} from '../redux/slice/admin/adminPutProductSlice';
-import AdminAddProductModal from '../components/modal/AdminAddProductModal';
-import AdminCheckProductModal from '../components/modal/AdminCheckProductModal';
-import AdminEditProductModal from '../components/modal/AdminEditProductModal';
-import AdminPagination from '../components/AdminPagination';
-import AdminGetProductLoading from '../components/loadings/AdminGetProductLoading';
+} from '../../redux/slice/admin/products/adminPutProductSlice';
 
-export default function AdminChildrenProduct() {
+export default function AdminProductsPage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
   const tempProduct = useSelector((state) => state.adminPutProduct.tempProduct);
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  //modal section
+  // === modal section --> adminModalSlices ===
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
@@ -42,10 +42,9 @@ export default function AdminChildrenProduct() {
   const checkProductModalOpen = (state, data) => {
     dispatch(setCheckProductOpen({ open: true, state, data }));
   };
+  // === modal section --> adminModalSlices ===
 
-  //modal section ******
-
-  //delete section ******
+  // === delete section --> adminDelProductSlices ===
   const handleProductDelInputChange = (e, productId) => {
     const { checked } = e.target;
     dispatch(setDelProductInputChange({ checked, productId }));
@@ -54,9 +53,8 @@ export default function AdminChildrenProduct() {
   const confirmDelProduct = () => {
     dispatch(adminDelProductsAsync());
   };
-  //delete section ******
 
-  //edit section ******
+  // === edit section --> adminPutProductSlices.js ===
   const editProductHandler = (product) => {
     setEditState(product.id);
     dispatch(setTempProduct(product));
@@ -66,19 +64,20 @@ export default function AdminChildrenProduct() {
     const { name, value, checked, type } = e.target;
     dispatch(setPutProductInputChange({ name, value, checked, type }));
   };
-
+  //確認件送出
   const confirmEditProduct = () => {
     dispatch(adminPutProductAsync());
   };
+  // === edit section --> adminPutProductSlices.js ===
 
-  //edit section ******
-  //filter section
+  // === filter section --> adminGetProductSlices.js ===
+
   const categoryFilterHandler = (newCategory) => {
     dispatch(setProductCategory(newCategory));
     dispatch(adminGetProductsAsync({ page: 1, category: newCategory }));
   };
 
-  //filter section
+  // === filter section --> adminGteProductSlices.js ===
 
   useEffect(() => {
     dispatch(adminGetProductsAsync({}));
@@ -96,7 +95,7 @@ export default function AdminChildrenProduct() {
 
           <div className='d-flex justify-content-between align-items-center'>
             <select
-              className='form-select bg-primary-400 text-white h-100'
+              className='form-select bg-primary-400 h-100'
               aria-label='Default select example'
               defaultValue='defaultOptionValue'
               onChange={(e) => {
@@ -425,6 +424,8 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='form-check '>
                             <input
+                              value={tempProduct.is_enabled}
+                              onChange={handleProductPutInputChange}
                               name='is_enabled'
                               id='is_enabled'
                               className='form-check-input'
@@ -441,6 +442,8 @@ export default function AdminChildrenProduct() {
                         <td className='align-middle'>
                           <div className='form-check'>
                             <input
+                              value={tempProduct.hasDiscount}
+                              onChange={handleProductPutInputChange}
                               name='hasDiscount'
                               id='hasDiscount'
                               className='form-check-input'
@@ -489,9 +492,8 @@ export default function AdminChildrenProduct() {
               </tbody>
             </table>
           </div>
-          <AdminGetProductLoading />
         </div>
-        <AdminPagination />
+        <AdminPagination pageState={'products'} />
       </div>
     </>
   );

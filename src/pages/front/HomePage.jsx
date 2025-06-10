@@ -1,9 +1,9 @@
-import HomePageBannerCarousel from '../components/carousel/HomePageBannerCarousel';
-import DarkButtonLinearG from '../components/button/DarkButtonLinearG';
-import RecommendCarousel from '../components/carousel/RecommendCarousel';
-import PickYourTimeAndGo from '../components/layout/PickYourTimeAndGo';
-import LevelEntranceCard01 from '../components/card/LevelEntranceCard01';
-import LevelEntranceCard02 from '../components/card/LevelEntranceCard02';
+import HomePageBannerCarousel from '../../components/carousel/HomePageBannerCarousel';
+import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
+import RecommendCarousel from '../../components/carousel/RecommendCarousel';
+import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
+import LevelEntranceCard01 from '../../components/card/LevelEntranceCard01';
+import LevelEntranceCard02 from '../../components/card/LevelEntranceCard02';
 
 const partners = [
   'img/homePage/partners-01.webp',
@@ -15,7 +15,6 @@ const partners = [
   'img/homePage/partners-07.webp',
   'img/homePage/partners-08.webp',
 ];
-
 export default function HomePage() {
   return (
     <>

@@ -4,17 +4,16 @@ export const loadingSlice = createSlice({
   name: 'loading',
   initialState: {
     isScreenLoading: false,
-    isAdminGetProductLoading: false,
+    isAdminLoading: false,
   },
   reducers: {
     setScreenLoading: (state, action) => {
       state.isScreenLoading = action.payload;
     },
-    setAdminGetProductLoading: (state, action) => {
-      state.isAdminGetProductLoading = action.payload;
+    setAdminGetLoading: (state, action) => {
+      state.isAdminLoading = action.payload;
     },
   },
 });
-export const { setScreenLoading, setAdminGetProductLoading } =
-  loadingSlice.actions;
+export const { setScreenLoading, setAdminGetLoading } = loadingSlice.actions;
 export default loadingSlice.reducer;

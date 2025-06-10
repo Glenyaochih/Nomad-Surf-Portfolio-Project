@@ -6,8 +6,8 @@ import {
   MdEdit,
   MdAddShoppingCart,
 } from 'react-icons/md';
-import DarkButtonLinearG from '../components/button/DarkButtonLinearG';
-import OutlineButton from '../components/button/outlineButton';
+import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
+import OutlineButton from '../../components/button/outlineButton';
 
 export default function ShoppingCartPage() {
   const [sortValue, setSortValue] = useState('best_selling');

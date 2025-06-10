@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { setScreenLoading } from '../loadingSlice';
+import { setScreenLoading } from './adminLoadingSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 

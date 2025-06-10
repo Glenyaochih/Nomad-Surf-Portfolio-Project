@@ -21,6 +21,7 @@ const initialProductPostState = {
   fin_system: '',
   title: '',
   unit: '',
+  soldNum: 0,
 };
 
 export const adminPostProductSlice = createSlice({
@@ -118,6 +119,7 @@ export const adminPostProductAsync = createAsyncThunk(
         ...initData,
         origin_price: Number(initData.origin_price),
         price: Number(initData.price),
+        soldNum: Number(initData.soldNum),
         sizes: initData.sizes.map((size) => ({
           ...size,
           stock: Number(size.stock),
