@@ -1,30 +1,33 @@
 import ProductListCard from '../../components/card/ProductListCard';
-import { useState } from 'react';
 import ProductFilterOffcanvas from '../../components/offcanvas/ProductFilterOffcanvas';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getProductsAsync,
+  setSortOption,
+} from '../../redux/slice/front/products/frontProductsSlice';
+import { selectFilteredProducts } from '../../redux/slice/front/products/frontProductsSelectors';
 
 export default function ProductListPage() {
-  const [testData] = useState([
-    {
-      title: 'Islandsurfboards',
-      grade: '初階板',
-      price: 29999,
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/glenyao-e1435.appspot.com/o/surfboard%2FRM_MachadoCado_H_D.webp?alt=media&token=e74afa3c-3020-4028-95db-4f64ae327151',
-    },
-  ]);
-
-  const [ProductSortOptionState, setProductSortOptionState] =
-    useState('best-selling');
+  const dispatch = useDispatch();
+  const products = useSelector(selectFilteredProducts);
 
   const sortOption = [
+    { value: '', label: '請選擇排序' },
     { value: 'best-selling', label: '最佳銷售' },
     { value: 'low-to-height', label: '價格由低到高' },
     { value: 'height-to-low', label: '價格由高到低' },
   ];
 
   const handleProductSortChange = (e) => {
-    setProductSortOptionState(e.target.value);
+    const sortOption = e.target.value;
+    dispatch(setSortOption({ sortOption }));
   };
+
+  useEffect(() => {
+    dispatch(getProductsAsync());
+  }, [dispatch]);
+
   return (
     <>
       <div className='bg-neutral-40'>
@@ -56,10 +59,13 @@ export default function ProductListPage() {
                     className='form-select form-select-sm  px-4 py-2 d-none d-sm-block'
                     aria-label='Small select example'
                     onChange={handleProductSortChange}
-                    value={ProductSortOptionState}
                   >
                     {sortOption.map((option) => (
-                      <option key={option.value} value={option.value}>
+                      <option
+                        disabled={option.value === ''}
+                        key={option.value}
+                        value={option.value}
+                      >
                         {option.label}
                       </option>
                     ))}
@@ -85,12 +91,12 @@ export default function ProductListPage() {
           <section>
             <div className='gy-7 pb-sm-14'>
               <div className='row row-cols-2 row-cols-sm-4 '>
-                {testData.map((item, index) => {
+                {products.map((product, index) => {
                   return (
                     <div className='col' key={index}>
                       <div key={index}>
                         <ProductListCard
-                          item={item}
+                          item={product}
                           cardBackground={'neutral-40'}
                         />
                       </div>

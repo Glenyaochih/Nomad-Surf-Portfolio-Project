@@ -26,6 +26,7 @@ export const adminPostProductSlice = createSlice({
       fin_system: '',
       title: '',
       unit: '',
+      soldNum: 0,
     },
     productId: '',
   },
@@ -119,6 +120,7 @@ export const adminPutProductAsync = createAsyncThunk(
         ...tempProduct,
         origin_price: Number(tempProduct.origin_price),
         price: Number(tempProduct.price),
+        soldNum: Number(tempProduct.soldNum),
         sizes: tempProduct.sizes.map((size) => ({
           ...size,
           stock: Number(size.stock),

@@ -1,8 +1,21 @@
+import { useParams } from 'react-router-dom';
 import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
 import RecommendCarousel from '../../components/carousel/RecommendCarousel';
 import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getSingleProductsAsync } from '../../redux/slice/front/products/frontProductsSlice';
+import { selectFrontProduct } from '../../redux/slice/front/products/frontProductsSelectors';
 
 export default function ProductDetailPage() {
+  const { id: product_id } = useParams();
+  const dispatch = useDispatch();
+  const product = useSelector(selectFrontProduct);
+
+  useEffect(() => {
+    dispatch(getSingleProductsAsync(product_id));
+  }, [product_id, dispatch]);
+
   return (
     <>
       <div className='product-spec'>
@@ -52,12 +65,24 @@ export default function ProductDetailPage() {
                   <section>
                     <div>
                       <div>
-                        <h5 className='mb-3'>
-                          islandsurfboards <br /> GO Surfboard(標題)
-                        </h5>
+                        <h5 className='mb-3'>{product.title}</h5>
                         <h6 className='mb-7' lang='zh-TW'>
-                          <span className='fs-7 badge text-bg-success-20 fw-normal'>
-                            初階板
+                          <span
+                            style={{
+                              backgroundColor:
+                                product.grade === 'A'
+                                  ? '#B0E2FF'
+                                  : product.grade === 'B'
+                                    ? '#F8D598'
+                                    : '#C5DCBB',
+                            }}
+                            className='fs-7 badge fw-normal'
+                          >
+                            {product.grade === 'A'
+                              ? '高階板'
+                              : product.grade === 'B'
+                                ? '中階板'
+                                : '低階板'}
                           </span>
                         </h6>
                         <p className='mb-7' lang='zh-TW'>

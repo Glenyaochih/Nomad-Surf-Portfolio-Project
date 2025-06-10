@@ -369,7 +369,9 @@ $theme-colors: (
   'light': $light,
   'dark': $dark,
 
-  //---------------------------------new primary start
+
+
+  // === new primary start ===
   'primary-10': $primary-10,
   'primary-40': $primary-40,
   'primary-60': $primary-60,
@@ -377,7 +379,9 @@ $theme-colors: (
   'primary-100': $primary-100,
   'primary-120': $primary-120,
 
-  //---------------------------------new primary end
+  // === new primary end ===
+
+
 
   //---------------------------------new success start
 
@@ -1641,7 +1645,7 @@ $toast-header-border-color: $toast-border-color !default;
 // scss-docs-start badge-variables
 $badge-font-size: 0.75em !default;
 $badge-font-weight: $font-weight-bold !default;
-$badge-color: $white !default;
+$badge-color: $dark !default; // $white !default;
 $badge-padding-y: 0.35em !default;
 $badge-padding-x: 0.65em !default;
 $badge-border-radius: var(--#{$prefix}border-radius) !default;

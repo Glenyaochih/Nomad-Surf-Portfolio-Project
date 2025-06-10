@@ -15,7 +15,6 @@ const partners = [
   'img/homePage/partners-07.webp',
   'img/homePage/partners-08.webp',
 ];
-
 export default function HomePage() {
   return (
     <>

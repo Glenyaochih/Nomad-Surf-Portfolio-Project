@@ -1,10 +1,11 @@
-export default function DarkButtonLinearG({ btnName, btnType }) {
+export default function DarkButtonLinearG({ btnName, btnType, type, event }) {
   return (
     <button
-      lang='zh-TW'
-      type='button'
+      type={type}
+      onClick={event}
       style={{ letterSpacing: '10%' }}
       className={`btn ${btnType} btn-lg border border-white icon-link icon-link-hover d-inline-block fs-7 fs-sm-6 rounded-pill px-9`}
+      lang='zh-TW'
     >
       {btnName}
       <svg

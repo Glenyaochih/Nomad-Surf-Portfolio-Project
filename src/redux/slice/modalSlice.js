@@ -19,6 +19,7 @@ export const modalSlice = createSlice({
     setAddProductModalOpen(state, action) {
       state.addProductModalOpen = action.payload;
     },
+
     setCheckProductOpen(state, action) {
       state.checkProductModalOpen.data = action.payload.data;
       state.checkProductModalOpen.open = action.payload.open;
