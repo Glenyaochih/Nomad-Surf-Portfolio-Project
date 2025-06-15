@@ -2,12 +2,22 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import DarkButtonLinearG from '../button/DarkButtonLinearG';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setApplyFilter,
+  setFilter,
+} from '../../redux/slice/front/products/frontProductsSlice';
 
 export default function LevelEntranceCard02({ data }) {
   const entrance2Ref = useRef(null);
   const { contextSafe } = useGSAP({ scope: entrance2Ref });
   const mm = useMemo(() => gsap.matchMedia(), []);
   const isDesktop = useMemo(() => window.matchMedia('(min-width: 576px)'), []);
+  const tempFilters = useSelector(
+    (state) => state.frontGetProducts.filters.tempFilters
+  );
+  const dispatch = useDispatch();
+
   //使用useMemo 避免其他元件重新更新時重新觸發
   useEffect(() => {
     mm.add({
@@ -57,6 +67,24 @@ export default function LevelEntranceCard02({ data }) {
       );
     }
   });
+  const handelGradesClick = (value) => {
+    // 獲取當前 Redux store 中的 grades 篩選陣列，如果為空則初始化為空陣列
+    const currentGrades = tempFilters.grades || [];
+    let newGrades;
+
+    // 判斷點擊的值是否已在 currentGrades 中
+    if (currentGrades.includes(value)) {
+      // 如果已存在，則從陣列中移除該值（實現取消篩選的功能）
+      newGrades = currentGrades.filter((grade) => grade !== value);
+    } else {
+      // 如果不存在，則將該值添加到陣列中（實現添加篩選的功能）
+      newGrades = [...currentGrades, value];
+    }
+    // 派發 setFilter action 更新暫時的篩選狀態 (tempFilters)
+    dispatch(setFilter({ filterType: 'grades', value: newGrades }));
+    // 派發 setApplyFilter action 將暫時的篩選狀態應用到活躍篩選狀態 (activeFilters)
+    dispatch(setApplyFilter());
+  };
 
   const onMouseLeaveEntrance = contextSafe(() => {
     if (isDesktop.matches) {
@@ -125,8 +153,10 @@ export default function LevelEntranceCard02({ data }) {
                 </div>
                 <div className='mt-sm-auto'>
                   <DarkButtonLinearG
+                    destination={'/products'}
                     btnName={'來去探索'}
                     btnType={'btn-dark'}
+                    event={() => handelGradesClick(data.grade)}
                   />
                 </div>
               </div>

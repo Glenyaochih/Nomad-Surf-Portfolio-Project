@@ -4,6 +4,9 @@ import RecommendCarousel from '../../components/carousel/RecommendCarousel';
 import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
 import LevelEntranceCard01 from '../../components/card/LevelEntranceCard01';
 import LevelEntranceCard02 from '../../components/card/LevelEntranceCard02';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getProductsAsync } from '../../redux/slice/front/products/frontProductsSlice';
 
 const partners = [
   'img/homePage/partners-01.webp',
@@ -16,6 +19,11 @@ const partners = [
   'img/homePage/partners-08.webp',
 ];
 export default function HomePage() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductsAsync());
+  }, [dispatch]);
   return (
     <>
       <section>
@@ -23,7 +31,11 @@ export default function HomePage() {
       </section>
 
       <section>
-        <RecommendCarousel titleZhTW={'衝浪板'} title={'Latest'} />
+        <RecommendCarousel
+          titleZhTW={'衝浪板'}
+          title={'Latest'}
+          recommendType={'latest'}
+        />
       </section>
       <section>
         <LevelEntranceCard01
@@ -33,6 +45,7 @@ export default function HomePage() {
             title01: '浮力大、易站立，新手友善，讓你輕鬆享',
             title02: '受衝浪樂趣，快速建立信心！',
             backgroundImg: 'img/homePage/grade-01.webp',
+            grade: 'C',
           }}
         />
         <LevelEntranceCard02
@@ -42,6 +55,7 @@ export default function HomePage() {
             title01: '兼具穩定與靈活，適合進階玩家挑戰更多',
             title02: '動作，提升衝浪技巧！',
             backgroundImg: 'img/homePage/grade-02.webp',
+            grade: 'B',
           }}
         />
         <LevelEntranceCard01
@@ -51,6 +65,7 @@ export default function HomePage() {
             title01: '速度快、操控強，適合經驗豐富的衝浪',
             title02: '者，挑戰更刺激的浪點與極限動作！',
             backgroundImg: 'img/homePage/grade-03.webp',
+            grade: 'A',
           }}
         />
       </section>
@@ -62,7 +77,11 @@ export default function HomePage() {
                 <h4 className='text-white mb-7 mb-sm-11 fs-lg-2' lang='zh-TW'>
                   更多選擇 符合你的預期
                 </h4>
-                <DarkButtonLinearG btnName={'所有商品'} btnType={'btn-dark'} />
+                <DarkButtonLinearG
+                  btnName={'所有商品'}
+                  btnType={'btn-dark'}
+                  destination={'/products'}
+                />
               </div>
             </div>
           </div>

@@ -322,6 +322,7 @@ export default function ProductFilterOffcanvas() {
                   <OutlineButton
                     event={() => {
                       dispatch(setResetFilters());
+                      handleOffcanvasClose();
                     }}
                     type={'button'}
                     btnName={'清除全部'}

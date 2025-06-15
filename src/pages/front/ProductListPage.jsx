@@ -7,11 +7,9 @@ import {
   setSortOption,
 } from '../../redux/slice/front/products/frontProductsSlice';
 import { selectFilteredProducts } from '../../redux/slice/front/products/frontProductsSelectors';
-
 export default function ProductListPage() {
   const dispatch = useDispatch();
   const products = useSelector(selectFilteredProducts);
-
   const sortOption = [
     { value: '', label: '請選擇排序' },
     { value: 'best-selling', label: '最佳銷售' },

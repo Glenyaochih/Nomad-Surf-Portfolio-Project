@@ -195,6 +195,7 @@ export default function AdminAddProductModal() {
                               placeholder={`圖片網址 ${index + 1}`}
                               className='form-control mb-2'
                             />
+
                             {image && (
                               <img
                                 src={image}

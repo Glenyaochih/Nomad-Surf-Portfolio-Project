@@ -8,10 +8,15 @@ const selectFrontProducts = createSelector(
   [selectProductsState],
   (frontProductsSlice) => frontProductsSlice.products
 );
-
 export const selectFrontProduct = createSelector(
   [selectProductsState],
-  (frontProductsSlice) => frontProductsSlice.product
+  (frontProductsSlice) => {
+    return frontProductsSlice.product;
+  }
+);
+const selectRecommendType = createSelector(
+  [selectProductsState],
+  (frontProductSlice) => frontProductSlice.recommendType
 );
 
 const selectFilters = createSelector(
@@ -81,20 +86,62 @@ export const selectFilteredProducts = createSelector(
     // === 價格排序 ===
 
     if (sortOption === 'low-to-height') {
-      filteredProduct = filteredProduct.sort(
+      filteredProduct = [...filteredProduct].sort(
         (a, b) => a.origin_price - b.origin_price
       );
     }
     if (sortOption === 'height-to-low') {
-      filteredProduct = filteredProduct.sort(
+      filteredProduct = [...filteredProduct].sort(
         (a, b) => b.origin_price - a.origin_price
       );
     }
     // ===銷售排序 ===
     if (sortOption === 'best-selling') {
-      filteredProduct = filteredProduct.sort((a, b) => a.soldNum - b.soldNum);
+      filteredProduct = [...filteredProduct].sort(
+        (a, b) => a.soldNum - b.soldNum
+      );
     }
 
     return filteredProduct;
+  }
+);
+
+export const selectRecommendedProducts = createSelector(
+  [selectFrontProducts, selectFrontProduct, selectRecommendType],
+  (products, currentProduct, type) => {
+    // 如果推薦類型是 'latest'，直接篩選最新產品，不依賴 currentProduct
+    if (type === 'latest') {
+      const latestProducts = products.filter((product) => {
+        return product.is_new_arrivals;
+      });
+      return latestProducts;
+    }
+
+    // 以下邏輯只適用於依賴 currentProduct 的推薦類型 (例如 'more_recommend')
+    if (!currentProduct || Object.keys(currentProduct).length === 0) {
+      return []; // 如果沒有當前產品，則不推薦
+    }
+
+    if (type === 'more_recommend') {
+      const filteredByGrade = products.filter(
+        (product) =>
+          product.grade === currentProduct.grade &&
+          product.id !== currentProduct.id
+      );
+
+      // 如果沒有相同等級的產品，則從所有產品中隨機選取
+      const productsToRecommend =
+        filteredByGrade.length > 0 ? filteredByGrade : products;
+
+      // 隨機洗牌並取前5個產品 (確保不可變性)
+      const randomProducts = [...productsToRecommend].sort(
+        () => 0.5 - Math.random()
+      );
+      // 篩選出相同等級且不等於當前產品的板子
+      return randomProducts.slice(0, 5);
+    }
+
+    // 如果沒有匹配的推薦類型，返回空陣列
+    return [];
   }
 );

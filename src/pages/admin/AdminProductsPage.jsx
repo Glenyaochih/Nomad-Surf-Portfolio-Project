@@ -32,7 +32,7 @@ export default function AdminProductsPage() {
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  // === modal section --> adminModalSlices ===
+  // === 模態框相關功能 ===
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
@@ -42,9 +42,8 @@ export default function AdminProductsPage() {
   const checkProductModalOpen = (state, data) => {
     dispatch(setCheckProductOpen({ open: true, state, data }));
   };
-  // === modal section --> adminModalSlices ===
 
-  // === delete section --> adminDelProductSlices ===
+  // === 產品刪除功能 ===
   const handleProductDelInputChange = (e, productId) => {
     const { checked } = e.target;
     dispatch(setDelProductInputChange({ checked, productId }));
@@ -54,7 +53,7 @@ export default function AdminProductsPage() {
     dispatch(adminDelProductsAsync());
   };
 
-  // === edit section --> adminPutProductSlices.js ===
+  // === 產品編輯功能 ===
   const editProductHandler = (product) => {
     setEditState(product.id);
     dispatch(setTempProduct(product));
@@ -68,32 +67,32 @@ export default function AdminProductsPage() {
   const confirmEditProduct = () => {
     dispatch(adminPutProductAsync());
   };
-  // === edit section --> adminPutProductSlices.js ===
 
-  // === filter section --> adminGetProductSlices.js ===
-
+  // === 產品篩選功能 ===
   const categoryFilterHandler = (newCategory) => {
     dispatch(setProductCategory(newCategory));
     dispatch(adminGetProductsAsync({ page: 1, category: newCategory }));
   };
 
-  // === filter section --> adminGteProductSlices.js ===
-
+  // useEffect hook 在組件掛載時獲取產品數據
   useEffect(() => {
     dispatch(adminGetProductsAsync({}));
   }, [dispatch]);
 
   return (
     <>
+      {/* 用於添加、檢查和編輯產品功能的模態框 */}
       <AdminAddProductModal />
       <AdminCheckProductModal />
       <AdminEditProductModal />
 
       <div>
+        {/* 帶有標題和操作按鈕的橫幅部分 */}
         <div className=' banner mb-4'>
           <h5 className='fs-5 mt-4 mb-7'>商品管理</h5>
 
           <div className='d-flex justify-content-between align-items-center'>
+            {/* 產品類別篩選下拉選單 */}
             <select
               className='form-select bg-primary-400 h-100'
               aria-label='Default select example'
@@ -108,12 +107,14 @@ export default function AdminProductsPage() {
               <option value='shortBoard'>短板</option>
             </select>
             <div>
+              {/* 添加產品按鈕 */}
               <button
                 onClick={addProductModalOpen}
                 className='btn btn-dark text-white border deleteButton px-4 me-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>新增產品
               </button>
+              {/* 刪除選定產品按鈕 */}
               <button
                 onClick={confirmDelProduct}
                 className='btn btn-dark text-white border deleteButton px-4'
@@ -124,6 +125,7 @@ export default function AdminProductsPage() {
           </div>
         </div>
 
+        {/* 產品表格部分 */}
         <div className='table-responsive position-relative'>
           <div
             className='table-container border d-flex'
@@ -172,6 +174,9 @@ export default function AdminProductsPage() {
                     狀態
                   </th>
                   <th scope='col' style={{ width: '150px' }}>
+                    新品
+                  </th>
+                  <th scope='col' style={{ width: '150px' }}>
                     折價券
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
@@ -183,10 +188,13 @@ export default function AdminProductsPage() {
                 </tr>
               </thead>
               <tbody className='rounded-bottom'>
+                {/* 遍歷產品並渲染每一行 */}
                 {products?.map((product, index) => (
                   <tr className='' key={product.id}>
+                    {/* 根據 editState 條件渲染：顯示產品信息或可編輯的輸入字段 */}
                     {product.id !== editState ? (
                       <>
+                        {/* 產品選擇複選框和索引 */}
                         <th scope='col' className='align-middle'>
                           <div className='form-check'>
                             <input
@@ -206,6 +214,7 @@ export default function AdminProductsPage() {
                             </label>
                           </div>
                         </th>
+                        {/* 編輯產品按鈕 */}
                         <td className='align-middle'>
                           <button
                             className='btn'
@@ -218,12 +227,14 @@ export default function AdminProductsPage() {
                             <MdModeEditOutline />
                           </button>
                         </td>
+                        {/* 產品詳細信息 */}
                         <td className='align-middle'>{product.product_num}</td>
                         <td className='align-middle'>{product.title}</td>
                         <td className='align-middle'>{product.category}</td>
                         <td className='align-middle'>{product.grade}</td>
                         <td className='align-middle'>{product.origin_price}</td>
                         <td className='align-middle'>{product.price}</td>
+                        {/* 用於查看尺寸、顏色和圖片詳細信息的按鈕 */}
                         <td className='align-middle'>
                           <button
                             className='btn btn-outline-primary btn-sm'
@@ -247,6 +258,7 @@ export default function AdminProductsPage() {
                           </button>
                         </td>
                         <td className='align-middle'>{product.fin_system}</td>
+                        {/* 產品狀態（啟用/禁用） */}
                         <td className='align-middle'>
                           {product.is_enabled ? (
                             <span className='text-success'>上架</span>
@@ -254,6 +266,15 @@ export default function AdminProductsPage() {
                             <span className='text-secondary'>下架</span>
                           )}
                         </td>
+                        {/* 新上架產品 */}
+                        <td className='align-middle'>
+                          {product.is_new_arrivals ? (
+                            <span className='text-success'>是</span>
+                          ) : (
+                            <span className='text-secondary'>否</span>
+                          )}
+                        </td>
+                        {/* 產品折扣狀態 */}
                         <td className='align-middle'>
                           {product.hasDiscount ? (
                             <span className='text-success'>是</span>
@@ -261,6 +282,7 @@ export default function AdminProductsPage() {
                             <span className='text-secondary'>否</span>
                           )}
                         </td>
+                        {/* 帶有查看詳細信息按鈕的產品圖片 */}
                         <td className='align-middle'>
                           <a
                             className='btn'
@@ -276,13 +298,16 @@ export default function AdminProductsPage() {
                             />
                           </a>
                         </td>
+                        {/* 產品描述 */}
                         <td className='align-middle'>{product.description}</td>
                       </>
                     ) : (
                       <>
+                        {/* 編輯產品的行：顯示輸入字段 */}
                         <th scope='row' className='align-middle'>
                           <label className='mt-1'>{index + 1}</label>
                         </th>
+                        {/* 確認編輯按鈕 */}
                         <td className='align-middle'>
                           <button
                             className='btn'
@@ -295,6 +320,7 @@ export default function AdminProductsPage() {
                             <MdCheck />
                           </button>
                         </td>
+                        {/* 產品詳細信息的可編輯輸入字段 */}
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center '>
                             <input
@@ -376,6 +402,7 @@ export default function AdminProductsPage() {
                             />
                           </div>
                         </td>
+                        {/* 用於編輯尺寸、顏色和圖片詳細信息的按鈕 */}
                         <td className='align-middle'>
                           <div className='d-flex justify-content-center'>
                             <button
@@ -421,10 +448,11 @@ export default function AdminProductsPage() {
                             </select>
                           </div>
                         </td>
+                        {/* 用於產品狀態和折扣的複選框 */}
                         <td className='align-middle'>
                           <div className='form-check '>
                             <input
-                              value={tempProduct.is_enabled}
+                              checked={tempProduct.is_enabled}
                               onChange={handleProductPutInputChange}
                               name='is_enabled'
                               id='is_enabled'
@@ -440,9 +468,27 @@ export default function AdminProductsPage() {
                           </div>
                         </td>
                         <td className='align-middle'>
+                          <div className='form-check '>
+                            <input
+                              checked={tempProduct.is_new_arrivals}
+                              onChange={handleProductPutInputChange}
+                              name='is_new_arrivals'
+                              id='is_new_arrivals'
+                              className='form-check-input'
+                              type='checkbox'
+                            />
+                            <label
+                              className='form-check-label'
+                              htmlFor='is_new_arrivals'
+                            >
+                              是否為新品
+                            </label>
+                          </div>
+                        </td>
+                        <td className='align-middle'>
                           <div className='form-check'>
                             <input
-                              value={tempProduct.hasDiscount}
+                              checked={tempProduct.hasDiscount}
                               onChange={handleProductPutInputChange}
                               name='hasDiscount'
                               id='hasDiscount'
@@ -474,6 +520,7 @@ export default function AdminProductsPage() {
                             />
                           </a>
                         </td>
+                        {/* 產品描述的可編輯文本區域 */}
                         <td className='align-middle'>
                           <textarea
                             value={tempProduct.description}
@@ -493,6 +540,7 @@ export default function AdminProductsPage() {
             </table>
           </div>
         </div>
+        {/* 管理員分頁組件 */}
         <AdminPagination pageState={'products'} />
       </div>
     </>
