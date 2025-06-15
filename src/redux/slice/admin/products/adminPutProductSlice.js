@@ -20,6 +20,7 @@ export const adminPostProductSlice = createSlice({
       imageUrl: '',
       imagesUrl: [''],
       is_enabled: 0,
+      is_new_arrivals: 0,
       origin_price: '',
       price: '',
       sizes: [],
@@ -127,6 +128,7 @@ export const adminPutProductAsync = createAsyncThunk(
         })),
         hasDiscount: tempProduct.hasDiscount ? 1 : 0,
         is_enabled: tempProduct.is_enabled ? 1 : 0,
+        is_new_arrivals: tempProduct.is_new_arrivals ? 1 : 0,
       },
     };
     dispatch(setAdminGetLoading(true));

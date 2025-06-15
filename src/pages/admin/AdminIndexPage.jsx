@@ -54,13 +54,18 @@ export default function AdminIndexPage() {
                 </li>
               </ul>
             </div>
-            <a
-              onClick={logoutHandler}
-              href='#'
-              className='btn btn-dark border py-3'
-            >
-              登出
-            </a>
+            <div className=''>
+              <Link className='btn btn-dark border py-3' to={'/'}>
+                回首頁
+              </Link>
+              <button
+                onClick={logoutHandler}
+                href='#'
+                className='btn btn-dark border py-3'
+              >
+                登出
+              </button>
+            </div>
           </div>
         </section>
 
@@ -120,7 +125,7 @@ export default function AdminIndexPage() {
             <div className='d-flex justify-content-between align-items-center pb-7'>
               <i className='bi bi-search fs-5 web'></i>
               <div className='d-flex justify-content-center align-items-center'>
-                <div className='userImage rounded-circle bg-white fs-5 me-3'>
+                <div className='userImage rounded-circle border border-dark bg-white fs-5 me-3'>
                   A
                 </div>
                 <div className='fs-6'>Alice</div>

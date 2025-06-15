@@ -2,13 +2,26 @@ import { NavLink } from 'react-router-dom';
 import { MdOutlineSearch, MdOutlineShoppingCart, MdMenu } from 'react-icons/md';
 import { FiUser } from 'react-icons/fi';
 import NavbarMarquee from '../carousel/Marquee';
+import { setResetFilters } from '../../redux/slice/front/products/frontProductsSlice';
+import { useDispatch } from 'react-redux';
 
 export default function TestNavbar() {
+  const dispatch = useDispatch();
   const routes = [
-    { path: '/', name: '最新衝浪板' },
-    { path: 'products', name: '所有商品' },
-    { path: 'wave', name: '即時浪況' },
-    { path: 'shower-map', name: '沖澡地圖' },
+    {
+      path: '/',
+      name: '最新衝浪板',
+      event: () => {
+        dispatch(setResetFilters());
+      },
+    },
+    { path: 'products', name: '所有商品', event: '' },
+    { path: 'wave', name: '即時浪況', event: '' },
+    {
+      path: 'shower-map',
+      name: '沖澡地圖',
+      event: '',
+    },
   ];
 
   const mobile_routes = [
@@ -42,15 +55,15 @@ export default function TestNavbar() {
               </a>
             </li>
             <li>
-              <a
+              <NavLink
                 onClick={(e) => {
                   e.preventDefault();
                 }}
-                href='#'
+                to={'/cart'}
                 className='p-3'
               >
                 <MdOutlineShoppingCart />
-              </a>
+              </NavLink>
             </li>
           </ul>
           <button
@@ -93,6 +106,7 @@ export default function TestNavbar() {
                       <NavLink
                         className='nav-link py-3 py-lg-5 px-lg-4'
                         to={route.path}
+                        onClick={route.event}
                       >
                         <h6 className='fw-semibold'>{route.name}</h6>
                       </NavLink>

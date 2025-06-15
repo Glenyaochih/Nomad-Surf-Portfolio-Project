@@ -15,6 +15,7 @@ const initialProductPostState = {
   imageUrl: '',
   imagesUrl: [''],
   is_enabled: 0,
+  is_new_arrivals: 0,
   origin_price: '',
   price: '',
   sizes: [{ size: '', stock: 0 }],
@@ -65,7 +66,7 @@ export const adminPostProductSlice = createSlice({
         ...state.initData.colors,
         { colorName: '', colorCode: '' },
       ];
-      console.log(newColors);
+
       state.initData.colors = newColors;
     },
 
@@ -126,6 +127,7 @@ export const adminPostProductAsync = createAsyncThunk(
         })),
         hasDiscount: initData.hasDiscount ? 1 : 0,
         is_enabled: initData.is_enabled ? 1 : 0,
+        is_new_arrivals: initData.is_new_arrivals ? 1 : 0,
       },
     };
     try {

@@ -61,11 +61,11 @@ const route = [
         element: <SurfKnowledge />,
       },
       {
-        path: 'shower-map',
+        path: '/shower-map',
         element: <ShowerMapPage />,
       },
       {
-        path: 'wave',
+        path: '/wave',
         element: <WaveReportPage />,
       },
     ],

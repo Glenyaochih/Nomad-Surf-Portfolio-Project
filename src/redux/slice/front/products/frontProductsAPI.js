@@ -7,7 +7,6 @@ export const frontGetProductsAPI = {
     return axios.get(`${BASE_URL}/v2/api/${API_PATH}/products/all`);
   },
   getSingleProducts: async (id) => {
-    console.log(id);
     return axios.get(`${BASE_URL}/v2/api/${API_PATH}/product/${id}`);
   },
 };

@@ -1,8 +1,15 @@
+import OutlineButton from '../button/outlineButton';
+
 const service = [
-  { title: '查詢最佳衝浪時機', img: 'img/homePage/wave-condition.webp' },
+  {
+    title: '查詢最佳衝浪時機',
+    img: 'img/homePage/wave-condition.webp',
+    destination: '/wave',
+  },
   {
     title: '查離我最近的沖澡地點',
     img: 'img/homePage/shower-stop.webp',
+    destination: '/shower-map',
   },
 ];
 
@@ -29,17 +36,12 @@ export default function PickYourTimeAndGo() {
                     <div className='card-img-overlay p-0 d-flex align-items-center'>
                       <div className='ms-7'>
                         <h5 className='card-title mb-5'>{item.title}</h5>
-                        <button className='btn border-0  p-0 fw-normal text-primary-100 fs-7 icon-link icon-link-hover fs-sm-6'>
-                          來去看看
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            className='bi ms-3 fs-5'
-                            viewBox='0 0 15 15'
-                            aria-hidden='true'
-                          >
-                            <path d='M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z' />
-                          </svg>
-                        </button>
+                        <OutlineButton
+                          btnName={'來去看看'}
+                          btnColor={'primary-40'}
+                          isArrowVisible={true}
+                          destination={item.destination}
+                        />
                       </div>
                     </div>
                   </div>

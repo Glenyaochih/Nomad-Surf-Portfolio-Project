@@ -1,19 +1,25 @@
+import { useRef } from 'react';
 import { BsTwitterX, BsFacebook, BsInstagram, BsYoutube } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md';
 
 import { Link } from 'react-router-dom';
 
 export default function OceanFooter() {
-  const aboutRoutes = [{ path: 'admin', name: '聯絡遊牧衝浪' }];
+  const aboutRoutes = [{ path: 'admin', name: '後台管理入口' }];
   const productRoutes = [
-    { path: '', name: '衝浪板' },
-    { path: '', name: '配件' },
-    { path: '', name: '周邊' },
+    { path: '/products', name: '衝浪板' },
+    { path: '/', name: '配件' },
+    { path: '/', name: '周邊' },
   ];
   const surfInfRoutes = [
-    { path: '', name: '全台浪點' },
-    { path: '', name: '沖澡地圖' },
+    { path: '/wave', name: '全台浪點' },
+    { path: '/shower-map', name: '沖澡地圖' },
   ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       <div className='footerBg py-7'>
@@ -34,8 +40,8 @@ export default function OceanFooter() {
             </div>
             <div>
               <a
-                className='d-flex flex-column align-items-center px-3 py-4'
-                href='#'
+                className='d-flex flex-column align-items-center px-3 py-4 btn fs-7'
+                onClick={scrollToTop}
               >
                 <MdOutlineKeyboardArrowUp />
                 <p className='d-none d-sm-block'>回到頂端</p>

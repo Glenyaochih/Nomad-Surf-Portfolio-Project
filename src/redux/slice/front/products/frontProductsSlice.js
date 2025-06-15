@@ -5,9 +5,10 @@ const initialState = {
   products: [],
   isProductsLoading: false,
   productsError: null,
-  product: '',
+  product: {},
   isProductLoading: false,
   productError: null,
+  recommendType: '',
   filters: {
     filterOffcanvasOpen: false,
     tempFilters: {
@@ -32,10 +33,12 @@ export const getProductsSlice = createSlice({
   reducers: {
     setFilter: (state, action) => {
       const { filterType, value } = action.payload;
+      console.log(value);
       state.filters.tempFilters[filterType] = value;
     },
     setApplyFilter: (state) => {
       //當點擊套用篩選按鈕時將tempFilter塞入activeFilters
+      console.log(state.filters.tempFilters);
       state.filters.activeFilters = state.filters.tempFilters;
     },
     setResetFilters: (state) => {
@@ -49,6 +52,10 @@ export const getProductsSlice = createSlice({
     setSortOption: (state, action) => {
       const { sortOption } = action.payload;
       state.filters.sortOption = sortOption;
+    },
+    setRecommend: (state, action) => {
+      const { recommendType } = action.payload;
+      state.recommendType = recommendType;
     },
   },
 
@@ -67,16 +74,16 @@ export const getProductsSlice = createSlice({
         state.isProductsLoading = false;
         state.productsError = action.error.message;
       })
-      // === 取得單一產品 ===
-      .addCase(getSingleProductsAsync.pending, (state) => {
+      .addCase(getSingleProductAsync.pending, (state) => {
         state.isProductLoading = true;
+        state.product = {};
         state.productError = null;
       })
-      .addCase(getSingleProductsAsync.fulfilled, (state, action) => {
+      .addCase(getSingleProductAsync.fulfilled, (state, action) => {
         state.product = action.payload;
         state.isProductLoading = false;
       })
-      .addCase(getSingleProductsAsync.rejected, (state, action) => {
+      .addCase(getSingleProductAsync.rejected, (state, action) => {
         state.isProductLoading = false;
         state.productError = action.error.message;
       });
@@ -95,7 +102,7 @@ export const getProductsAsync = createAsyncThunk(
   }
 );
 
-export const getSingleProductsAsync = createAsyncThunk(
+export const getSingleProductAsync = createAsyncThunk(
   'product/frontGetSingleProducts',
   async (id, { rejectWithValue }) => {
     try {
@@ -107,9 +114,9 @@ export const getSingleProductsAsync = createAsyncThunk(
   }
 );
 
-// export const {} = getProductsSlice.actions;
 export const {
   setFilter,
+  setRecommend,
   setSortOption,
   setApplyFilter,
   setResetFilters,
