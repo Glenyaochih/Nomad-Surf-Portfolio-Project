@@ -1,26 +1,60 @@
-import { useState } from 'react';
-import {
-  MdAttachMoney,
-  MdDelete,
-  MdClose,
-  MdEdit,
-  MdAddShoppingCart,
-} from 'react-icons/md';
+import { useEffect, useState } from 'react';
+import { MdAddShoppingCart } from 'react-icons/md';
 import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
 import OutlineButton from '../../components/button/outlineButton';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  clearCartAsync,
+  delCartAsync,
+  getCartAsync,
+  putCartAsync,
+} from '../../redux/slice/front/cart/cartSlice';
+import { selectCart } from '../../redux/slice/front/cart/cartSelectors';
 
 export default function ShoppingCartPage() {
   const [sortValue, setSortValue] = useState('best_selling');
+  const dispatch = useDispatch();
+  const cartList = useSelector(selectCart);
+  const [isCartsEditOpen, setIsCartsEditOpen] = useState(false);
+  const [idContainer, setIdContainer] = useState([]);
+
   const sortOptions = [
     { value: '', label: '無' },
     { value: 'anniversary-sell', label: '週年慶' },
     { value: 'mothers-day-sell', label: '母親節優惠' },
     { value: 'fathers-day-sell', label: '父親節優惠' },
   ];
+  console.log(cartList);
+
   const handleSortChange = (e) => {
     setSortValue(e.target.value);
-    console.log(e.target.value);
   };
+  //增加或減少數量
+  const updateCartItem = (cartId, product_id, qty) => {
+    dispatch(
+      putCartAsync({ cartId: cartId, product_id: product_id, qty: qty })
+    );
+  };
+
+  const handleDelCartItemChange = (e) => {
+    const { checked, value } = e.target;
+    const productId = value;
+    if (checked) {
+      setIdContainer((prevIds) => [...prevIds, productId]);
+    } else {
+      setIdContainer((prevIds) => prevIds.filter((id) => id !== productId));
+    }
+  };
+
+  const confirmDelCarts = () => {
+    idContainer.forEach((id) => {
+      dispatch(delCartAsync(id));
+    });
+  };
+
+  useEffect(() => {
+    dispatch(getCartAsync());
+  }, [dispatch]);
   return (
     <>
       <div className='bg-neutral-40'>
@@ -78,131 +112,169 @@ export default function ShoppingCartPage() {
                 <div className='col-0 col-lg-8'>
                   <section>
                     <div className='pb-3 pb-sm-0'>
-                      {/*===== 購物車清空 =====*/}
-                      <section className='d-none'>
-                        <div className='cart-empty react-icon bg-white rounded-3 text-neutral-60'>
-                          <div className='text-center'>
-                            <MdAddShoppingCart className='cart-empty-icon ' />
-                            <h6 className='fs-6' lang='zh-TW'>
-                              購物車空空如也
-                              <span className='d-none d-lg-inline'>，</span>
-                              <br className='d-lg-none' />
-                              趕緊挑個心愛的衝浪板吧！
-                            </h6>
-                          </div>
-                          <div className='d-flex justify-content-center pt-9'>
-                            <DarkButtonLinearG
-                              btnName={'去看商品'}
-                              btnType={'btn-dark'}
-                            />
-                          </div>
-                        </div>
-                      </section>
-                      {/*===== 購物車內容 =====*/}
-                      <section>
-                        <div className='bg-white rounded-3 px-3'>
-                          {/*===== 功能欄 =====*/}
-                          <div className='d-flex w-100 py-7  border-bottom'>
-                            <OutlineButton
-                              btnName={'清空購物車'}
-                              btnColor={'neutral-60'}
-                            />
-                            <div className='ms-auto d-flex'>
-                              <OutlineButton
-                                btnName={'編輯'}
-                                btnColor={'neutral-60'}
+                      {cartList.carts?.length === 0 ? (
+                        <section>
+                          {/*===== 購物車清空 =====*/}
+                          <div className='cart-empty react-icon bg-white rounded-3 text-neutral-60'>
+                            <div className='text-center'>
+                              <MdAddShoppingCart className='cart-empty-icon ' />
+                              <h6 className='fs-6' lang='zh-TW'>
+                                購物車空空如也
+                                <span className='d-none d-lg-inline'>,</span>
+                                <br className='d-lg-none' />
+                                趕緊挑個心愛的衝浪板吧！
+                              </h6>
+                            </div>
+                            <div className='d-flex justify-content-center pt-9'>
+                              <DarkButtonLinearG
+                                btnName={'去看商品'}
+                                btnType={'btn-dark'}
+                                destination={'/products'}
                               />
-                              <div className='d-flex'>
-                                <OutlineButton
-                                  btnName={'取消編輯'}
-                                  btnColor={'neutral-60'}
-                                />
-                                <p className='text-accent-100 ms-2'>
-                                  刪除(已選1項)
-                                </p>
-                              </div>
                             </div>
                           </div>
-                          {/*===== 項目卡片 =====*/}
-                          <div>
-                            <div className='d-flex align-items-center w-100 p-3 p-lg-4  border-bottom'>
-                              <input
-                                style={{ height: '24px', width: '24px' }}
-                                className='form-check-input me-4 mt-0'
-                                type='checkbox'
-                                value=''
-                                id='flexCheckDefault'
-                              />
-                              <div className='p-3 p-lg-4 w-100'>
-                                <div className=' w-100 d-flex'>
-                                  <img
-                                    className='object-fit-cover shopping-cart-product-img'
-                                    src='img/products/short-board-01-isometric-projection.png'
-                                    alt='surf-board'
-                                  />
-                                  <div className='d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ms-2 gap-4 w-100'>
-                                    <p
-                                      className='fs-lg-5 mb-lg-4 '
-                                      style={{ lineHeight: 1.5 }}
-                                    >
-                                      islandsurfboards
-                                      <br />
-                                      GO Surfboard
+                        </section>
+                      ) : (
+                        <section>
+                          {/*===== 購物車內容 =====*/}
+                          <div className='bg-white rounded-3 px-3'>
+                            {/*===== 功能欄 =====*/}
+                            <div className='d-flex w-100 py-7  border-bottom '>
+                              <div className='ms-4'>
+                                <OutlineButton
+                                  btnName={'清空購物車'}
+                                  btnColor={'neutral-60'}
+                                  event={() => dispatch(clearCartAsync())}
+                                />
+                              </div>
+                              <div className='ms-auto d-flex'>
+                                {isCartsEditOpen ? (
+                                  <div className='d-flex'>
+                                    <OutlineButton
+                                      event={() => setIsCartsEditOpen(false)}
+                                      btnName={'取消編輯'}
+                                      btnColor={'neutral-60'}
+                                    />
+                                    <div className='ms-3'>
+                                      <OutlineButton
+                                        event={confirmDelCarts}
+                                        btnName={'刪除'}
+                                        btnColor={'accent-100'}
+                                      />
+                                    </div>
+
+                                    <p className='text-accent-100 ms-2'>
+                                      (已選{cartList.carts.length}項)
                                     </p>
-                                    <p
-                                      className='text-nowrap'
-                                      style={{ lineHeight: 1.5 }}
-                                    >
-                                      NT$ 1,200
-                                    </p>
-                                    <div className='w-sm-100 d-flex'>
-                                      <div
-                                        className='btn-group btn-group-sm ms-sm-auto'
-                                        role='group'
-                                        aria-label='Small button group'
-                                      >
-                                        <button
-                                          type='button'
-                                          className='btn btn-outline-neutral-40 text-neutral-80 px-0'
-                                          style={{
-                                            width: '40px',
-                                          }}
-                                        >
-                                          +
-                                        </button>
-                                        <span
-                                          className='btn border border-neutral-40 px-0'
-                                          style={{
-                                            width: '48px',
-                                            cursor: 'auto',
-                                          }}
-                                        >
-                                          1
-                                        </span>
-                                        <button
-                                          type='button'
-                                          className='btn btn-outline-neutral-40 text-neutral-80 px-1'
-                                          style={{
-                                            width: '40px',
-                                          }}
-                                        >
-                                          -
-                                        </button>
-                                      </div>
-                                      <div className='ms-auto d-none'>
-                                        <OutlineButton
-                                          btnName={'刪除'}
-                                          btnColor={'accent-100'}
-                                        />
+                                  </div>
+                                ) : (
+                                  <div className='me-4'>
+                                    <OutlineButton
+                                      disabled={cartList?.length?.length === 0}
+                                      event={() => setIsCartsEditOpen(true)}
+                                      btnName={'編輯'}
+                                      btnColor={'neutral-60'}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            {/*===== 項目卡片 =====*/}
+                            <div>
+                              {cartList.carts?.map((item) => (
+                                <div
+                                  key={item.id}
+                                  className='form-check d-flex align-items-center w-100 p-3 p-lg-4  border-bottom'
+                                >
+                                  {isCartsEditOpen && (
+                                    <input
+                                      style={{ height: '24px', width: '24px' }}
+                                      className='form-check-input me-4 ms-0 mt-0 '
+                                      type='checkbox'
+                                      onChange={(e) =>
+                                        handleDelCartItemChange(e)
+                                      }
+                                      value={item.id}
+                                      id={`product-check${item.id}}`}
+                                    />
+                                  )}
+
+                                  <label
+                                    className='form-check-label p-3 p-lg-4 w-100'
+                                    htmlFor={`product-check${item.id}}`}
+                                  >
+                                    <div className=' w-100 d-flex'>
+                                      <img
+                                        className='object-fit-cover shopping-cart-product-img'
+                                        src={item.product.imageUrl}
+                                        alt='surf-board'
+                                      />
+                                      <div className='d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ms-2 gap-4 w-100'>
+                                        <p className='fs-lg-5 mb-lg-4 h5'>
+                                          {item.product.title}
+                                        </p>
+                                        <p className='text-nowrap ms-auto me-2 lh-base'>
+                                          NT$ {item.total}
+                                        </p>
+                                        <div className='w-sm-100 d-flex'>
+                                          <div
+                                            className='btn-group btn-group-sm ms-sm-auto'
+                                            role='group'
+                                            aria-label='Small button group'
+                                          >
+                                            <button
+                                              type='button'
+                                              className='btn btn-outline-neutral-40 text-neutral-80 px-0'
+                                              style={{
+                                                width: '40px',
+                                              }}
+                                              onClick={() => {
+                                                updateCartItem(
+                                                  item.id,
+                                                  item.product_id,
+                                                  item.qty + 1
+                                                );
+                                              }}
+                                            >
+                                              +
+                                            </button>
+                                            <span
+                                              className='btn border border-neutral-40 px-0'
+                                              style={{
+                                                width: '48px',
+                                                cursor: 'auto',
+                                              }}
+                                            >
+                                              {item.qty}
+                                            </span>
+                                            <button
+                                              type='button'
+                                              className='btn btn-outline-neutral-40 text-neutral-80 px-1'
+                                              style={{
+                                                width: '40px',
+                                              }}
+                                              onClick={() => {
+                                                updateCartItem(
+                                                  item.id,
+                                                  item.product_id,
+                                                  item.qty - 1
+                                                );
+                                              }}
+                                              disabled={item.qty === 1}
+                                            >
+                                              -
+                                            </button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  </label>
                                 </div>
-                              </div>
+                              ))}
                             </div>
                           </div>
-                        </div>
-                      </section>
+                        </section>
+                      )}
                     </div>
                   </section>
                   <section>
@@ -405,8 +477,12 @@ export default function ShoppingCartPage() {
                             <h6>訂單資訊</h6>
                           </div>
                           <div className='d-flex py-3'>
-                            <p className='text-neutral-80'>3 項商品</p>
-                            <h6 className='fs-7 ms-auto'>NT$ 3600</h6>
+                            <p className='text-neutral-80'>
+                              {cartList?.carts?.length}項商品
+                            </p>
+                            <h6 className='fs-7 ms-auto'>
+                              NT$ {cartList.total}
+                            </h6>
                           </div>
                           <div className='d-flex py-3'>
                             <p className='text-neutral-80'>運費</p>
@@ -440,19 +516,21 @@ export default function ShoppingCartPage() {
                           <hr className='my-3' />
                           <div className='d-flex py-3'>
                             <p className='text-neutral-80 mt-auto'>總計</p>
-                            <h3 className='ms-auto'>NT$ 3,600</h3>
+                            <h3 className='ms-auto'>
+                              NT$ {cartList.final_total}
+                            </h3>
                           </div>
-                          <div class='d-grid py-3'>
+                          <div className='d-grid py-3'>
                             <button
-                              class='btn btn-primary-100 py-4 fs-7 '
+                              className='btn btn-primary-100 py-4 fs-7 '
                               type='button'
                               lang='zh-TW'
                             >
                               前往結帳
                             </button>
                           </div>
-                          <div className='mt-1'>
-                            <p>
+                          <div className='mt-1 mb-3'>
+                            <p lang='zh-TW'>
                               確認購買即表示您已審閱NOMAD
                               SURFER所提供購物相關條款，並同意條款內容。
                             </p>

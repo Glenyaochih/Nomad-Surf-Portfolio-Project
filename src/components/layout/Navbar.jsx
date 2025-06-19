@@ -3,10 +3,12 @@ import { MdOutlineSearch, MdOutlineShoppingCart, MdMenu } from 'react-icons/md';
 import { FiUser } from 'react-icons/fi';
 import NavbarMarquee from '../carousel/Marquee';
 import { setResetFilters } from '../../redux/slice/front/products/frontProductsSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart } from '../../redux/slice/front/cart/cartSelectors';
 
 export default function TestNavbar() {
   const dispatch = useDispatch();
+  const cartList = useSelector(selectCart);
   const routes = [
     {
       path: '/',
@@ -139,7 +141,17 @@ export default function TestNavbar() {
                 </li>
                 <li>
                   <NavLink to={'/cart'} className='p-3'>
-                    <MdOutlineShoppingCart />
+                    <div className='position-relative'>
+                      <MdOutlineShoppingCart />
+                      {cartList?.carts?.length > 0 && (
+                        <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary-100 text-white'>
+                          {cartList?.carts?.length}
+                          <span className='visually-hidden'>
+                            unread messages
+                          </span>
+                        </span>
+                      )}
+                    </div>
                   </NavLink>
                 </li>
               </ul>

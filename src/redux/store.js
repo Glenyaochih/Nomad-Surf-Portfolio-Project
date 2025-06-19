@@ -14,6 +14,7 @@ import adminPutOrderReducer from './slice/admin/orders/adminPutOrderSlice';
 import adminDelOrdersReducer from './slice/admin/orders/adminDelOrdersSlice';
 import adminLogoutReducer from './slice/admin/adminLogoutSlice';
 import frontGetProductsReducer from './slice/front/products/frontProductsSlice';
+import frontCartReducer from './slice/front/cart/cartSlice';
 import modalReducer from './slice/modalSlice';
 import loadingReducer from './slice/admin/adminLoadingSlice';
 
@@ -36,6 +37,8 @@ export const store = configureStore({
     adminDelOrders: adminDelOrdersReducer,
     // === 前台管理 ===
     frontGetProducts: frontGetProductsReducer,
+    cart: frontCartReducer,
+
     // === 元件控制 ===
     modal: modalReducer,
     loading: loadingReducer,

@@ -3,6 +3,7 @@
   .color-label {
     height: 32px;
     width: 32px;
+    border-radius: 50%;
   }
 
   .color-input:checked~.color-label {

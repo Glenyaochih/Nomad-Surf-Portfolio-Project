@@ -3,25 +3,55 @@ import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
 import RecommendCarousel from '../../components/carousel/RecommendCarousel';
 import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getSingleProductAsync } from '../../redux/slice/front/products/frontProductsSlice';
 import { selectFrontProduct } from '../../redux/slice/front/products/frontProductsSelectors';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { postCartAsync } from '../../redux/slice/front/cart/cartSlice';
 
 // 商品詳情頁面組件
 export default function ProductDetailPage() {
   // 從 URL 參數中獲取產品 ID
   const { id: product_id } = useParams();
   const dispatch = useDispatch();
+  const [cartOption, setCartOption] = useState({
+    product_id: '',
+    qty: 1,
+    size: '',
+    color: '',
+  });
   // 從 Redux store 中選取當前產品資料
   const product = useSelector(selectFrontProduct);
+
+  const handleAddCartOptionChange = (e) => {
+    const { name, value } = e.target;
+    setCartOption((prevOption) => {
+      return {
+        ...prevOption,
+        [name]: value,
+      };
+    });
+  };
+  console.log(cartOption);
+  const handleAddCart = () => {
+    dispatch(postCartAsync(cartOption));
+  };
 
   // 獲取單一產品資料的副作用
   useEffect(() => {
     dispatch(getSingleProductAsync(product_id));
   }, [product_id, dispatch]);
+
+  useEffect(() => {
+    if (product.id) {
+      setCartOption((prevOption) => ({
+        ...prevOption,
+        product_id: product.id,
+      }));
+    }
+  }, [product.id]);
 
   // 組件渲染
   return (
@@ -102,7 +132,7 @@ export default function ProductDetailPage() {
                 {/* 商品詳細資訊與選項滾動區塊 */}
                 <div
                   className='py-7 py-sm-11 px-sm-7 overflow-y-scroll  overflow-y-box flex-grow-1'
-                  style={{ maxHeight: '100%' }}
+                  style={{ maxHeight: '880px' }}
                 >
                   {/* 產品標題與等級資訊 */}
                   <section>
@@ -135,6 +165,7 @@ export default function ProductDetailPage() {
                     </div>
                   </section>
                   {/* 商品選項區塊 (Fin系統, 顏色, 尺寸) */}
+                  <hr />
                   <section>
                     <div>
                       {/* Fin系統選項 */}
@@ -184,10 +215,12 @@ export default function ProductDetailPage() {
                                   <div>
                                     <input
                                       type='radio'
-                                      className='btn-check color-input'
-                                      name='color-options-base'
+                                      className='btn-check color-input rounded-50'
+                                      value={color.colorName}
+                                      name='color'
                                       id={`color-option-${index}`}
                                       autoComplete='off'
+                                      onChange={handleAddCartOptionChange}
                                     />
                                     <label
                                       style={{
@@ -217,10 +250,11 @@ export default function ProductDetailPage() {
                                 <div className='col' key={index}>
                                   <div>
                                     <input
+                                      onChange={handleAddCartOptionChange}
                                       type='radio'
                                       className='btn-check '
                                       value={resize}
-                                      name='size-options-base'
+                                      name='size'
                                       id={`size-option-${index}`}
                                       autoComplete='off'
                                     />
@@ -243,15 +277,17 @@ export default function ProductDetailPage() {
                   {/* 價格與購買按鈕區塊 */}
                   <section>
                     <div className='mb-7'>
-                      <p className='mb-3'>原價 $ {product.origin_price}</p>
+                      <p className='mb-3 text-neutral-60 '>
+                        原價 $ {product.origin_price}
+                      </p>
                       <h5>售價 {product.price}</h5>
                     </div>
-                    {/* 購物車與直接購買按鈕 */}
                     <div className='d-flex mb-7'>
                       <div className='w-100'>
                         <div className='d-grid me-3'>
                           {/* 加入購物車按鈕 */}
                           <DarkButtonLinearG
+                            event={handleAddCart}
                             btnName={'加入購物車'}
                             btnType={'btn-dark'}
                           />
@@ -260,12 +296,14 @@ export default function ProductDetailPage() {
                       <div className='w-75'>
                         <div className='d-grid'>
                           {/* 直接購買按鈕 */}
-                          <button
+                          <Link
                             lang='zh-TW'
                             className='btn btn-outline-dark btn-lg fs-7 fs-sm-6 rounded-pill'
+                            onClick={handleAddCart}
+                            to={'/cart'}
                           >
                             直接購買
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -275,27 +313,55 @@ export default function ProductDetailPage() {
                     <div>
                       <p className='text-neutral-60 mb-3'>尺寸說明</p>
                       <div className='overflow-x-scroll overflow-y-box'>
-                        <table className='table '>
+                        <table className='table table-container table-hover'>
                           <thead>
-                            <tr>
-                              <th scope='col'>長度</th>
-                              <th scope='col'>寬度</th>
-                              <th scope='col'>厚度</th>
-                              <th scope='col'>浮力</th>
-                              <th scope='col'>FIN系統</th>
+                            <tr className='text-center'>
+                              <th scope='col' style={{ width: '80px' }}>
+                                長度
+                              </th>
+                              <th scope='col' style={{ width: '80px' }}>
+                                寬度
+                              </th>
+                              <th scope='col' style={{ width: '80px' }}>
+                                厚度
+                              </th>
+                              <th scope='col' style={{ width: '80px' }}>
+                                浮力
+                              </th>
+                              <th scope='col' style={{ width: '250px' }}>
+                                FIN系統
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                              <td>@mdo</td>
-                              <td>@mdo</td>
+                            <tr className='text-center'>
+                              <td>'8'</td>
+                              <td>21 1/4</td>
+                              <td>2 4/3</td>
+                              <td>41 ltr</td>
+                              <td>
+                                7" Single & FCS2 Performer 65kg Quad Rears
+                              </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
+                    </div>
+                  </section>
+                  <section>
+                    <div>
+                      <p className='text-neutral-60 mb-3'>運送方式 </p>
+                      <p
+                        className='mb-3'
+                        style={{ lineHeight: '1.5', letterSpacing: '2%' }}
+                      >
+                        衝浪板有特殊運輸。從施工到運輸的預計時間可能在 6 到 12
+                        週之間。如有任何疑問，請聯絡
+                        customercare@lightning---bolt.com由於衝浪板是定制的,我們不會退回。在此查看有關運送和退貨的所有資訊。
+                      </p>
+                      <p>
+                        由於衝浪板是定制的,我們不會退回。在此查看有關運送和退貨的所有資訊。
+                      </p>
                     </div>
                   </section>
                 </div>
