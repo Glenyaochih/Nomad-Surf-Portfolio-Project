@@ -131,13 +131,9 @@ export const adminPostProductAsync = createAsyncThunk(
       },
     };
     try {
-      const res = await axios.post(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/product`,
-        data
-      );
+      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/product`, data);
       dispatch(adminGetProductsAsync({}));
       dispatch(setResetProductInitialState());
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

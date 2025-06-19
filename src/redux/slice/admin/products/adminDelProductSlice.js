@@ -29,10 +29,10 @@ export const adminDelProductsAsync = createAsyncThunk(
     productsId.forEach(async (id) => {
       //forEach 為同步所以需要在迴圈體內等待非同步的API遍歷完成所以要再加上一個async
       try {
-        const res = await axios.delete(
+        await axios.delete(
           `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`
         );
-        console.log(res);
+
         dispatch(adminGetProductsAsync({ page: 1, category: '' }));
       } catch (error) {
         console.log(error);
