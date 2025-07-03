@@ -140,7 +140,6 @@ export const selectRecommendedProducts = createSelector(
       // 篩選出相同等級且不等於當前產品的板子
       return randomProducts.slice(0, 5);
     }
-
     // 如果沒有匹配的推薦類型，返回空陣列
     return [];
   }

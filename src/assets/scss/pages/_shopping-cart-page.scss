@@ -24,9 +24,14 @@
 
     .number-line {
       display: inline-block;
-      width: 24px;
+      width: 40px;
       height: 1px;
       background-color: $neutral-60;
+
+      @include mobile {
+        width: 24px;
+      }
     }
+
   }
 }

@@ -44,7 +44,7 @@ export default function TestNavbar() {
             />
           </a>
           {/* 手機版手機版搜尋與購物車 */}
-          <ul className='d-flex d-md-none ms-auto'>
+          <ul className='d-flex align-items-center d-md-none ms-auto'>
             <li>
               <a
                 onClick={(e) => {
@@ -57,14 +57,16 @@ export default function TestNavbar() {
               </a>
             </li>
             <li>
-              <NavLink
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-                to={'/cart'}
-                className='p-3'
-              >
-                <MdOutlineShoppingCart />
+              <NavLink to={'/cart'} className='p-3'>
+                <div className='position-relative'>
+                  <MdOutlineShoppingCart />
+                  {cartList?.carts?.length > 0 && (
+                    <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary-100 text-white'>
+                      {cartList?.carts?.length}
+                      <span className='visually-hidden'>unread messages</span>
+                    </span>
+                  )}
+                </div>
               </NavLink>
             </li>
           </ul>

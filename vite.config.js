@@ -1,8 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
-export default defineConfig({
-  base:process.env.NODE_ENV === 'production'?'/Portfolio-Project/':'/',
-   plugins: [react()],
-})
+// https://vitejs.dev/config/
+export default defineConfig(({ mode }) => {
+  const isProduction = mode === 'production';
+
+  return {
+    base: isProduction ? '/Portfolio-Project/' : '/',
+    plugins: [react()],
+    // 新增 Sass 配置以解決 @import 找不到的問題
+    css: {
+      preprocessorOptions: {
+        scss: {
+          includePaths: ['node_modules'],
+        },
+      },
+    },
+  };
+});

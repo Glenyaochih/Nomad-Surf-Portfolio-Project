@@ -1491,7 +1491,7 @@ $pagination-border-radius-lg: var(--#{$prefix}border-radius-lg) !default;
 // Placeholders
 
 // scss-docs-start placeholders
-$placeholder-opacity-max: 0.5 !default;
+$placeholder-opacity-max: 0.3 !default; //0.5 !default;
 $placeholder-opacity-min: 0.2 !default;
 // scss-docs-end placeholders
 

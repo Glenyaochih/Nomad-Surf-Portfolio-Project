@@ -57,18 +57,8 @@ export default function AdminCouponsPage() {
     dispatch(adminPutCouponAsync());
   };
 
-  // const dateTranslate = (coupon) => {
-  //   const date = new Date(coupon.due_date);
-  //   const year = date.getFullYear();
-  //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  //   const day = date.getDate().toString().padStart(2, '0');
-  //   console.log(year);
-  //   return year;
-  // };
-  // === edit section --> adminPutProductSlices.js ===
-
   useEffect(() => {
-    dispatch(adminGetCouponsAsync({}));
+    dispatch(adminGetCouponsAsync({ page: 1 }));
   }, [dispatch]);
 
   return (

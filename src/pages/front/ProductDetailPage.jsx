@@ -25,6 +25,8 @@ export default function ProductDetailPage() {
   // 從 Redux store 中選取當前產品資料
   const product = useSelector(selectFrontProduct);
 
+  //處理購物車品項的選項收集
+
   const handleAddCartOptionChange = (e) => {
     const { name, value } = e.target;
     setCartOption((prevOption) => {
@@ -34,15 +36,17 @@ export default function ProductDetailPage() {
       };
     });
   };
-  console.log(cartOption);
+
   const handleAddCart = () => {
     dispatch(postCartAsync(cartOption));
   };
 
-  // 獲取單一產品資料的副作用
+  // 獲取單一產品資料
   useEffect(() => {
     dispatch(getSingleProductAsync(product_id));
   }, [product_id, dispatch]);
+
+  //寫入productId
 
   useEffect(() => {
     if (product.id) {
@@ -92,18 +96,16 @@ export default function ProductDetailPage() {
                     </div>
                   </section>
                   {/* 商品圖片輪播區塊 */}
-                  <section className='flex-grow-1'>
-                    <div className='mh-100  overflow-y-auto'>
+                  <section>
+                    <div className='mh-100  overflow-y-auto  flex-grow-1'>
                       {/* Swiper 輪播組件 */}
                       <Swiper
+                        className='overflow-y-box'
                         modules={[Pagination]}
                         pagination={{
                           clickable: true,
                         }}
                         direction='vertical' // 設定為垂直方向
-                        style={{
-                          maxHeight: '880px', // 設定最大高度以避免無限拉伸
-                        }}
                       >
                         {/* 遍歷產品圖片並渲染 SwiperSlide */}
                         {product?.imagesUrl?.map((img, index) => {
@@ -278,9 +280,9 @@ export default function ProductDetailPage() {
                   <section>
                     <div className='mb-7'>
                       <p className='mb-3 text-neutral-60 '>
-                        原價 $ {product.origin_price}
+                        原價 $ {product.origin_price?.toLocaleString()}
                       </p>
-                      <h5>售價 {product.price}</h5>
+                      <h5>售價 {product.price?.toLocaleString()}</h5>
                     </div>
                     <div className='d-flex mb-7'>
                       <div className='w-100'>

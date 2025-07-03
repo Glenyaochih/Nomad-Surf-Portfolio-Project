@@ -12,6 +12,9 @@ import Admin from '../pages/admin/Admin';
 import AdminProductsPage from '../pages/admin/AdminProductsPage';
 import AdminOrdersPage from '../pages/admin/AdminOrdersPage';
 import AdminCouponsPage from '../pages/admin/AdminCouponsPage';
+import ConfirmOrder from '../pages/front/ConfirmOrder';
+import ConfirmPayment from '../pages/front/ConfirmPayment';
+import FinishedOrder from '../pages/front/FinishedOrder';
 
 const route = [
   {
@@ -51,6 +54,11 @@ const route = [
       {
         path: 'cart',
         element: <ShoppingCartPage />,
+        children: [
+          { index: true, element: <ConfirmOrder /> },
+          { path: 'payment', element: <ConfirmPayment /> },
+          { path: 'finished-order', element: <FinishedOrder /> },
+        ],
       },
       {
         path: 'members',

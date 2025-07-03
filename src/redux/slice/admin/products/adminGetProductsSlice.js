@@ -54,7 +54,6 @@ export const adminGetProductsAsync = createAsyncThunk(
     dispatch(setAdminGetLoading(true));
     try {
       const res = await axios.get(url);
-      console.log(res);
       dispatch(adminGetProductsSlice.actions.setProducts(res.data.products));
       dispatch(
         adminGetProductsSlice.actions.setProductsPagesRange(res.data.pagination)

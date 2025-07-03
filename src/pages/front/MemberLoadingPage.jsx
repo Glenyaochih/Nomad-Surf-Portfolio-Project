@@ -1,8 +1,18 @@
 import { useState } from 'react';
 import OutlineButton from '../../components/button/outlineButton';
+import { useDispatch } from 'react-redux';
+import { userSignupAsync } from '../../redux/slice/front/user/userSlice';
 
 export default function MemberLoadingPage() {
   const [isMember, setIsMember] = useState(false);
+  const dispatch = useDispatch();
+  const data = {
+    email: '77777888@gmail.com',
+    password: 'asdf',
+    firstName: 'asdf',
+    lastName: 'Monge',
+    age: 32,
+  };
   return (
     <>
       <div className='member-login'>
@@ -39,31 +49,31 @@ export default function MemberLoadingPage() {
                 <h5 className='text-center mb-11'>
                   {isMember ? '登入會員' : '註冊會員'}
                 </h5>
-                <form onSubmit={''}>
-                  <div class='mb-7'>
+                <form onSubmit={() => dispatch(userSignupAsync(data))}>
+                  <div className='mb-7'>
                     <label
-                      for='memberAccountInput'
-                      class='form-label fs-9 text-neutral-60'
+                      htmlFor='memberAccountInput'
+                      className='form-label fs-9 text-neutral-60'
                     >
                       會員帳號
                     </label>
                     <input
                       type='email'
-                      class='form-control'
+                      className='form-control'
                       id='memberAccountInput'
                       placeholder='請輸入會員帳號'
                     />
                   </div>
-                  <div class='mb-7'>
+                  <div className='mb-7'>
                     <label
-                      for='memberAccountInput'
-                      class='form-label fs-9 text-neutral-60'
+                      htmlFor='memberAccountInput'
+                      className='form-label fs-9 text-neutral-60'
                     >
                       密碼
                     </label>
                     <input
                       type='email'
-                      class='form-control'
+                      className='form-control'
                       id='memberAccountInput'
                       placeholder='請輸入會員密碼'
                     />

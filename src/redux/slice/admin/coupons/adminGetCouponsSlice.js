@@ -48,7 +48,6 @@ export const adminGetCouponsAsync = createAsyncThunk(
       const res = await axios.get(
         `${BASE_URL}/v2/api/${API_PATH}/admin/coupons?page=${params.page}`
       );
-      console.log(res);
       dispatch(adminGetCouponsSlice.actions.setCoupons(res.data.coupons));
 
       dispatch(

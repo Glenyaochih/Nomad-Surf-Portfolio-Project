@@ -69,7 +69,7 @@ export default function ProductListCard({ item, cardBackground }) {
                   </span>
                 </h6>
                 <h5 className='card-title mb-3 fs-7 fs-sm-5'>{item.title}</h5>
-                <p className='fs-6'>${item.price}</p>
+                <p className='fs-6'>${item.price.toLocaleString()}</p>
               </div>
 
               <OutlineButton

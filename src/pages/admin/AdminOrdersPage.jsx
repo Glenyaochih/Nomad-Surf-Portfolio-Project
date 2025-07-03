@@ -115,6 +115,12 @@ export default function AdminOrdersPage() {
                   <th scope='col' style={{ width: '200px' }}>
                     訂單建立時間
                   </th>
+                  <th scope='col' style={{ width: '250px' }}>
+                    訂單號碼
+                  </th>
+                  <th scope='col' style={{ width: '200px' }}>
+                    付款狀態
+                  </th>
                   <th scope='col' style={{ width: '200px' }}>
                     訂單金額
                   </th>
@@ -162,6 +168,12 @@ export default function AdminOrdersPage() {
                         <td className='align-middle'>{order.user.email}</td>
                         <td className='align-middle'>{order.message}</td>
                         <td className='align-middle'>{order.create_at}</td>
+                        <td className='align-middle'>{order.id}</td>
+                        <td
+                          className={`align-middle ${order.is_paid ? 'text-success-100' : 'text-accent-100'}`}
+                        >
+                          {order.is_paid ? '已付款' : '未付款'}
+                        </td>
                         <td className='align-middle'>{order.total}$</td>
                       </>
                     ) : (

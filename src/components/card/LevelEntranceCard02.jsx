@@ -32,17 +32,17 @@ export default function LevelEntranceCard02({ data }) {
     //當寬度576px以上成立才觸發matchMedia
     if (isDesktop.matches) {
       gsap.fromTo(
-        ['.btn', '.entrance-bg-image'],
+        ['.btn', '.entrance-bg-image-2'],
         {
           y: (i, e) => (e.classList.contains('btn') ? 0 : undefined),
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-2') ? 0 : undefined,
         },
         {
           opacity: (i, e) => (e.classList.contains('btn') ? 1 : undefined),
           y: (i, e) => (e.classList.contains('btn') ? -250 : undefined),
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 50 : undefined,
+            e.classList.contains('entrance-bg-image-2') ? 50 : undefined,
           duration: 0.5,
         }
       );
@@ -89,17 +89,17 @@ export default function LevelEntranceCard02({ data }) {
   const onMouseLeaveEntrance = contextSafe(() => {
     if (isDesktop.matches) {
       gsap.fromTo(
-        ['.btn', '.entrance-bg-image'],
+        ['.btn', '.entrance-bg-image-2'],
         {
           y: (i, e) => (e.classList.contains('btn') ? -250 : undefined),
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 50 : undefined,
+            e.classList.contains('entrance-bg-image-2') ? 50 : undefined,
         },
         {
           opacity: (i, e) => (e.classList.contains('btn') ? 0 : undefined),
           y: (i, e) => (e.classList.contains('btn') ? 0 : undefined),
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-2') ? 0 : undefined,
           duration: 0.5,
         }
       );
@@ -125,14 +125,11 @@ export default function LevelEntranceCard02({ data }) {
           onMouseEnter={onMouseEnterEntrance}
           onMouseLeave={onMouseLeaveEntrance}
           className='mid-grade position-relative border border-dark'
-          // style={{
-          //   backgroundImage: 'url(img/homePage/image-copy.png)',
-          // }}
         >
           <img
-            className='entrance-bg-image position-absolute'
+            className='entrance-bg-image-2 position-absolute'
             src='img/homePage/grade-02.webp'
-            alt='entrance-bg-image'
+            alt='entrance-bg-image-2'
           />
           <div className='position-absolute bottom-0 start-50 h-100  half-filter-r'></div>
           <div className='position-absolute bottom-0 h-100 w-100 filter-sm-l d-none d-sm-block'></div>

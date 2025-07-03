@@ -5,18 +5,26 @@ const initialState = {
   cartList: {},
   isCartLoading: false,
   cartError: null,
+  paymentMethod: 'cashOnDelivery',
 };
 
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    setPaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       //加入購物車
       .addCase(postCartAsync.pending, (state) => {
         state.isCartLoading = true;
         state.cartError = null;
+      })
+      .addCase(postCartAsync.fulfilled, (state) => {
+        state.isCartLoading = false;
       })
       .addCase(postCartAsync.rejected, (state, action) => {
         state.isCartLoading = false;
@@ -29,12 +37,17 @@ export const cartSlice = createSlice({
         state.cartError = null;
       })
       .addCase(getCartAsync.fulfilled, (state, action) => {
-        state.cartList = action.payload;
         state.isCartLoading = false;
+        state.cartList = {
+          ...action.payload,
+          total: Number(action.payload.total) || 0,
+          final_total: Number(action.payload.final_total) || 0,
+        };
       })
       .addCase(getCartAsync.rejected, (state, action) => {
         state.isCartLoading = false;
         state.cartError = action.error.message;
+        state.cartList = {};
       })
       //修改購物車
       .addCase(putCartAsync.pending, (state) => {
@@ -139,5 +152,6 @@ export const clearCartAsync = createAsyncThunk(
     }
   }
 );
-
+//套用折價卷
+export const { setPaymentMethod } = cartSlice.actions;
 export default cartSlice.reducer;

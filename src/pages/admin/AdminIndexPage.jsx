@@ -54,7 +54,7 @@ export default function AdminIndexPage() {
                 </li>
               </ul>
             </div>
-            <div className=''>
+            <div className='d-flex flex-column'>
               <Link className='btn btn-dark border py-3' to={'/'}>
                 回首頁
               </Link>
