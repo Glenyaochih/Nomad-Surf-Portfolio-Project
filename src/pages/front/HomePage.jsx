@@ -31,7 +31,6 @@ export default function HomePage() {
       <section>
         <HomePageBannerCarousel />
       </section>
-
       <section>
         <RecommendCarousel
           titleZhTW={'衝浪板'}

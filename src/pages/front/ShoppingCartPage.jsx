@@ -1,6 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import ScreenLoading from '../../components/loadings/ScreenLoading';
+import { useSelector } from 'react-redux';
+import { selectCartLoading } from '../../redux/slice/front/cart/cartSelectors';
 
 export default function ShoppingCartPage() {
+  const cartLoading = useSelector(selectCartLoading);
   return (
     <>
       <div className='bg-neutral-40'>
@@ -29,6 +33,7 @@ export default function ShoppingCartPage() {
             <Outlet />
           </div>
         </div>
+        <ScreenLoading loadingSource={cartLoading} />
       </div>
     </>
   );

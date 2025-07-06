@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getCouponsAPI } from './couponsAPI';
 import { getCartAsync } from '../cart/cartSlice';
+import { createAsyncMessage } from '../../message/messageSlice';
 
 const initialState = {
   isCouponLoading: false,
@@ -36,10 +37,11 @@ export const postCouponAsync = createAsyncThunk(
       },
     };
     try {
-      await getCouponsAPI.postCoupon(data);
+      const res = await getCouponsAPI.postCoupon(data);
+      dispatch(createAsyncMessage(res.data));
       dispatch(getCartAsync());
     } catch (error) {
-      console.log(error);
+      dispatch(createAsyncMessage(error.response.data));
       rejectWithValue(error?.response?.data);
     }
   }

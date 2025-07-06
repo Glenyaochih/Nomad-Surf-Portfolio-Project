@@ -18,6 +18,7 @@ import frontCartReducer from './slice/front/cart/cartSlice';
 import couponReducer from './slice/front/coupons/couponsSlice';
 import orderReducer from './slice/front/order/orderSlice';
 import paymentReducer from './slice/front/payment/paymentSlice';
+import messageReducer from './slice/message/messageSlice';
 import modalReducer from './slice/modalSlice';
 import loadingReducer from './slice/admin/adminLoadingSlice';
 
@@ -48,5 +49,6 @@ export const store = configureStore({
     // === 元件控制 ===
     modal: modalReducer,
     loading: loadingReducer,
+    messages: messageReducer,
   },
 });

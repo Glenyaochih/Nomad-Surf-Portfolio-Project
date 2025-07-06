@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getPaymentAPI } from './paymentAPI';
+import { createAsyncMessage } from '../../message/messageSlice';
+import { getOrderAsync } from '../order/orderSlice';
 
 const initialState = {
   isPaymentLoading: false,
@@ -17,11 +19,13 @@ export const paymentSlice = createSlice({
 
 export const postPaymentAsync = createAsyncThunk(
   'payment/postPayment',
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const res = await getPaymentAPI.postPayment(id);
-      console.log(res);
+      dispatch(createAsyncMessage(res.data));
+      dispatch(getOrderAsync());
     } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
       return rejectWithValue(error.response.data);
     }
   }

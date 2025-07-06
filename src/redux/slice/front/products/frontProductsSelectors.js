@@ -33,6 +33,16 @@ export const selectFilterOffcanvasOpen = createSelector(
   [selectProductsState],
   (frontProductsSlice) => frontProductsSlice.filters.filterOffcanvasOpen
 );
+//產品loading狀態
+export const selectProductsLoading = createSelector(
+  [selectProductsState],
+  (frontProductsSlice) => frontProductsSlice.isProductsLoading
+);
+//單一產品loading狀態
+export const selectProductLoading = createSelector(
+  [selectProductsState],
+  (frontProductsSlice) => frontProductsSlice.isProductLoading
+);
 
 //第三層 (組合)基於第二層的 memoized selectors，最終的組合
 

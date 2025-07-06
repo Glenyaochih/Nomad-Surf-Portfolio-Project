@@ -6,10 +6,16 @@ import {
   getProductsAsync,
   setSortOption,
 } from '../../redux/slice/front/products/frontProductsSlice';
-import { selectFilteredProducts } from '../../redux/slice/front/products/frontProductsSelectors';
+import {
+  selectFilteredProducts,
+  selectProductsLoading,
+} from '../../redux/slice/front/products/frontProductsSelectors';
+import ScreenLoading from '../../components/loadings/ScreenLoading';
+import { getCartAsync } from '../../redux/slice/front/cart/cartSlice';
 export default function ProductListPage() {
   const dispatch = useDispatch();
   const products = useSelector(selectFilteredProducts);
+  const productsLoading = useSelector(selectProductsLoading);
   const sortOption = [
     { value: '', label: '請選擇排序' },
     { value: 'best-selling', label: '最佳銷售' },
@@ -24,6 +30,7 @@ export default function ProductListPage() {
 
   useEffect(() => {
     dispatch(getProductsAsync());
+    dispatch(getCartAsync());
   }, [dispatch]);
 
   return (
@@ -105,6 +112,7 @@ export default function ProductListPage() {
             </div>
           </section>
         </div>
+        <ScreenLoading loadingSource={productsLoading} size={25} />
       </div>
     </>
   );

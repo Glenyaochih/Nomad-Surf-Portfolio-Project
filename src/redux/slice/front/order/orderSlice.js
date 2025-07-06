@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getOrderAPI } from './orderAPI';
 import { getCartAsync } from '../cart/cartSlice';
+import { createAsyncMessage } from '../../message/messageSlice';
 
 const initialState = {
   order: {},
@@ -65,9 +66,11 @@ export const postOrderAsync = createAsyncThunk(
   async (data, { dispatch, rejectWithValue }) => {
     try {
       const res = await getOrderAPI.postOrder(data);
+      dispatch(createAsyncMessage(res.data));
       dispatch(getCartAsync());
       return res.data.orderId;
     } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
       return rejectWithValue(error.response.data);
     }
   }
@@ -75,10 +78,12 @@ export const postOrderAsync = createAsyncThunk(
 
 export const getOrderAsync = createAsyncThunk(
   'order/getOrder',
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { dispatch, rejectWithValue, getState }) => {
     const id = getState().order.orderId;
     try {
       const res = await getOrderAPI.getOrder(id);
+      console.log(res);
+      dispatch(getCartAsync());
       return res.data.order;
     } catch (error) {
       return rejectWithValue(error.response.data);

@@ -5,13 +5,18 @@ const selectCartState = (state) => state.cart;
 
 //第二層
 // 取得購物車資料
-export const selectCart = createSelector([selectCartState], (state) => {
-  return state.cartList;
+export const selectCart = createSelector([selectCartState], (cartSlice) => {
+  return cartSlice.cartList;
 });
 //付款狀態
 export const selectPaymentMethod = createSelector(
   [selectCartState],
-  (state) => state.paymentMethod
+  (cartSlice) => cartSlice.paymentMethod
+);
+//cartLoading 狀態
+export const selectCartLoading = createSelector(
+  [selectCartState],
+  (cartSlice) => cartSlice.isCartLoading
 );
 
 //第三層

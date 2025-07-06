@@ -25,6 +25,8 @@ import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
 import OutlineButton from '../../components/button/outlineButton';
 import { useNavigate } from 'react-router-dom';
 import { selectOrderSuccess } from '../../redux/slice/front/order/orderSelectors';
+import ButtonLoading from '../../components/loadings/ButtonLoading';
+import { selectCouponLoading } from '../../redux/slice/front/coupons/couponsSelectors';
 
 export default function ConfirmOrder() {
   const dispatch = useDispatch();
@@ -32,6 +34,7 @@ export default function ConfirmOrder() {
   const deliveryFee = useSelector(selectDeliveryFee);
   const postOrderSuccess = useSelector(selectOrderSuccess);
   const paymentMethod = useSelector(selectPaymentMethod);
+  const couponLoading = useSelector(selectCouponLoading);
   const navigate = useNavigate();
   const [isCartsEditOpen, setIsCartsEditOpen] = useState(false);
   const [idContainer, setIdContainer] = useState([]);
@@ -668,6 +671,7 @@ export default function ConfirmOrder() {
                           btnColor={'primary-100'}
                         />
                       </div>
+                      <ButtonLoading loadingSource={couponLoading} size={20} />
                     </form>
                     <hr className='my-3' />
                     <div className='d-flex py-3'>

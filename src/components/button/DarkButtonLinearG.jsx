@@ -6,11 +6,13 @@ export default function DarkButtonLinearG({
   type,
   event,
   destination,
+  disabled,
 }) {
   const commonProps = {
     style: { letterSpacing: '10%' },
     className: `btn ${btnType} btn-lg border border-white icon-link icon-link-hover d-inline-block fs-7 fs-sm-6 rounded-pill px-9`,
     lang: 'zh-TW',
+    disabled: disabled || false,
   };
   const iconSvg = (
     <svg

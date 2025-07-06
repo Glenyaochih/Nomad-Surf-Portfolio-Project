@@ -1,26 +1,24 @@
-import { useSelector } from 'react-redux';
-import { BarLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 
-export default function ScreenLoading() {
-  const isScreenLoading = useSelector((state) => state.loading.isScreenLoading);
-
+export default function ScreenLoading({ loadingSource, color, size }) {
   return (
     <>
-      {isScreenLoading && (
+      {loadingSource && (
         <div
           className='d-flex justify-content-center align-items-center'
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(255,255,255,0.3)',
+            backgroundColor: 'rgba(255,255,255,0.6)',
             zIndex: 999,
           }}
         >
-          <BarLoader
-            color='black'
+          <PulseLoader
             loading={true}
-            size={64}
+            color={color}
+            size={size}
             aria-label='Loading Spinner'
+            data-testid='loader'
           />
         </div>
       )}

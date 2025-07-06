@@ -61,7 +61,7 @@ export const getProductsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      // === 取得所有產品 ===
+      // 取得所有產品
       .addCase(getProductsAsync.pending, (state) => {
         state.isProductsLoading = true;
         state.productsError = null;
@@ -74,6 +74,7 @@ export const getProductsSlice = createSlice({
         state.isProductsLoading = false;
         state.productsError = action.error.message;
       })
+      //取得單一產品
       .addCase(getSingleProductAsync.pending, (state) => {
         state.isProductLoading = true;
         state.product = {};
@@ -97,6 +98,7 @@ export const getProductsAsync = createAsyncThunk(
       const res = await frontGetProductsAPI.getProducts();
       return res.data.products;
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response?.data);
     }
   }
