@@ -1,1 +1,0 @@
-import{c as t}from"./reselect-CiXCCDx7.js";const o=e=>e.cart,l=t([o],e=>e.cartList),i=t([o],e=>e.paymentMethod),u=t([l],e=>{const s={shortBoard:500,longBoard:500,midLength:500};return e.carts&&e.carts.length>0?e.carts.reduce((c,r)=>{const a=r.product.category,n=s[a]*r.qty||0;return c+n},0):0});export{u as a,i as b,l as s};
