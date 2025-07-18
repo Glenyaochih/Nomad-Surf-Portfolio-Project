@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { adminGetProductsAsync } from './adminGetProductsSlice';
+import { createAsyncMessage } from '../../message/messageSlice';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -131,11 +132,15 @@ export const adminPostProductAsync = createAsyncThunk(
       },
     };
     try {
-      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/product`, data);
+      const res = await axios.post(
+        `${BASE_URL}/v2/api/${API_PATH}/admin/product`,
+        data
+      );
       dispatch(adminGetProductsAsync({}));
       dispatch(setResetProductInitialState());
+      dispatch(createAsyncMessage(res.data));
     } catch (error) {
-      console.log(error);
+      dispatch(createAsyncMessage(error.response.data));
     }
   }
 );

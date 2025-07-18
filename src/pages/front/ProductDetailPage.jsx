@@ -253,7 +253,7 @@ export default function ProductDetailPage() {
                       <div className='mb-7'>
                         <p className='text-neutral-60 mb-3'>尺寸</p>
                         <div className='container'>
-                          <div className='row row-cols-6 row-cols-sm-10 gx-1'>
+                          <div className='row row-cols-6 row-cols-sm-10 gx-2 gy-2'>
                             {/* 遍歷尺寸並渲染選項 */}
                             {product?.sizes?.map((size, index) => {
                               const resize =
@@ -261,7 +261,7 @@ export default function ProductDetailPage() {
                                 size?.size?.match(/^\d+'/);
                               return (
                                 <div className='col' key={index}>
-                                  <div>
+                                  <div className='w-100'>
                                     <input
                                       onChange={handleAddCartOptionChange}
                                       type='radio'
@@ -272,7 +272,7 @@ export default function ProductDetailPage() {
                                       autoComplete='off'
                                     />
                                     <label
-                                      className='btn btn-outline-dark btn-sm rounded-1 px-2 fw-normal '
+                                      className='btn btn-outline-dark btn-sm rounded-1 px-2 fw-normal w-100'
                                       htmlFor={`size-option-${index}`}
                                     >
                                       {resize}

@@ -25,6 +25,7 @@ const initialState = {
     },
     sortOption: 'best-selling',
   },
+  search: '',
 };
 
 export const getProductsSlice = createSlice({
@@ -33,12 +34,10 @@ export const getProductsSlice = createSlice({
   reducers: {
     setFilter: (state, action) => {
       const { filterType, value } = action.payload;
-      console.log(value);
       state.filters.tempFilters[filterType] = value;
     },
     setApplyFilter: (state) => {
       //當點擊套用篩選按鈕時將tempFilter塞入activeFilters
-      console.log(state.filters.tempFilters);
       state.filters.activeFilters = state.filters.tempFilters;
     },
     setResetFilters: (state) => {
@@ -46,13 +45,20 @@ export const getProductsSlice = createSlice({
       state.filters.tempFilters = initialState.filters.tempFilters;
       state.filters.activeFilters = initialState.filters.activeFilters;
     },
+    //Offcanvas 開關
     setFilterOffcanvasToggle: (state, action) => {
       state.filters.filterOffcanvasOpen = action.payload;
     },
+    //搜尋選項
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
+    //排序選項
     setSortOption: (state, action) => {
       const { sortOption } = action.payload;
       state.filters.sortOption = sortOption;
     },
+    //推薦
     setRecommend: (state, action) => {
       const { recommendType } = action.payload;
       state.recommendType = recommendType;
@@ -90,7 +96,7 @@ export const getProductsSlice = createSlice({
       });
   },
 });
-
+//取得產品
 export const getProductsAsync = createAsyncThunk(
   'products/frontGetProducts',
   async (_, { rejectWithValue }) => {
@@ -98,12 +104,11 @@ export const getProductsAsync = createAsyncThunk(
       const res = await frontGetProductsAPI.getProducts();
       return res.data.products;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response?.data);
     }
   }
 );
-
+//取得單一產品
 export const getSingleProductAsync = createAsyncThunk(
   'product/frontGetSingleProducts',
   async (id, { rejectWithValue }) => {
@@ -117,6 +122,7 @@ export const getSingleProductAsync = createAsyncThunk(
 );
 
 export const {
+  setSearch,
   setFilter,
   setRecommend,
   setSortOption,

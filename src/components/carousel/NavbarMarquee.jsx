@@ -3,7 +3,7 @@ import Marquee from 'react-fast-marquee';
 export default function NavbarMarquee() {
   return (
     <div className=' bg-dark  py-2 '>
-      <Marquee pauseOnHover={true} direction='left'>
+      <Marquee pauseOnHover={false} direction='left'>
         <a
           className='text'
           href='#'

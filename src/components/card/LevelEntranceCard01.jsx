@@ -9,7 +9,7 @@ import {
 } from '../../redux/slice/front/products/frontProductsSlice';
 
 export default function LevelEntranceCard01({ data }) {
-  const entranceRef = useRef(null);
+  const entranceRef = useRef(null); //取得範圍參考
   const { contextSafe } = useGSAP({ scope: entranceRef });
   const mm = useMemo(() => gsap.matchMedia(), []);
   const isDesktop = useMemo(() => window.matchMedia('(min-width: 576px)'), []);

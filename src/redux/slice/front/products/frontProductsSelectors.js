@@ -23,12 +23,17 @@ const selectFilters = createSelector(
   [selectProductsState],
   (frontProductsSlice) => frontProductsSlice.filters.activeFilters
 );
-
+//排序功能狀態
 const selectSort = createSelector(
   [selectProductsState],
   (frontProductsSlice) => frontProductsSlice.filters.sortOption
 );
-
+//navbar搜尋欄狀態
+const selectSearch = createSelector(
+  [selectProductsState],
+  (frontProductSlice) => frontProductSlice.search
+);
+//篩選去的OffCanvas 開關狀態
 export const selectFilterOffcanvasOpen = createSelector(
   [selectProductsState],
   (frontProductsSlice) => frontProductsSlice.filters.filterOffcanvasOpen
@@ -47,27 +52,31 @@ export const selectProductLoading = createSelector(
 //第三層 (組合)基於第二層的 memoized selectors，最終的組合
 
 export const selectFilteredProducts = createSelector(
-  [selectFrontProducts, selectFilters, selectSort],
-  (products, filters, sortOption) => {
+  [selectFrontProducts, selectFilters, selectSort, selectSearch],
+  (products, filters, sortOption, search) => {
     let filteredProduct = [...products];
 
-    // === 衝浪程度篩選 ===
+    //衝浪程度篩選
 
     if (filters.grades && filters.grades.length > 0) {
       filteredProduct = filteredProduct.filter((product) =>
         filters.grades.includes(product.grade)
       );
     }
-
-    // === fin系統篩選 ===
-
+    //品名篩選
+    if (search !== null && search !== '') {
+      filteredProduct = filteredProduct.filter((product) => {
+        return product.title.toLowerCase().includes(search.toLowerCase());
+      });
+    }
     if (filters.finSystem !== null && filters.finSystem !== '') {
+      //fin系統篩選
       filteredProduct = filteredProduct.filter((product) => {
         return filters.finSystem === product.fin_system;
       });
     }
 
-    // === 價格區間篩選 ===
+    //價格區間篩選
     if (filters.priceRange) {
       filteredProduct = filteredProduct.filter((product) => {
         const { min, max } = filters.priceRange;
@@ -111,7 +120,7 @@ export const selectFilteredProducts = createSelector(
         (a, b) => a.soldNum - b.soldNum
       );
     }
-
+    console.log(filteredProduct);
     return filteredProduct;
   }
 );
@@ -126,7 +135,6 @@ export const selectRecommendedProducts = createSelector(
       });
       return latestProducts;
     }
-
     // 以下邏輯只適用於依賴 currentProduct 的推薦類型 (例如 'more_recommend')
     if (!currentProduct || Object.keys(currentProduct).length === 0) {
       return []; // 如果沒有當前產品，則不推薦

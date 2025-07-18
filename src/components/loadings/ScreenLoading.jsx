@@ -10,7 +10,7 @@ export default function ScreenLoading({ loadingSource, color, size }) {
             position: 'fixed',
             inset: 0,
             backgroundColor: 'rgba(255,255,255,0.6)',
-            zIndex: 999,
+            zIndex: 9999,
           }}
         >
           <PulseLoader

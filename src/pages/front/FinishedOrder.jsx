@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function FinishedOrder() {
   const order = useSelector(selectOrder);
   const createDate = useFormattedDate(order.create_at * 1000);
-  console.log(order);
+
   return (
     <>
       <section>

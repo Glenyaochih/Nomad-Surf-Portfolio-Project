@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { BsTwitterX, BsFacebook, BsInstagram, BsYoutube } from 'react-icons/bs';
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md';
 
@@ -12,8 +11,8 @@ export default function OceanFooter() {
     { path: '/', name: '周邊' },
   ];
   const surfInfRoutes = [
-    { path: '/wave', name: '全台浪點' },
-    { path: '/shower-map', name: '沖澡地圖' },
+    // { path: '/wave', name: '全台浪點' },
+    // { path: '/shower-map', name: '沖澡地圖' },
   ];
 
   const scrollToTop = () => {

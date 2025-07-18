@@ -8,4 +8,18 @@
       height: 42px;
     }
   }
+
+  .user-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .search-input {
+    height: 48px;
+    border-color: var(--bs-border-color);
+
+    &:focus {
+      --bs-focus-ring-color: rgba(0, 0, 0, 0) !important
+    }
+  }
 }

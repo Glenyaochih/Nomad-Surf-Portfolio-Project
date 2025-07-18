@@ -17,9 +17,8 @@ const ShowerMapPage = React.lazy(() => import('../pages/front/ShowerMapPage'));
 const WaveReportPage = React.lazy(
   () => import('../pages/front/WaveReportPage')
 );
-const MemberLoadingPage = React.lazy(
-  () => import('../pages/front/MemberLoadingPage')
-);
+const UserLoginPage = React.lazy(() => import('../pages/front/UserLoginPage'));
+
 const Admin = React.lazy(() => import('../pages/admin/Admin'));
 const AdminProductsPage = React.lazy(
   () => import('../pages/admin/AdminProductsPage')
@@ -141,7 +140,7 @@ const route = [
         path: 'members',
         element: (
           <Suspense fallback={<div>Loading Members Page...</div>}>
-            <MemberLoadingPage />
+            <UserLoginPage />
           </Suspense>
         ),
       },

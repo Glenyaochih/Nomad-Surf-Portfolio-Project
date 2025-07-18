@@ -19,6 +19,7 @@ import couponReducer from './slice/front/coupons/couponsSlice';
 import orderReducer from './slice/front/order/orderSlice';
 import paymentReducer from './slice/front/payment/paymentSlice';
 import messageReducer from './slice/message/messageSlice';
+import usersReducer from './slice/front/user/userSlice';
 import modalReducer from './slice/modalSlice';
 import loadingReducer from './slice/admin/adminLoadingSlice';
 
@@ -45,6 +46,7 @@ export const store = configureStore({
     coupon: couponReducer,
     order: orderReducer,
     payment: paymentReducer,
+    user: usersReducer,
 
     // === 元件控制 ===
     modal: modalReducer,
