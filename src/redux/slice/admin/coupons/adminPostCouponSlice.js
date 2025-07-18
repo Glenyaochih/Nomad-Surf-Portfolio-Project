@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { adminGetProductsAsync } from './adminGetProductsSlice'; //
+import { adminGetCouponsAsync } from './adminGetCouponsSlice';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
@@ -43,13 +43,9 @@ export const adminPostCouponAsync = createAsyncThunk(
       },
     };
     try {
-      const res = await axios.post(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/coupon`,
-        data
-      );
-      // dispatch(adminGetCouponsAsync({}));
+      await axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/coupon`, data);
+      dispatch(adminGetCouponsAsync({}));
       dispatch(setResetCouponInitialState());
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

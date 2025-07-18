@@ -23,6 +23,7 @@ export default function AdminLoginPage() {
   };
   useEffect(() => {
     const token = document.cookie.replace(
+      //重新加入token 執行驗證
       /(?:(?:^|.*;\s*)nomadsToken\s*=\s*([^;]*).*$)|^.*$/,
       '$1'
     );

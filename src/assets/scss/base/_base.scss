@@ -1,3 +1,10 @@
+// 修正頁面跳轉時的滾動行為，確保瞬間置頂而不是平滑滾動
+html,
+body {
+    scroll-behavior: auto !important;
+}
+
+
 :lang(zh),
 :lang(zh-TW),
 :lang(zh-CN),

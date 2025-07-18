@@ -9,7 +9,7 @@ import {
 } from '../../redux/slice/front/products/frontProductsSlice';
 
 export default function LevelEntranceCard01({ data }) {
-  const entranceRef = useRef(null);
+  const entranceRef = useRef(null); //取得範圍參考
   const { contextSafe } = useGSAP({ scope: entranceRef });
   const mm = useMemo(() => gsap.matchMedia(), []);
   const isDesktop = useMemo(() => window.matchMedia('(min-width: 576px)'), []);
@@ -28,18 +28,18 @@ export default function LevelEntranceCard01({ data }) {
   const onMouseEnterEntrance = contextSafe(() => {
     if (isDesktop.matches) {
       gsap.fromTo(
-        ['.entrance-bg-image'],
+        ['.entrance-bg-image-1'],
         {
           y: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 0 : undefined,
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 0 : undefined,
         },
         {
           y: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 10 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 10 : undefined,
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 10 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 10 : undefined,
           duration: 0.5,
         }
       );
@@ -73,18 +73,18 @@ export default function LevelEntranceCard01({ data }) {
     if (isDesktop.matches) {
       // 對 .entrance-bg-image 元素執行 fromTo 動畫，使其回到原始位置
       gsap.fromTo(
-        ['.entrance-bg-image'],
+        ['.entrance-bg-image-1'],
         {
           y: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 10 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 10 : undefined,
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 10 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 10 : undefined,
         },
         {
           y: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 0 : undefined,
           x: (i, e) =>
-            e.classList.contains('entrance-bg-image') ? 0 : undefined,
+            e.classList.contains('entrance-bg-image-1') ? 0 : undefined,
           duration: 0.5,
         }
       );
@@ -146,9 +146,9 @@ export default function LevelEntranceCard01({ data }) {
         >
           {/* 背景圖片 */}
           <img
-            className='entrance-bg-image position-absolute'
+            className='entrance-bg-image-1 position-absolute'
             src={data.backgroundImg}
-            alt='entrance-bg-image'
+            alt='entrance-bg-image-1'
           />
           {/* 半透明濾鏡層 (左側) */}
           <div className='position-absolute bottom-0 end-50 h-100 w-100 half-filter-l'></div>

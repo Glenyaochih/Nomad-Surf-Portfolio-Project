@@ -7,6 +7,7 @@ import LevelEntranceCard02 from '../../components/card/LevelEntranceCard02';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getProductsAsync } from '../../redux/slice/front/products/frontProductsSlice';
+import { getCartAsync } from '../../redux/slice/front/cart/cartSlice';
 
 const partners = [
   'img/homePage/partners-01.webp',
@@ -23,13 +24,13 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(getProductsAsync());
+    dispatch(getCartAsync());
   }, [dispatch]);
   return (
     <>
       <section>
         <HomePageBannerCarousel />
       </section>
-
       <section>
         <RecommendCarousel
           titleZhTW={'衝浪板'}

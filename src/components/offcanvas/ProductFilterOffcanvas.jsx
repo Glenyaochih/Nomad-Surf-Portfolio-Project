@@ -108,9 +108,7 @@ export default function ProductFilterOffcanvas() {
       <div
         ref={productFilterOffcanvasLink}
         className='offcanvas offcanvas-end filter-offcanvas'
-        data-bs-backdrop='static'
         tabIndex='-1'
-        id='offcanvasRight'
         aria-labelledby='offcanvasRightLabel'
       >
         <div className='offcanvas-header'>

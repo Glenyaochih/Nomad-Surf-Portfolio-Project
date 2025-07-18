@@ -2,6 +2,9 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import DarkButtonLinearG from '../button/DarkButtonLinearG';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 const carouselData = [
   {
     image: 'img/homePage/banner-01.webp',
@@ -26,12 +29,10 @@ export default function HomePageBannerCarousel() {
   return (
     <div>
       <Swiper
-        modules={[Pagination, Navigation, Autoplay]}
+        modules={[Pagination, Autoplay]}
         slidesPerView={1}
-        pagination={{ clickable: false }}
-        navigation={false}
+        pagination={{ clickable: true }}
         breakpoints={{ 576: { navigation: true, slidesPerView: 1 } }}
-        // autoplay={{ delay: 3000, disableOnInteraction: false }}
       >
         {carouselData.map((carousel, index) => {
           return (

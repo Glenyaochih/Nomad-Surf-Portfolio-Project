@@ -5,26 +5,38 @@ import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getSingleProductAsync } from '../../redux/slice/front/products/frontProductsSlice';
-import { selectFrontProduct } from '../../redux/slice/front/products/frontProductsSelectors';
+import {
+  selectFrontProduct,
+  selectProductLoading,
+} from '../../redux/slice/front/products/frontProductsSelectors';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { postCartAsync } from '../../redux/slice/front/cart/cartSlice';
+import {
+  getCartAsync,
+  postCartAsync,
+} from '../../redux/slice/front/cart/cartSlice';
+import ScreenLoading from '../../components/loadings/ScreenLoading';
+import { selectCartLoading } from '../../redux/slice/front/cart/cartSelectors';
+import ButtonLoading from '../../components/loadings/ButtonLoading';
 
 // 商品詳情頁面組件
 export default function ProductDetailPage() {
-  // 從 URL 參數中獲取產品 ID
-  const { id: product_id } = useParams();
   const dispatch = useDispatch();
+
+  const product = useSelector(selectFrontProduct);
+  const productLoading = useSelector(selectProductLoading);
+  const cartLoading = useSelector(selectCartLoading);
+  const { id: product_id } = useParams();
+  const [buyItNow, setBuyItNow] = useState(false);
   const [cartOption, setCartOption] = useState({
     product_id: '',
     qty: 1,
     size: '',
     color: '',
   });
-  // 從 Redux store 中選取當前產品資料
-  const product = useSelector(selectFrontProduct);
 
+  //處理購物車品項的選項收集
   const handleAddCartOptionChange = (e) => {
     const { name, value } = e.target;
     setCartOption((prevOption) => {
@@ -34,15 +46,18 @@ export default function ProductDetailPage() {
       };
     });
   };
-  console.log(cartOption);
+  // 加入購物車
   const handleAddCart = () => {
     dispatch(postCartAsync(cartOption));
   };
 
-  // 獲取單一產品資料的副作用
+  // 獲取單一產品資料
   useEffect(() => {
     dispatch(getSingleProductAsync(product_id));
+    dispatch(getCartAsync());
   }, [product_id, dispatch]);
+
+  //寫入productId
 
   useEffect(() => {
     if (product.id) {
@@ -92,18 +107,16 @@ export default function ProductDetailPage() {
                     </div>
                   </section>
                   {/* 商品圖片輪播區塊 */}
-                  <section className='flex-grow-1'>
-                    <div className='mh-100  overflow-y-auto'>
+                  <section>
+                    <div className='mh-100  overflow-y-auto  flex-grow-1'>
                       {/* Swiper 輪播組件 */}
                       <Swiper
+                        className='overflow-y-box'
                         modules={[Pagination]}
                         pagination={{
                           clickable: true,
                         }}
                         direction='vertical' // 設定為垂直方向
-                        style={{
-                          maxHeight: '880px', // 設定最大高度以避免無限拉伸
-                        }}
                       >
                         {/* 遍歷產品圖片並渲染 SwiperSlide */}
                         {product?.imagesUrl?.map((img, index) => {
@@ -240,7 +253,7 @@ export default function ProductDetailPage() {
                       <div className='mb-7'>
                         <p className='text-neutral-60 mb-3'>尺寸</p>
                         <div className='container'>
-                          <div className='row row-cols-6 row-cols-sm-10 gx-1'>
+                          <div className='row row-cols-6 row-cols-sm-10 gx-2 gy-2'>
                             {/* 遍歷尺寸並渲染選項 */}
                             {product?.sizes?.map((size, index) => {
                               const resize =
@@ -248,7 +261,7 @@ export default function ProductDetailPage() {
                                 size?.size?.match(/^\d+'/);
                               return (
                                 <div className='col' key={index}>
-                                  <div>
+                                  <div className='w-100'>
                                     <input
                                       onChange={handleAddCartOptionChange}
                                       type='radio'
@@ -259,7 +272,7 @@ export default function ProductDetailPage() {
                                       autoComplete='off'
                                     />
                                     <label
-                                      className='btn btn-outline-dark btn-sm rounded-1 px-2 fw-normal '
+                                      className='btn btn-outline-dark btn-sm rounded-1 px-2 fw-normal w-100'
                                       htmlFor={`size-option-${index}`}
                                     >
                                       {resize}
@@ -278,28 +291,55 @@ export default function ProductDetailPage() {
                   <section>
                     <div className='mb-7'>
                       <p className='mb-3 text-neutral-60 '>
-                        原價 $ {product.origin_price}
+                        原價 $ {product.origin_price?.toLocaleString()}
                       </p>
-                      <h5>售價 {product.price}</h5>
+                      <h5>售價 {product.price?.toLocaleString()}</h5>
                     </div>
                     <div className='d-flex mb-7'>
-                      <div className='w-100'>
+                      <div className='w-100 position-relative'>
+                        {buyItNow ? (
+                          <></>
+                        ) : (
+                          <div className='position-absolute top-50 start-85 translate-middle'>
+                            <ButtonLoading
+                              loadingSource={cartLoading}
+                              size={20}
+                              color={'black'}
+                            />
+                          </div>
+                        )}
+
                         <div className='d-grid me-3'>
                           {/* 加入購物車按鈕 */}
                           <DarkButtonLinearG
                             event={handleAddCart}
                             btnName={'加入購物車'}
                             btnType={'btn-dark'}
+                            disabled={cartLoading}
                           />
                         </div>
                       </div>
-                      <div className='w-75'>
+                      <div className='w-75 position-relative'>
+                        {buyItNow ? (
+                          <div className='position-absolute top-50 start-85 translate-middle'>
+                            <ButtonLoading
+                              loadingSource={cartLoading}
+                              size={20}
+                              color={'black'}
+                            />
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+
                         <div className='d-grid'>
                           {/* 直接購買按鈕 */}
                           <Link
                             lang='zh-TW'
                             className='btn btn-outline-dark btn-lg fs-7 fs-sm-6 rounded-pill'
-                            onClick={handleAddCart}
+                            onClick={() => {
+                              (handleAddCart(), setBuyItNow(true));
+                            }}
                             to={'/cart'}
                           >
                             直接購買
@@ -381,6 +421,7 @@ export default function ProductDetailPage() {
         <section>
           <PickYourTimeAndGo />
         </section>
+        <ScreenLoading loadingSource={productLoading} size={25} />
       </div>
     </>
   );

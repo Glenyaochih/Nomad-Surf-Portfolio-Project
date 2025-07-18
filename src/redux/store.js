@@ -15,6 +15,11 @@ import adminDelOrdersReducer from './slice/admin/orders/adminDelOrdersSlice';
 import adminLogoutReducer from './slice/admin/adminLogoutSlice';
 import frontGetProductsReducer from './slice/front/products/frontProductsSlice';
 import frontCartReducer from './slice/front/cart/cartSlice';
+import couponReducer from './slice/front/coupons/couponsSlice';
+import orderReducer from './slice/front/order/orderSlice';
+import paymentReducer from './slice/front/payment/paymentSlice';
+import messageReducer from './slice/message/messageSlice';
+import usersReducer from './slice/front/user/userSlice';
 import modalReducer from './slice/modalSlice';
 import loadingReducer from './slice/admin/adminLoadingSlice';
 
@@ -38,9 +43,14 @@ export const store = configureStore({
     // === 前台管理 ===
     frontGetProducts: frontGetProductsReducer,
     cart: frontCartReducer,
+    coupon: couponReducer,
+    order: orderReducer,
+    payment: paymentReducer,
+    user: usersReducer,
 
     // === 元件控制 ===
     modal: modalReducer,
     loading: loadingReducer,
+    messages: messageReducer,
   },
 });

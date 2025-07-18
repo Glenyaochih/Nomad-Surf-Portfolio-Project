@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { adminLogoutAsync } from '../../redux/slice/admin/adminLogoutSlice';
 import AdminLoading from '../../components/loadings/AdminLoading';
+import MessageToast from '../../components/message/MessageToast';
 
 export default function AdminIndexPage() {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ export default function AdminIndexPage() {
                 </li>
               </ul>
             </div>
-            <div className=''>
+            <div className='d-flex flex-column'>
               <Link className='btn btn-dark border py-3' to={'/'}>
                 回首頁
               </Link>
@@ -133,6 +134,7 @@ export default function AdminIndexPage() {
             </div>
           </div>
           <div className='overflow-auto'>
+            <MessageToast />
             <Outlet />
           </div>
         </section>

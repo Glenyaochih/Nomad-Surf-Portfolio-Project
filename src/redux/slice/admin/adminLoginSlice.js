@@ -33,7 +33,7 @@ export const adminLoginAsync = createAsyncThunk(
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
       const { token, expired } = res.data; //從登入成功資料取得
       document.cookie = `nomadsToken=${token}; expires=${new Date(expired)}`; //設定cookie的token及有效期
-      axios.defaults.headers.common['Authorization'] = token;
+      axios.defaults.headers.common['Authorization'] = token; //設定完之後就自動登入
       dispatch(adminLoginSlice.actions.setIsManagementOpen(true)); //派送頁面開啟的狀態
     } catch (error) {
       return rejectWithValue(error.message);

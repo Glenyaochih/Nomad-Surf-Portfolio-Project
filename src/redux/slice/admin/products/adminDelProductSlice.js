@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { adminGetProductsAsync } from './adminGetProductsSlice';
+import { createAsyncMessage } from '../../message/messageSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -29,13 +30,13 @@ export const adminDelProductsAsync = createAsyncThunk(
     productsId.forEach(async (id) => {
       //forEach 為同步所以需要在迴圈體內等待非同步的API遍歷完成所以要再加上一個async
       try {
-        await axios.delete(
+        const res = await axios.delete(
           `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`
         );
-
+        dispatch(createAsyncMessage(res.data));
         dispatch(adminGetProductsAsync({ page: 1, category: '' }));
       } catch (error) {
-        console.log(error);
+        dispatch(createAsyncMessage(error.response.data));
       }
     });
   }
