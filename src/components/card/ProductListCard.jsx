@@ -38,8 +38,8 @@ export default function ProductListCard({ item, cardBackground }) {
         <div
           ref={cardRef}
           className={`card border-0 pt-sm-13 pb-sm-11 bg-${cardBackground}`}
-          onPointerEnter={onMouseEnterCard}
-          onPointerLeave={onMouseLeaveCard}
+          onMouseEnter={onMouseEnterCard}
+          onMouseLeave={onMouseLeaveCard}
         >
           <div className='card-move'>
             <img
