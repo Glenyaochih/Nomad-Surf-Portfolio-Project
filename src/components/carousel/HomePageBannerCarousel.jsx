@@ -33,6 +33,8 @@ export default function HomePageBannerCarousel() {
         slidesPerView={1}
         pagination={{ clickable: true }}
         breakpoints={{ 576: { navigation: true, slidesPerView: 1 } }}
+        loop={true}
+        autoplay={true}
       >
         {carouselData.map((carousel, index) => {
           return (

@@ -117,6 +117,7 @@ export default function ProductDetailPage() {
                           clickable: true,
                         }}
                         direction='vertical' // 設定為垂直方向
+                        releaseOnEdges={true}
                       >
                         {/* 遍歷產品圖片並渲染 SwiperSlide */}
                         {product?.imagesUrl?.map((img, index) => {

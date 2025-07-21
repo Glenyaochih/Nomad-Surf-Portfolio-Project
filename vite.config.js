@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
 
   return {
-    base: isProduction ? '/Portfolio-Project/' : '/',
+    base: isProduction ? '/Nomad-Surf-Portfolio-Project/' : '/',
     plugins: [react()],
     // 新增 Sass 配置以解決 @import 找不到的問題
     css: {
