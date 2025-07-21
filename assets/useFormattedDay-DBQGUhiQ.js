@@ -1,1 +1,0 @@
-import{a as o}from"./index-DdDht4d6.js";const u=t=>{const[r,a]=o.useState("");return o.useEffect(()=>{if(t){const e=new Date(t),n=e.getFullYear(),s=(e.getMonth()+1).toString().padStart(2,"0"),c=e.getDate().toString().padStart(2,0);a(`${n}/${s}/${c}`)}else a("")},[t]),r};export{u};
