@@ -108,7 +108,7 @@ export default function ProductDetailPage() {
                   </section>
                   {/* 商品圖片輪播區塊 */}
                   <section>
-                    <div className='mh-100  overflow-y-auto  flex-grow-1'>
+                    <div className='mh-100  overflow-y-auto overflow-md-visible  flex-grow-1'>
                       {/* Swiper 輪播組件 */}
                       <Swiper
                         className='overflow-y-box'
@@ -144,10 +144,7 @@ export default function ProductDetailPage() {
                 {/*===== 選項區塊 =====*/}
 
                 {/* 商品詳細資訊與選項滾動區塊 */}
-                <div
-                  className='py-7 py-sm-11 px-sm-7 overflow-y-scroll  overflow-y-box flex-grow-1'
-                  style={{ maxHeight: '880px' }}
-                >
+                <div className='py-7 py-sm-11 px-sm-7 overflow-y-scroll  overflow-y-md-visible  overflow-y-box flex-grow-1'>
                   {/* 產品標題與等級資訊 */}
                   <section>
                     <div>
