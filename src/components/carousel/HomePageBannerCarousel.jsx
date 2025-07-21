@@ -1,10 +1,13 @@
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { Pagination, Navigation, Autoplay, EffectFade } from 'swiper/modules';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import DarkButtonLinearG from '../button/DarkButtonLinearG';
-
+// swiper css
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/effect-fade';
+import 'swiper/css/effect-fade';
 
+//輪播方式
 const carouselData = [
   {
     image: 'img/homePage/banner-01.webp',
@@ -29,12 +32,14 @@ export default function HomePageBannerCarousel() {
   return (
     <div>
       <Swiper
-        modules={[Pagination, Autoplay]}
+        modules={[Pagination, Autoplay, EffectFade]}
         slidesPerView={1}
         pagination={{ clickable: true }}
         breakpoints={{ 576: { navigation: true, slidesPerView: 1 } }}
         loop={true}
-        autoplay={true}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
+        speed={2000}
+        effect='fade'
       >
         {carouselData.map((carousel, index) => {
           return (
