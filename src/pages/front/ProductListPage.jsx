@@ -18,7 +18,6 @@ export default function ProductListPage() {
   const productsLoading = useSelector(selectProductsLoading);
   const sortOption = [
     { value: '', label: '請選擇排序' },
-    { value: 'best-selling', label: '最佳銷售' },
     { value: 'low-to-height', label: '價格由低到高' },
     { value: 'height-to-low', label: '價格由高到低' },
   ];
@@ -35,7 +34,7 @@ export default function ProductListPage() {
 
   return (
     <>
-      <div className='bg-neutral-40'>
+      <div className='bg-neutral-40 product-list'>
         <div className='container '>
           <section>
             <div className='pb-7 pt-sm-7 d-sm-flex justify-content-between align-items-center'>
@@ -75,18 +74,20 @@ export default function ProductListPage() {
                       </option>
                     ))}
                   </select>
-                  <div className='d-flex me-3 d-sm-none'>
+                  <div className='d-flex me-3 d-sm-none gap-3'>
                     <button
+                      onClick={handleProductSortChange}
                       lang='zh-TW'
                       className='btn rounded-3 btn-outline-primary-40 text-primary-100 fw-normal fs-7'
                     >
-                      最佳銷售
+                      價格由低到高
                     </button>
                     <button
+                      onClick={handleProductSortChange}
                       lang='zh-TW'
                       className='btn rounded-3 btn-outline-primary-40 text-primary-100 fw-normal fs-7'
                     >
-                      價格
+                      價格由高到低
                     </button>
                   </div>
                 </div>
@@ -95,7 +96,7 @@ export default function ProductListPage() {
           </section>
           <section>
             <div className='gy-7 pb-sm-14'>
-              <div className='row row-cols-2 row-cols-sm-4 '>
+              <div className='list-container row row-cols-2 row-cols-sm-4 '>
                 {products.map((product, index) => {
                   return (
                     <div className='col' key={index}>

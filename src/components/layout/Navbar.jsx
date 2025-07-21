@@ -72,10 +72,11 @@ export default function TestNavbar() {
   const handleSearch = (e) => {
     dispatch(setSearch(e.target.value));
   };
-  //輸入收尋
-  const clickChangePage = () => {
-    console.log('觸發');
-    navigate('products');
+  //enter後換到商品頁
+  const clickChangePage = (e) => {
+    if (e.key === 'Enter' && e.target.value) {
+      navigate('products');
+    }
   };
   //取得Offcanvas開關
   useEffect(() => {
@@ -140,9 +141,12 @@ export default function TestNavbar() {
                     placeholder='輸入關鍵字'
                     aria-label='Input group example'
                     aria-describedby='btnGroupAddon'
+                    onChange={handleSearch}
+                    onKeyDown={clickChangePage}
                   />
                 )}
                 <button
+                  onClick={clickChangePage}
                   onMouseEnter={handleMouseEnter}
                   className={`input-group-text border-start-0 ${showInput ? '' : 'border-0'} rounded-end-pill`}
                   id='btnGroupAddon'

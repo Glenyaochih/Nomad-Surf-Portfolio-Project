@@ -7,8 +7,8 @@ export default function OceanFooter() {
   const aboutRoutes = [{ path: 'admin', name: '後台管理入口' }];
   const productRoutes = [
     { path: '/products', name: '衝浪板' },
-    { path: '/', name: '配件' },
-    { path: '/', name: '周邊' },
+    // { path: '/', name: '配件' },
+    // { path: '/', name: '周邊' },
   ];
   const surfInfRoutes = [
     // { path: '/wave', name: '全台浪點' },
