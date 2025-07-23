@@ -47,12 +47,12 @@ export default function AdminLoginPage() {
               </h1>
               <form onSubmit={loginHandler} className='input-width'>
                 <div className='row g-3 border-bottom mb-7'>
-                  <div className='col-sm-2'>
+                  <div className='col-md-2'>
                     <label htmlFor='inputEmail' className='col-form-label'>
                       E-mail
                     </label>
                   </div>
-                  <div className='col-sm-10'>
+                  <div className='col-md-10'>
                     <input
                       style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
                       name='username'
@@ -65,12 +65,12 @@ export default function AdminLoginPage() {
                   </div>
                 </div>
                 <div className='row g-3 border-bottom mb-7'>
-                  <div className='col-sm-2'>
+                  <div className='col-md-2'>
                     <label htmlFor='inputPassword' className='col-form-label'>
                       password
                     </label>
                   </div>
-                  <div className='col-sm-10'>
+                  <div className='col-md-10'>
                     <input
                       style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
                       name='password'

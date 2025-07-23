@@ -84,7 +84,6 @@ export const adminPostProductSlice = createSlice({
 
     setPostDeleteSizeHandler: (state, action) => {
       const index = action.payload;
-      console.log(index);
       const newSizes = [...state.initData.sizes];
       newSizes.splice(index, 1);
       state.initData.sizes = newSizes;
