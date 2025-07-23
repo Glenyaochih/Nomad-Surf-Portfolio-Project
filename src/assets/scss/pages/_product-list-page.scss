@@ -1,0 +1,10 @@
+.product-list {
+
+  .list-container {
+    min-height: 420px;
+
+    @include mobile {
+      min-height: 200px;
+    }
+  }
+}

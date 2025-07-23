@@ -105,28 +105,28 @@ export default function ConfirmOrder() {
               </div>
               <p className='  text-neutral-60'>確認訂單</p>
             </div>
-            <span className='ms-2 me-2 ms-sm-4 me-sm-4 number-line'></span>
+            <span className='ms-2 me-2 ms-md-4 me-md-4 number-line'></span>
             <div className='d-flex align-items-center'>
               <div className='number-ball bg-neutral-60 rounded-pill me-2'>
                 <p className='text-white'>2</p>
               </div>
-              <p className='d-none d-sm-block text-neutral-60'>確認付款</p>
+              <p className='d-none d-md-block text-neutral-60'>確認付款</p>
             </div>
-            <span className='ms-2 me-2 ms-sm-4 me-sm-4 number-line'></span>
+            <span className='ms-2 me-2 ms-md-4 me-md-4 number-line'></span>
             <div className='d-flex align-items-center'>
               <div className='number-ball bg-neutral-60 rounded-pill me-2'>
                 <p className='text-white'>3</p>
               </div>
-              <p className='d-none d-sm-block text-neutral-60'>訂單完成</p>
+              <p className='d-none d-md-block text-neutral-60'>訂單完成</p>
             </div>
           </div>
         </div>
       </section>
-      <div className='pb-11 pb-sm-14'>
+      <div className='pb-11 pb-md-14'>
         <div className='row'>
           <div className='col-0 col-lg-8'>
             <section>
-              <div className='pb-3 pb-sm-0'>
+              <div className='pb-3 pb-md-0'>
                 {cartList.carts?.length === 0 ? (
                   <section>
                     {/*===== 購物車清空 =====*/}
@@ -222,16 +222,16 @@ export default function ConfirmOrder() {
                                   src={item.product.imageUrl}
                                   alt='surf-board'
                                 />
-                                <div className='d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ms-2 gap-4 w-100'>
+                                <div className='d-flex flex-column flex-md-row align-items-md-center justify-content-md-between ms-2 gap-4 w-100'>
                                   <p className='fs-lg-5 mb-lg-4 h5'>
                                     {item.product.title}
                                   </p>
                                   <p className='text-nowrap ms-auto me-2 lh-base'>
                                     NT$ {item.total.toLocaleString()}
                                   </p>
-                                  <div className='w-sm-100 d-flex'>
+                                  <div className='w-md-100 d-flex'>
                                     <div
-                                      className='btn-group btn-group-sm ms-sm-auto'
+                                      className='btn-group btn-group-sm ms-md-auto'
                                       role='group'
                                       aria-label='Small button group'
                                     >
@@ -291,7 +291,7 @@ export default function ConfirmOrder() {
               </div>
             </section>
             <section>
-              <div className='py-3 pt-sm-11 '>
+              <div className='py-3 pt-md-11 '>
                 <form
                   className='bg-white p-3 rounded-3'
                   onSubmit={handleSubmit(onSubmitOrder)}
@@ -303,7 +303,7 @@ export default function ConfirmOrder() {
                       <h6>收貨人資訊</h6>
                     </div>
                     <div className='text-neutral-60'>
-                      <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                      <div className='row row-cols-1 row-cols-md-2 py-3'>
                         <div className='col'>
                           <div className='pb-3'>
                             <label htmlFor='name' className='form-label fs-8'>
@@ -359,7 +359,7 @@ export default function ConfirmOrder() {
                           </div>
                         </div>
                       </div>
-                      <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                      <div className='row row-cols-1 row-cols-md-2 py-3'>
                         <div className='col'>
                           <div className='pb-3'>
                             <label htmlFor='email' className='form-label fs-8'>
@@ -615,7 +615,7 @@ export default function ConfirmOrder() {
           <div className='col-0 col-lg-4'>
             {/*===== 訂單資訊 =====*/}
             <section>
-              <div className='pt-3 pt-sm-0'>
+              <div className='pt-3 pt-md-0'>
                 <div className='bg-white p-3 rounded-3'>
                   <div>
                     <div className='py-3'>

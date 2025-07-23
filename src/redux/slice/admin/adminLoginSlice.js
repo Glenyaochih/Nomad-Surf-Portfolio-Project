@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { setScreenLoading } from './adminLoadingSlice';
+import { createAsyncMessage } from '../message/messageSlice';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -31,11 +32,14 @@ export const adminLoginAsync = createAsyncThunk(
     try {
       const account = getState().adminLogin.account; //getState <-- 取得slice 初始資料的方法
       const res = await axios.post(`${BASE_URL}/v2/admin/signin`, account);
+
+      dispatch(createAsyncMessage(res.data));
       const { token, expired } = res.data; //從登入成功資料取得
       document.cookie = `nomadsToken=${token}; expires=${new Date(expired)}`; //設定cookie的token及有效期
       axios.defaults.headers.common['Authorization'] = token; //設定完之後就自動登入
       dispatch(adminLoginSlice.actions.setIsManagementOpen(true)); //派送頁面開啟的狀態
     } catch (error) {
+      dispatch(createAsyncMessage(error.response.data));
       return rejectWithValue(error.message);
     } finally {
       dispatch(setScreenLoading(false));

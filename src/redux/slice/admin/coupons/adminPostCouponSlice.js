@@ -47,7 +47,7 @@ export const adminPostCouponAsync = createAsyncThunk(
       dispatch(adminGetCouponsAsync({}));
       dispatch(setResetCouponInitialState());
     } catch (error) {
-      console.log(error);
+      error;
     }
   }
 );

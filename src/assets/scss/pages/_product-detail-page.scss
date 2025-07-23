@@ -10,19 +10,23 @@
     border: 4px solid black;
   }
 
-
-  .overflow-y-box {
+  .overflow-y-img {
     max-height: 880px;
 
     @include mobile {
-      max-height: 440px
+      max-height: 440px;
+
     }
+  }
+
+  .overflow-y-content {
+    max-height: 880px;
   }
 
 
 
   .overflow-y-scroll {
-    scrollbar-width: none;
+    scrollbar-width: none; //滾動條不顯示
   }
 
   .overflow-y-scroll::-webkit-scrollbar {

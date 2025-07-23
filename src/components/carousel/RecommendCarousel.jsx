@@ -27,14 +27,18 @@ export default function RecommendCarousel({
     <>
       <div className={`bg-${background}`}>
         <div className='container'>
-          <div className='py-7 py-sm-14 latest-board'>
-            <h6 className='text-center fs-sm-4 mb-5' lang='zh-TW'>
+          <div className='py-7 py-md-14 latest-board'>
+            <h6 className='text-center fs-md-4 mb-5' lang='zh-TW'>
               {titleZhTW} <span>{title}</span>
             </h6>
             <Swiper
               slidesPerView={1}
               breakpoints={{
                 576: {
+                  slidesPerView: 2,
+                  spaceBetween: 24,
+                },
+                768: {
                   slidesPerView: 4,
                   spaceBetween: 24,
                 },

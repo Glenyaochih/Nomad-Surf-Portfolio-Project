@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 export default function OceanFooter() {
   const aboutRoutes = [{ path: 'admin', name: '後台管理入口' }];
   const productRoutes = [
+    { path: '/', name: '最新衝浪板' },
     { path: '/products', name: '衝浪板' },
-    { path: '/', name: '配件' },
-    { path: '/', name: '周邊' },
+    // { path: '/', name: '配件' },
+    // { path: '/', name: '周邊' },
   ];
   const surfInfRoutes = [
     // { path: '/wave', name: '全台浪點' },
@@ -23,7 +24,7 @@ export default function OceanFooter() {
     <>
       <div className='footerBg py-7'>
         <div className='container d-flex flex-column'>
-          <div className='d-flex justify-content-between align-items-center mb-9 mb-sm-12'>
+          <div className='d-flex justify-content-between align-items-center mb-9 mb-md-12'>
             <div className='footerHeader d-flex align-items-center'>
               <div className='p-1'>
                 <img src='img/logo/nomad-logo-white.svg' alt='nomad-logo-sm' />
@@ -43,17 +44,17 @@ export default function OceanFooter() {
                 onClick={scrollToTop}
               >
                 <MdOutlineKeyboardArrowUp />
-                <p className='d-none d-sm-block'>回到頂端</p>
+                <p className='d-none d-md-block'>回到頂端</p>
               </a>
             </div>
           </div>
 
           <div className='flex-column'>
-            <div className='d-flex justify-content-sm-between flex-column flex-sm-row'>
-              <div className='d-flex flex-column flex-sm-row gap-sm-14'>
+            <div className='d-flex justify-content-md-between flex-column flex-md-row'>
+              <div className='d-flex flex-column flex-md-row gap-md-14'>
                 <div className='mb-7'>
-                  <p className='fw-semibold pb-sm-5'>關於我們</p>
-                  <div className='d-flex flex-column gap-sm-2'>
+                  <p className='fw-semibold pb-md-5'>關於我們</p>
+                  <div className='d-flex flex-column gap-md-2'>
                     {aboutRoutes.map((route) => {
                       return (
                         <p key={route.name} className='py-2'>
@@ -64,8 +65,8 @@ export default function OceanFooter() {
                   </div>
                 </div>
                 <div className='mb-7'>
-                  <p className='fw-semibold pb-sm-5'>商品</p>
-                  <div className='d-flex flex-column gap-sm-2'>
+                  <p className='fw-semibold pb-md-5'>商品</p>
+                  <div className='d-flex flex-column gap-md-2'>
                     {productRoutes.map((route) => {
                       return (
                         <p key={route.name} className='py-2'>
@@ -76,8 +77,8 @@ export default function OceanFooter() {
                   </div>
                 </div>
                 <div className='mb-7'>
-                  <p className='fw-semibold pb-sm-5'>衝浪資訊</p>
-                  <div className='d-flex flex-column gap-sm-2 '>
+                  <p className='fw-semibold pb-md-5'>衝浪資訊</p>
+                  <div className='d-flex flex-column gap-md-2 '>
                     {surfInfRoutes.map((route) => {
                       return (
                         <p key={route.name} className='py-2'>
@@ -89,10 +90,10 @@ export default function OceanFooter() {
                 </div>
               </div>
               <div className='pb-7'>
-                <div className='pb-3 pb-sm-5'>
-                  <p className='text-sm-end'>追蹤我們</p>
+                <div className='pb-3 pb-md-5'>
+                  <p className='text-md-end'>追蹤我們</p>
                 </div>
-                <div className='d-flex gap-sm-7 gap-7  text-white me-auto'>
+                <div className='d-flex gap-md-7 gap-7  text-white me-auto'>
                   <BsFacebook size={24} />
                   <BsInstagram size={24} />
                   <BsTwitterX size={24} />
@@ -101,9 +102,9 @@ export default function OceanFooter() {
               </div>
             </div>
           </div>
-          <div className=' d-flex flex-column flex-sm-row gap-2 fs-9 '>
+          <div className=' d-flex flex-column flex-md-row gap-2 fs-9 '>
             <p>Copyright © 2024 Wings of the Sea. All rights reserved.</p>
-            <div className='d-flex flex-column flex-sm-row'>
+            <div className='d-flex flex-column flex-md-row'>
               <p>網站電商僅作為Demo不具商業目的</p>
             </div>
           </div>

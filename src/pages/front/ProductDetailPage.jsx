@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+
 import DarkButtonLinearG from '../../components/button/DarkButtonLinearG';
 import RecommendCarousel from '../../components/carousel/RecommendCarousel';
 import PickYourTimeAndGo from '../../components/layout/PickYourTimeAndGo';
@@ -19,16 +20,17 @@ import {
 import ScreenLoading from '../../components/loadings/ScreenLoading';
 import { selectCartLoading } from '../../redux/slice/front/cart/cartSelectors';
 import ButtonLoading from '../../components/loadings/ButtonLoading';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 // 商品詳情頁面組件
 export default function ProductDetailPage() {
   const dispatch = useDispatch();
-
   const product = useSelector(selectFrontProduct);
   const productLoading = useSelector(selectProductLoading);
   const cartLoading = useSelector(selectCartLoading);
   const { id: product_id } = useParams();
   const [buyItNow, setBuyItNow] = useState(false);
+  const isDesktop = useIsDesktop();
   const [cartOption, setCartOption] = useState({
     product_id: '',
     qty: 1,
@@ -76,7 +78,7 @@ export default function ProductDetailPage() {
         <div className='container flex-grow-1'>
           {/* 主要內容區塊 */}
           <section className='flex-grow-1'>
-            <div className='row row-cols-1 row-cols-sm-2 h-100'>
+            <div className='row row-cols-1 row-cols-md-2 h-100'>
               {/* 左側圖片顯示區塊 */}
               <div className='col h-100'>
                 {/*===== 圖片區塊 =====*/}
@@ -108,15 +110,16 @@ export default function ProductDetailPage() {
                   </section>
                   {/* 商品圖片輪播區塊 */}
                   <section>
-                    <div className='mh-100  overflow-y-auto  flex-grow-1'>
+                    <div className='mh-100   flex-grow-1'>
                       {/* Swiper 輪播組件 */}
                       <Swiper
-                        className='overflow-y-box'
+                        className='overflow-y-img'
                         modules={[Pagination]}
                         pagination={{
                           clickable: true,
                         }}
                         direction='vertical' // 設定為垂直方向
+                        releaseOnEdges={true}
                       >
                         {/* 遍歷產品圖片並渲染 SwiperSlide */}
                         {product?.imagesUrl?.map((img, index) => {
@@ -144,8 +147,7 @@ export default function ProductDetailPage() {
 
                 {/* 商品詳細資訊與選項滾動區塊 */}
                 <div
-                  className='py-7 py-sm-11 px-sm-7 overflow-y-scroll  overflow-y-box flex-grow-1'
-                  style={{ maxHeight: '880px' }}
+                  className={`py-7 py-md-11 px-md-7 ${isDesktop ? 'overflow-y-scroll' : ''} overflow-y-content flex-grow-1`}
                 >
                   {/* 產品標題與等級資訊 */}
                   <section>
@@ -253,7 +255,7 @@ export default function ProductDetailPage() {
                       <div className='mb-7'>
                         <p className='text-neutral-60 mb-3'>尺寸</p>
                         <div className='container'>
-                          <div className='row row-cols-6 row-cols-sm-10 gx-2 gy-2'>
+                          <div className='row row-cols-6 row-cols-md-10 gx-2 gy-2'>
                             {/* 遍歷尺寸並渲染選項 */}
                             {product?.sizes?.map((size, index) => {
                               const resize =
@@ -336,7 +338,7 @@ export default function ProductDetailPage() {
                           {/* 直接購買按鈕 */}
                           <Link
                             lang='zh-TW'
-                            className='btn btn-outline-dark btn-lg fs-7 fs-sm-6 rounded-pill'
+                            className='btn btn-outline-dark btn-lg fs-7 fs-md-6 rounded-pill'
                             onClick={() => {
                               (handleAddCart(), setBuyItNow(true));
                             }}
