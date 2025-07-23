@@ -15,7 +15,7 @@ const carouselData = [
   },
   {
     image: 'img/homePage/banner-02.webp',
-    content: [{ ch: '舊貨放送日' }, { en: 'EARTH DAY | 80% DISCOUNT!' }],
+    content: [{ ch: '舊貨放送日' }, { en: 'EARTH DAY| 80% DISCOUNT!' }],
   },
   {
     bg_slogan: true,

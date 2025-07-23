@@ -73,9 +73,9 @@ export default function HomePage() {
       <section>
         <div className='bg-black'>
           <div className='container'>
-            <div className='py-15 py-sm-14'>
+            <div className='py-15 py-md-14'>
               <div className='d-flex justify-content-center flex-column align-items-center'>
-                <h4 className='text-white mb-7 mb-sm-11 fs-lg-2' lang='zh-TW'>
+                <h4 className='text-white mb-7 mb-md-11 fs-lg-2' lang='zh-TW'>
                   更多選擇 符合你的預期
                 </h4>
                 <DarkButtonLinearG
@@ -96,7 +96,7 @@ export default function HomePage() {
           <h4 lang='zh-TW' className='text-center mb-11'>
             合作夥伴 <span lang='en'>Partners</span>
           </h4>
-          <div className='row row-cols-3 row-cols-sm-8 gy-3'>
+          <div className='row row-cols-3 row-cols-md-8 gy-3'>
             {partners.map((partner, index) => {
               return (
                 <div className='col' key={partner}>

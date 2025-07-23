@@ -44,7 +44,7 @@ export default function ConfirmPayment() {
               <div className='number-ball bg-primary-100 rounded-pill me-2'>
                 <p className='text-white'>1</p>
               </div>
-              <p className='d-none d-sm-block  text-neutral-60'>確認訂單</p>
+              <p className='d-none d-md-block  text-neutral-60'>確認訂單</p>
             </div>
             <span className='ms-2 me-2 number-line'></span>
             <div className='d-flex align-items-center'>
@@ -58,16 +58,16 @@ export default function ConfirmPayment() {
               <div className='number-ball bg-neutral-60 rounded-pill me-2'>
                 <p className='text-white'>3</p>
               </div>
-              <p className='d-none d-sm-block text-neutral-60'>訂單完成</p>
+              <p className='d-none d-md-block text-neutral-60'>訂單完成</p>
             </div>
           </div>
         </div>
       </section>
-      <div className='pb-11 pb-sm-14'>
+      <div className='pb-11 pb-md-14'>
         <div className='row'>
           <div className='col-0 col-lg-8'>
             <section>
-              <div className='pb-3 pb-sm-0'>
+              <div className='pb-3 pb-md-0'>
                 <section>
                   {/*===== 購物車內容 =====*/}
                   <div className='bg-white rounded-3 px-3'>
@@ -94,15 +94,15 @@ export default function ConfirmPayment() {
                                 src={item.product.imageUrl}
                                 alt='surf-board'
                               />
-                              <div className='d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between ms-2 gap-4 w-100'>
+                              <div className='d-flex flex-column flex-md-row align-items-md-center justify-content-md-between ms-2 gap-4 w-100'>
                                 <p className='fs-lg-5 mb-lg-4 h5'>
                                   {item.product.title}
                                 </p>
                                 <p className='text-nowrap ms-auto me-2 lh-base'>
                                   NT$ {item.total} X
                                 </p>
-                                <div className='w-sm-100 d-flex'>
-                                  <div className=' ms-sm-auto'>{item.qty}</div>
+                                <div className='w-md-100 d-flex'>
+                                  <div className=' ms-md-auto'>{item.qty}</div>
                                 </div>
                               </div>
                             </div>
@@ -115,14 +115,14 @@ export default function ConfirmPayment() {
               </div>
             </section>
             <section>
-              <div className='py-3 pt-sm-11 '>
+              <div className='py-3 pt-md-11 '>
                 <form className='bg-white p-3 rounded-3'>
                   <div className='pb-4'>
                     <div className='py-3'>
                       <h6>訂單資訊</h6>
                     </div>
                     <div className='text-neutral-60'>
-                      <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                      <div className='row row-cols-1 row-cols-md-2 py-3'>
                         <div className='col'>
                           <div className='pb-3'>
                             <p className='fs-9'>訂單編號</p>
@@ -145,7 +145,7 @@ export default function ConfirmPayment() {
                       <h6>收貨人資訊</h6>
                     </div>
                     <div className='text-neutral-60'>
-                      <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                      <div className='row row-cols-1 row-cols-md-2 py-3'>
                         <div className='col'>
                           <div className='pb-3'>
                             <p className='fs-9'>姓名</p>
@@ -163,7 +163,7 @@ export default function ConfirmPayment() {
                           </div>
                         </div>
                       </div>
-                      <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                      <div className='row row-cols-1 row-cols-md-2 py-3'>
                         <div className='col'>
                           <div className='pb-3'>
                             <p className='fs-9'>地址</p>
@@ -191,7 +191,7 @@ export default function ConfirmPayment() {
                             <p>信用卡</p>
                           </div>
                           <div className='text-neutral-60'>
-                            <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                            <div className='row row-cols-1 row-cols-md-2 py-3'>
                               <div className='col'>
                                 <div className='pb-3'>
                                   <p className='fs-9'>信用卡號</p>
@@ -201,7 +201,7 @@ export default function ConfirmPayment() {
                                 </div>
                               </div>
                             </div>
-                            <div className='row row-cols-1 row-cols-sm-2 py-3'>
+                            <div className='row row-cols-1 row-cols-md-2 py-3'>
                               <div className='col'>
                                 <div className='pb-3'>
                                   <p className='fs-9'>有效期限</p>
@@ -231,7 +231,7 @@ export default function ConfirmPayment() {
           <div className='col-0 col-lg-4'>
             {/*===== 訂單資訊 =====*/}
             <section>
-              <div className='pt-3 pt-sm-0'>
+              <div className='pt-3 pt-md-0'>
                 <div className='bg-white p-3 rounded-3'>
                   <div>
                     <div className='py-3'>

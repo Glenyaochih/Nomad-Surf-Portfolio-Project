@@ -1,5 +1,6 @@
 import ProductListCard from '../../components/card/ProductListCard';
 import ProductFilterOffcanvas from '../../components/offcanvas/ProductFilterOffcanvas';
+import { BsSortUp, BsSortDown } from 'react-icons/bs';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -37,7 +38,7 @@ export default function ProductListPage() {
       <div className='bg-neutral-40 product-list'>
         <div className='container '>
           <section>
-            <div className='pb-7 pt-sm-7 d-sm-flex justify-content-between align-items-center'>
+            <div className='pb-9 pt-md-7 d-md-flex justify-content-between align-items-center'>
               <div className='py-4'>
                 <nav aria-label='breadcrumb '>
                   <ol className='breadcrumb mb-0'>
@@ -60,7 +61,7 @@ export default function ProductListPage() {
                 <div>
                   <select
                     lang='zh-TW'
-                    className='form-select form-select-sm  px-4 py-2 d-none d-sm-block'
+                    className='form-select form-select-sm  px-4 py-2 d-none d-md-block'
                     aria-label='Small select example'
                     onChange={handleProductSortChange}
                   >
@@ -74,20 +75,28 @@ export default function ProductListPage() {
                       </option>
                     ))}
                   </select>
-                  <div className='d-flex me-3 d-sm-none gap-3'>
+                  <div className='d-flex d-md-none gap-3 ms-auto'>
                     <button
                       onClick={handleProductSortChange}
+                      value={'low-to-height'}
                       lang='zh-TW'
                       className='btn rounded-3 btn-outline-primary-40 text-primary-100 fw-normal fs-7'
                     >
-                      價格由低到高
+                      價格
+                      <span>
+                        <BsSortUp />
+                      </span>
                     </button>
                     <button
                       onClick={handleProductSortChange}
                       lang='zh-TW'
+                      value={'height-to-low'}
                       className='btn rounded-3 btn-outline-primary-40 text-primary-100 fw-normal fs-7'
                     >
-                      價格由高到低
+                      價格
+                      <span>
+                        <BsSortDown />
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -95,8 +104,8 @@ export default function ProductListPage() {
             </div>
           </section>
           <section>
-            <div className='gy-7 pb-sm-14'>
-              <div className='list-container row row-cols-2 row-cols-sm-4 '>
+            <div className='gy-7 pb-md-14'>
+              <div className='list-container row row-cols-2 row-cols-md-4 '>
                 {products.map((product, index) => {
                   return (
                     <div className='col' key={index}>

@@ -10,8 +10,7 @@
     border: 4px solid black;
   }
 
-
-  .overflow-y-box {
+  .overflow-y-img {
     max-height: 880px;
 
     @include mobile {
@@ -20,10 +19,14 @@
     }
   }
 
+  .overflow-y-content {
+    max-height: 880px;
+  }
+
 
 
   .overflow-y-scroll {
-    scrollbar-width: none;
+    scrollbar-width: none; //滾動條不顯示
   }
 
   .overflow-y-scroll::-webkit-scrollbar {

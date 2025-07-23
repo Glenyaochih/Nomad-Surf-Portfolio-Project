@@ -127,7 +127,7 @@ export default function TestNavbar() {
             />
           </a>
           {/* 手機版搜尋與購物車 */}
-          <ul className=' d-flex align-items-center d-sm-none ms-auto p-0'>
+          <ul className=' d-flex align-items-center d-md-none ms-auto p-0'>
             <li>
               <div
                 style={{ maxWidth: '270px' }}
@@ -206,7 +206,7 @@ export default function TestNavbar() {
 
               <button
                 type='button'
-                className='btn-close'
+                className='btn-close p-4'
                 onClick={handleOffcanvasClose}
               ></button>
             </div>
@@ -229,7 +229,7 @@ export default function TestNavbar() {
                 })}
               </ul>
               <hr />
-              <ul className='navbar-nav d-sm-none'>
+              <ul className='navbar-nav d-md-none'>
                 {mobile_routes.map((route) => {
                   return (
                     <li className='nav-item' key={route.path}>

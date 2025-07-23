@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import DarkButtonLinearG from '../button/DarkButtonLinearG';
@@ -7,26 +7,19 @@ import {
   setApplyFilter,
   setFilter,
 } from '../../redux/slice/front/products/frontProductsSlice';
+import { useIsDesktop } from '../../hooks/useIsDesktop';
 
 export default function LevelEntranceCard01({ data }) {
   const entranceRef = useRef(null); //取得範圍參考
   const { contextSafe } = useGSAP({ scope: entranceRef });
-  const mm = useMemo(() => gsap.matchMedia(), []);
-  const isDesktop = useMemo(() => window.matchMedia('(min-width: 576px)'), []);
+  const dispatch = useDispatch();
   const tempFilters = useSelector(
     (state) => state.frontGetProducts.filters.tempFilters
   );
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    mm.add({
-      '(min-width: 576px)': () => {},
-    });
-    return () => mm.revert();
-  }, [mm]);
+  const isDesktop = useIsDesktop();
 
   const onMouseEnterEntrance = contextSafe(() => {
-    if (isDesktop.matches) {
+    if (isDesktop) {
       gsap.fromTo(
         ['.entrance-bg-image-1'],
         {
@@ -70,7 +63,7 @@ export default function LevelEntranceCard01({ data }) {
   // 滑鼠離開事件處理函數
   const onMouseLeaveEntrance = contextSafe(() => {
     // 檢查是否為桌面視圖
-    if (isDesktop.matches) {
+    if (isDesktop) {
       // 對 .entrance-bg-image 元素執行 fromTo 動畫，使其回到原始位置
       gsap.fromTo(
         ['.entrance-bg-image-1'],

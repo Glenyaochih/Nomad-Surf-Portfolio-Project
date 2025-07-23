@@ -14,7 +14,7 @@ import {
 } from '../../redux/slice/front/user/userSelectors';
 import ScreenLoading from '../../components/loadings/ScreenLoading';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 export default function UserLoginPage() {
