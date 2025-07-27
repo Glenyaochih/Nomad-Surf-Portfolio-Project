@@ -15,13 +15,16 @@ import {
   adminDelCouponsAsync,
   setDelCouponsInputChange,
 } from '../../redux/slice/admin/coupons/adminDelCouponsSlice';
+import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminCouponsPage() {
   const dispatch = useDispatch();
   const coupons = useSelector((state) => state.adminGetCoupons.coupons);
   const tempCoupon = useSelector((state) => state.adminPutCoupon.tempCoupon);
+  const idContainer = useSelector((state) => state.adminDelCoupons.idContainer);
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // === modal section --> adminModalSlices ===
   const addCouponModalOpen = () => {
@@ -63,6 +66,15 @@ export default function AdminCouponsPage() {
 
   return (
     <>
+      <AdminMessageModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        idContainer={idContainer}
+        items={coupons}
+        itemName={'title'}
+        deleteTitle={'刪除優惠卷'}
+        action={confirmDelCoupons}
+      />
       <AdminAddCouponModal />
       <div>
         <div className=' banner mb-4'>
@@ -77,7 +89,7 @@ export default function AdminCouponsPage() {
                 <i className='bi bi-trash text-white me-1'></i>新增優惠卷
               </button>
               <button
-                onClick={confirmDelCoupons}
+                onClick={() => setIsOpen(true)}
                 className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除優惠卷

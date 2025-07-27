@@ -14,13 +14,17 @@ import {
   adminDelOrdersAsync,
   setDelOrdersInputChange,
 } from '../../redux/slice/admin/orders/adminDelOrdersSlice';
+import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminOrdersPage() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.adminGetOrders.orders);
   const tempOrder = useSelector((state) => state.adminPutOrder.tempOrder);
+  const idContainer = useSelector((state) => state.adminDelOrders.idContainer);
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDelAll, setIsDelAll] = useState(false);
 
   // === delete section --> adminDelProductSlices ===
   const handleOrderDelInputChange = (e, orderId) => {
@@ -58,6 +62,16 @@ export default function AdminOrdersPage() {
 
   return (
     <>
+      <AdminMessageModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        action={isDelAll ? confirmDelAllOrders : confirmDelOrders}
+        isDelAll={isDelAll}
+        deleteTitle={'刪除訂單'}
+        items={orders}
+        itemName={'id'}
+        idContainer={idContainer}
+      />
       <div>
         <div className=' banner mb-4'>
           <h5 className='fs-5 mt-4 mb-7'>訂單管理</h5>
@@ -65,13 +79,17 @@ export default function AdminOrdersPage() {
           <div className='d-flex justify-content-between align-items-center'>
             <div className='ms-auto'>
               <button
-                onClick={confirmDelOrders}
+                onClick={() => {
+                  (setIsDelAll(false), setIsOpen(true));
+                }}
                 className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除訂單
               </button>
               <button
-                onClick={confirmDelAllOrders}
+                onClick={() => {
+                  (setIsDelAll(true), setIsOpen(true));
+                }}
                 className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除全部訂單
