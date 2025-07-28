@@ -26,24 +26,30 @@ export default function AdminCouponsPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // === modal section --> adminModalSlices ===
+  //modal section
+  //新增優惠卷
   const addCouponModalOpen = () => {
     dispatch(setAddCouponModalOpen(true));
   };
 
-  // === modal section --> adminModalSlices ===
+  // 刪除優惠卷
 
-  // === delete section --> adminDelProductSlices ===
+  //刪除提示modal
+  const delMessageModalOpen = () => {
+    if (idContainer.length > 0) {
+      setIsOpen(true);
+    }
+  };
   const handleCouponDelInputChange = (e, couponId) => {
     const { checked } = e.target;
     dispatch(setDelCouponsInputChange({ checked, couponId }));
   };
 
+  //確認刪除優惠卷
   const confirmDelCoupons = () => {
     dispatch(adminDelCouponsAsync());
   };
 
-  // === edit section --> adminPutProductSlices.js ===
   //修改狀態控制
   const editCouponHandler = (coupon) => {
     setEditState(coupon.id);
@@ -89,7 +95,7 @@ export default function AdminCouponsPage() {
                 <i className='bi bi-trash text-white me-1'></i>新增優惠卷
               </button>
               <button
-                onClick={() => setIsOpen(true)}
+                onClick={delMessageModalOpen}
                 className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除優惠卷
