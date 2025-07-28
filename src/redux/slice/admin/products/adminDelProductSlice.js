@@ -7,7 +7,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const adminDelProductSlice = createSlice({
-  name: 'adminDelCoupons',
+  name: 'adminDelProducts',
   initialState: {
     idContainer: [],
   },
@@ -19,6 +19,9 @@ export const adminDelProductSlice = createSlice({
       } else {
         state.idContainer = state.idContainer.filter((id) => id !== productId);
       }
+    },
+    setDelMessageModalOpen: (state, action) => {
+      state.isDelModalOpen = action.payload;
     },
   },
 });
@@ -41,5 +44,6 @@ export const adminDelProductsAsync = createAsyncThunk(
     });
   }
 );
-export const { setDelProductInputChange } = adminDelProductSlice.actions;
+export const { setDelProductInputChange, setDelModalOpen } =
+  adminDelProductSlice.actions;
 export default adminDelProductSlice.reducer;

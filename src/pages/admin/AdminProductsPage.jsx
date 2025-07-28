@@ -24,25 +24,39 @@ import {
   adminPutProductAsync,
   setPutProductInputChange,
 } from '../../redux/slice/admin/products/adminPutProductSlice';
+import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminProductsPage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.adminGetProducts.products);
   const tempProduct = useSelector((state) => state.adminPutProduct.tempProduct);
+  const idContainer = useSelector(
+    (state) => state.adminDelProducts.idContainer
+  );
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  // === 模態框相關功能 ===
+  // === modal功能 ===
+  //刪除提示modal
+  const delMessageModalOpen = () => {
+    console.log(idContainer.length);
+    if (idContainer.length > 0) {
+      setIsOpen(true);
+    }
+  };
+  //新增產品modal
   const addProductModalOpen = () => {
     dispatch(setAddProductModalOpen(true));
   };
+  //修改產品modal
   const editProductModalOpen = (state, data) => {
     dispatch(setEditProductOpen({ open: true, state, data }));
   };
+  //查看產品modal
   const checkProductModalOpen = (state, data) => {
     dispatch(setCheckProductOpen({ open: true, state, data }));
   };
-
   // === 產品刪除功能 ===
   const handleProductDelInputChange = (e, productId) => {
     const { checked } = e.target;
@@ -53,7 +67,7 @@ export default function AdminProductsPage() {
     dispatch(adminDelProductsAsync());
   };
 
-  // === 產品編輯功能 ===
+  // 產品編輯功能
   const editProductHandler = (product) => {
     setEditState(product.id);
     dispatch(setTempProduct(product));
@@ -68,7 +82,7 @@ export default function AdminProductsPage() {
     dispatch(adminPutProductAsync());
   };
 
-  // === 產品篩選功能 ===
+  // 產品篩選功能
   const categoryFilterHandler = (newCategory) => {
     dispatch(setProductCategory(newCategory));
     dispatch(adminGetProductsAsync({ page: 1, category: newCategory }));
@@ -85,6 +99,15 @@ export default function AdminProductsPage() {
       <AdminAddProductModal />
       <AdminCheckProductModal />
       <AdminEditProductModal />
+      <AdminMessageModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        idContainer={idContainer}
+        items={products}
+        itemName={'title'}
+        action={confirmDelProduct}
+        deleteTitle={'刪除產品'}
+      />
 
       <div>
         {/* 帶有標題和操作按鈕的橫幅部分 */}
@@ -116,7 +139,8 @@ export default function AdminProductsPage() {
               </button>
               {/* 刪除選定產品按鈕 */}
               <button
-                onClick={confirmDelProduct}
+                // onClick={confirmDelProduct}
+                onClick={delMessageModalOpen}
                 className='btn btn-dark text-white border deleteButton px-4'
               >
                 <i className='bi bi-trash text-white me-1'></i>刪除產品
@@ -542,6 +566,7 @@ export default function AdminProductsPage() {
         </div>
         {/* 管理員分頁組件 */}
         <AdminPagination pageState={'products'} />
+        <AdminLoading />
       </div>
     </>
   );

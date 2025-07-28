@@ -63,7 +63,7 @@ export default function UserLoginPage() {
                 <ol className='breadcrumb mb-0 py-2 '>
                   <li className='breadcrumb-item text-neutral-60 '>
                     <a
-                      className='fs-8 fs-sm-7 text-neutral-60'
+                      className='fs-8 fs-md-7 text-neutral-60'
                       href='#'
                       lang='zh-TW'
                     >
@@ -83,7 +83,7 @@ export default function UserLoginPage() {
 
           {/*===== From區塊 =====*/}
           <section>
-            <div className='d-flex justify-content-center py-sm-14 pb-11'>
+            <div className='d-flex justify-content-center py-md-14 pb-11'>
               <div className='bg-neutral-10  rounded-4 px-5 py-11 input-box w-100'>
                 <h5 className='text-center mb-11'>
                   {isMember ? '登入會員' : '註冊會員'}

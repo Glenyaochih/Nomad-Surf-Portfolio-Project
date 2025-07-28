@@ -16,16 +16,16 @@ export default function FinishedOrder() {
               <div className='number-ball bg-primary-100 rounded-pill me-2'>
                 <p className='text-white'>1</p>
               </div>
-              <p className=' d-none d-sm-block text-neutral-60'>確認訂單</p>
+              <p className=' d-none d-md-block text-neutral-60'>確認訂單</p>
             </div>
-            <span className='ms-2 me-2 ms-sm-4 me-sm-4 number-line'></span>
+            <span className='ms-2 me-2 ms-md-4 me-md-4 number-line'></span>
             <div className='d-flex align-items-center'>
               <div className='number-ball bg-primary-100 rounded-pill me-2'>
                 <p className='text-white'>2</p>
               </div>
-              <p className='d-none d-sm-block text-neutral-60'>確認付款</p>
+              <p className='d-none d-md-block text-neutral-60'>確認付款</p>
             </div>
-            <span className='ms-2 me-2 ms-sm-4 me-sm-4 number-line'></span>
+            <span className='ms-2 me-2 ms-md-4 me-md-4 number-line'></span>
             <div className='d-flex align-items-center'>
               <div className='number-ball bg-primary-100 rounded-pill me-2'>
                 <p className='text-white'>3</p>
@@ -39,7 +39,7 @@ export default function FinishedOrder() {
         <div className='d-flex justify-content-center'>
           <div className='w-100 pb-14'>
             <div className='pb-11'>
-              <h4 className='fs-6 fs-sm-4 text-center'>
+              <h4 className='fs-6 fs-md-4 text-center'>
                 訂單已完成付款，謝謝您的訂購！
               </h4>
             </div>
