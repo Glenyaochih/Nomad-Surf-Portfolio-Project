@@ -40,7 +40,6 @@ export default function AdminProductsPage() {
   // === modal功能 ===
   //刪除提示modal
   const delMessageModalOpen = () => {
-    console.log(idContainer.length);
     if (idContainer.length > 0) {
       setIsOpen(true);
     }
