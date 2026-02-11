@@ -1,16 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
 
 import {
-  adminLoginAsync,
+  loginAsync,
   checkAuthStatusAsync,
   setAccount,
-} from '../../redux/slice/admin/adminLoginSlice';
+} from '../../redux/slice/admin/auth/adminAuthSlice';
 import ScreenLoading from '../../components/loadings/ScreenLoading';
+import MessageToast from '../../components/message/MessageToast';
 
 export default function AdminLoginPage() {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.adminAuth.isScreenLoading);
 
   const inputAccount = (e) => {
     const { value, name } = e.target;
@@ -19,7 +21,7 @@ export default function AdminLoginPage() {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(adminLoginAsync());
+    dispatch(loginAsync());
   };
   useEffect(() => {
     const token = document.cookie.replace(
@@ -94,7 +96,8 @@ export default function AdminLoginPage() {
             </div>
           </div>
         </div>
-        <ScreenLoading />
+        <ScreenLoading loadingSource={isLoading} />
+        <MessageToast />
       </div>
     </>
   );

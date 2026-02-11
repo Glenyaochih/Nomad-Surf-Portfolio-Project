@@ -120,7 +120,7 @@ export const selectFilteredProducts = createSelector(
         (a, b) => a.soldNum - b.soldNum
       );
     }
-    console.log(filteredProduct);
+
     return filteredProduct;
   }
 );

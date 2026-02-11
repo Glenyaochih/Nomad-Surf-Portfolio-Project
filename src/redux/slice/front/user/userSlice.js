@@ -79,7 +79,6 @@ export const userSigninAsync = createAsyncThunk(
       const res = await getUserAPI.userSignin(data);
       const { accessToken } = res.data;
       const decodeToken = jwtDecode(accessToken);
-      console.log(decodeToken.exp);
       document.cookie = `usersToken=${accessToken}; expires=${new Date(decodeToken.exp)}`;
       axios.defaults.headers.common['Authorization'] = accessToken;
       dispatch(createAsyncMessage({ message: '登入成功', success: true }));

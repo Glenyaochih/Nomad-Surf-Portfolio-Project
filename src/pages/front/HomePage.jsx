@@ -31,7 +31,7 @@ export default function HomePage() {
       <section>
         <HomePageBannerCarousel />
       </section>
-      <section>
+      <section id='latest-surfboards' style={{ scrollMarginTop: '100px' }}>
         <RecommendCarousel
           titleZhTW={'衝浪板'}
           title={'Latest'}
