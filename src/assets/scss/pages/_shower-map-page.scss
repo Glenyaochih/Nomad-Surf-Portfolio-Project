@@ -1,8 +1,20 @@
-.shower-map {
-  height: 860px;
+ .shower-map {
 
-  .leaflet-container {
-    height: 860px
-  }
+   .leaflet-container {
+     height: 860px;
 
-}
+     @include mobile {
+       height: 671px;
+     }
+
+   }
+
+   .search-bar {
+     max-width: 520px;
+   }
+
+   .shower-map-z-index {
+     z-index: 500;
+     position: relative;
+   }
+ }
