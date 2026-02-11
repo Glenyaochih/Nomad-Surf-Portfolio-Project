@@ -4,7 +4,6 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const getPaymentAPI = {
   postPayment: async (id) => {
-    console.log(id);
     return axios.post(`${BASE_URL}/v2/api/${API_PATH}/pay/${id}`);
   },
 };

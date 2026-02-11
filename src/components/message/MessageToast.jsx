@@ -21,10 +21,10 @@ export default function MessageToast() {
                 <img
                   style={{ maxWidth: '20px' }}
                   src='img/logo/nomad-logo-black.svg'
-                  className='rounded me-2'
+                  className='rounded me-2 text-neutral-80'
                   alt='Nomad logo'
                 />
-                <strong className='me-auto'>Nomad</strong>
+                <strong className='me-auto text-neutral-80'>Nomad</strong>
                 <small>{msg.title}</small>
                 <button
                   type='button'

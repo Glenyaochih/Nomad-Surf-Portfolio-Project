@@ -13,7 +13,19 @@ export const paymentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder;
+    builder
+      .addCase(postPaymentAsync.pending, (state) => {
+        state.isPaymentLoading = true;
+        state.paymentError = null;
+      })
+      .addCase(postPaymentAsync.fulfilled, (state) => {
+        state.isPaymentLoading = false;
+        state.paymentError = null;
+      })
+      .addCase(postPaymentAsync.rejected, (state, action) => {
+        state.isPaymentLoading = false;
+        state.paymentError = action.payload;
+      });
   },
 });
 
@@ -22,8 +34,8 @@ export const postPaymentAsync = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const res = await getPaymentAPI.postPayment(id);
+      await dispatch(getOrderAsync());
       dispatch(createAsyncMessage(res.data));
-      dispatch(getOrderAsync());
     } catch (error) {
       dispatch(createAsyncMessage(error.response.data));
       return rejectWithValue(error.response.data);

@@ -13,6 +13,7 @@ import {
 } from '../../redux/slice/front/products/frontProductsSelectors';
 import ScreenLoading from '../../components/loadings/ScreenLoading';
 import { getCartAsync } from '../../redux/slice/front/cart/cartSlice';
+
 export default function ProductListPage() {
   const dispatch = useDispatch();
   const products = useSelector(selectFilteredProducts);

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAddProductModalOpen } from '../../redux/slice/modalSlice';
 import { MdDeleteOutline } from 'react-icons/md';
 import {
-  adminPostProductAsync,
+  createProductAsync,
   setPostAddColorHandler,
   setPostAddImagesHandler,
   setPostAddSizeHandler,
@@ -15,14 +15,14 @@ import {
   setPostImagesInputChange,
   setPostProductInputChange,
   setPostSizesInputChange,
-} from '../../redux/slice/admin/products/adminPostProductSlice';
-import { adminUploadImageAsync } from '../../redux/slice/admin/products/adminUploadImageSlice';
+  uploadImageAsync,
+} from '../../redux/slice/admin/products/adminProductsSlice';
 
 export default function AdminAddProductModal() {
   const adminAddProductModalLink = useRef(null);
   const adminAddProductModalSelf = useRef(null);
   const modalOpen = useSelector((state) => state.modal.addProductModalOpen);
-  const modalData = useSelector((state) => state.adminPostProduct.initData);
+  const modalData = useSelector((state) => state.adminProducts.initData);
   const dispatch = useDispatch();
   //data section
 
@@ -94,11 +94,11 @@ export default function AdminAddProductModal() {
   const imageUploadHandler = (e) => {
     const { name } = e.target;
     const file = e.target.files[0];
-    dispatch(adminUploadImageAsync({ file, name }));
+    dispatch(uploadImageAsync({ file, name }));
   };
 
   const confirmAddProduct = () => {
-    dispatch(adminPostProductAsync());
+    dispatch(createProductAsync());
 
     //add product section
   };
@@ -211,7 +211,7 @@ export default function AdminAddProductModal() {
                   <div className='btn-group w-100'>
                     {modalData.imagesUrl.length < 5 &&
                       modalData.imagesUrl[modalData.imagesUrl.length - 1] !==
-                        '' && (
+                      '' && (
                         <button
                           className='btn btn-outline-accent-300 btn-sm d-block'
                           onClick={addImagesHandler}
@@ -358,10 +358,9 @@ export default function AdminAddProductModal() {
                         onChange={handleProductModalInputChange}
                         name='product_num'
                         id='product_num'
-                        type='number'
-                        min='0'
+                        type='text'
                         className='form-control'
-                        placeholder='請輸入原價'
+                        placeholder='請輸入產品編號'
                       />
                     </div>
                   </div>

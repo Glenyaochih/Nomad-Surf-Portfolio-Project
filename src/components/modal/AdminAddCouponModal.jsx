@@ -3,15 +3,15 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddCouponModalOpen } from '../../redux/slice/modalSlice';
 import {
-  adminPostCouponAsync,
+  createCouponAsync,
   setPostCouponInputChange,
-} from '../../redux/slice/admin/coupons/adminPostCouponSlice';
+} from '../../redux/slice/admin/coupons/adminCouponsSlice';
 
 export default function AdminAddCouponModal() {
   const adminAddCouponModalLink = useRef(null);
   const adminAddCouponModalSelf = useRef(null);
   const modalOpen = useSelector((state) => state.modal.addCouponModalOpen);
-  const modalData = useSelector((state) => state.adminPostCoupon.initData);
+  const modalData = useSelector((state) => state.adminCoupons.initData);
   const dispatch = useDispatch();
   //data section
 
@@ -45,7 +45,7 @@ export default function AdminAddCouponModal() {
   };
 
   const confirmAddCoupon = () => {
-    dispatch(adminPostCouponAsync());
+    dispatch(createCouponAsync());
 
     //add product section
   };

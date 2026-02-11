@@ -13,7 +13,7 @@ export default function OceanFooter() {
   ];
   const surfInfRoutes = [
     // { path: '/wave', name: '全台浪點' },
-    // { path: '/shower-map', name: '沖澡地圖' },
+    { path: '/shower-map', name: '沖澡地圖' },
   ];
 
   const scrollToTop = () => {
