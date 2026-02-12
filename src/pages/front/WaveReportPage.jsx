@@ -6,9 +6,21 @@ import {
 } from 'react-icons/md';
 import { FaArrowUp, FaWind } from 'react-icons/fa';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWaveDataAsync } from '../../redux/slice/front/wave/waveSlice';
+import { getWaveDataAsync, setSelectedSpotId, setSelectedDate } from '../../redux/slice/front/wave/waveSlice';
+import {
+  SURF_SPOTS,
+  selectSelectedDate,
+  selectCurrentSpot,
+  selectActiveReport,
+  selectWindAnalysis,
+  selectWaveRating,
+  selectWeatherWarning,
+  selectIsWaveLoading,
+  selectDailyForecast,
+  selectRecommendedSurfTime
+} from '../../redux/slice/front/wave/waveSelectors';
 import { ClipLoader } from 'react-spinners';
 import RecommendCarousel from '../../components/carousel/RecommendCarousel';
 
@@ -17,16 +29,6 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
-// 浪點清單 (保持不變)
-const SURF_SPOTS = [
-  { id: 'wushi', name: '宜蘭 烏石港', lat: 24.87, lon: 121.83 },
-  { id: 'waiao', name: '宜蘭 外澳', lat: 24.88, lon: 121.84 },
-  { id: 'donghe', name: '台東 東河', lat: 22.97, lon: 121.31 },
-  { id: 'nanwan', name: '墾丁 南灣', lat: 21.96, lon: 120.76 },
-  { id: 'jialeshui', name: '墾丁 佳樂水', lat: 21.99, lon: 120.84 },
-  { id: 'daan', name: '台中 大安', lat: 24.39, lon: 120.58 },
-  { id: 'jibeis', name: '花蓮 磯碕', lat: 23.70, lon: 121.55 },
-];
 
 // 透過 ChangeView 元件實作地圖平移 (FlyTo) 功能
 // 當 center (經緯度) 改變時，利用 Leaflet 的 useMap hook 取得地圖實體並執行平滑移動
@@ -38,24 +40,24 @@ function ChangeView({ center }) {
 
 export default function WaveReportPage() {
   const dispatch = useDispatch();
-  const { waveData, isWaveLoading } = useSelector((state) => state.wave);
-  const [selectedSpot, setSelectedSpot] = useState(SURF_SPOTS[0]);
+  const isWaveLoading = useSelector(selectIsWaveLoading);
+
+  const selectedDate = useSelector(selectSelectedDate);
+  const selectedSpot = useSelector(selectCurrentSpot);
+  const activeReport = useSelector(selectActiveReport);
+  const windAnalysis = useSelector(selectWindAnalysis);
+  const ratingStatus = useSelector(selectWaveRating);
+  const weatherWarning = useSelector(selectWeatherWarning);
+  const dailyForecast = useSelector(selectDailyForecast);
+  const recommendedSurfTime = useSelector(selectRecommendedSurfTime);
 
   useEffect(() => {
-    dispatch(getWaveDataAsync({ lat: selectedSpot.lat, lon: selectedSpot.lon }));
+    if (selectedSpot) {
+      dispatch(getWaveDataAsync({ lat: selectedSpot.lat, lon: selectedSpot.lon }));
+    }
   }, [dispatch, selectedSpot]);
 
-  const current = waveData?.current || {};
-
-  const getRating = (height, wind) => {
-    if (!height || height === '-') return { text: '數據載入中', color: 'text-neutral-40', grade: '?' };
-    if (height > 1.5) return { text: 'Excellent', color: 'text-primary-100', grade: 'A' };
-    if (height > 0.8 && wind < 20) return { text: 'Good', color: 'text-success', grade: 'B' };
-    if (height > 0.5) return { text: 'Fair', color: 'text-warning', grade: 'C' };
-    return { text: 'Flat', color: 'text-secondary', grade: 'D' };
-  };
-
-  const ratingStatus = getRating(current.wave_height, current.wind_speed_10m);
+  const current = activeReport || {};
 
   const markerIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
@@ -74,6 +76,7 @@ export default function WaveReportPage() {
     ratingGrade: ratingStatus.grade,
     windSpeed: current.wind_speed_10m !== undefined ? current.wind_speed_10m : '-',
     windDirection: current.wind_direction_10m !== undefined ? current.wind_direction_10m : 0,
+    windType: windAnalysis.text,
     period: current.wave_period !== undefined ? current.wave_period : '-',
     temperature: current.temperature_2m !== undefined ? current.temperature_2m : '-',
     waterTemp: current.sea_surface_temperature !== undefined ? Math.round(current.sea_surface_temperature) : '-',
@@ -104,7 +107,14 @@ export default function WaveReportPage() {
             <div className='col-lg-7'>
               <div className='d-flex align-items-center mb-4'>
                 <MdLocationOn className='text-primary-100 me-2 fs-3' />
-                <h1 className='display-4 fw-bold mb-0'>{currentData.location}</h1>
+                <h1 className='display-4 fw-bold mb-0'>
+                  {currentData.location}
+                  {current.isLive ? (
+                    <span className="ms-3 badge rounded-pill bg-danger fs-8 fw-normal align-middle animate-pulse">LIVE</span>
+                  ) : (
+                    <span className="ms-3 fs-3 fw-normal text-neutral-40">/ {current.time}</span>
+                  )}
+                </h1>
               </div>
 
               <div className='mb-6'>
@@ -117,7 +127,7 @@ export default function WaveReportPage() {
                         ? 'btn-primary-100 text-white'
                         : 'btn-outline-white text-white opacity-50'
                         }`}
-                      onClick={() => setSelectedSpot(spot)}
+                      onClick={() => dispatch(setSelectedSpotId(spot.id))}
                     >
                       {spot.name}
                     </button>
@@ -125,9 +135,19 @@ export default function WaveReportPage() {
                 </div>
               </div>
 
-              <p className='fs-7 text-neutral-40'>
-                最後更新時間 Last Updated: {new Date().toLocaleTimeString()}
-              </p>
+              <div className="d-flex align-items-center gap-3">
+                <p className='fs-7 text-neutral-40 mb-0'>
+                  更新時間 Last Updated: {new Date().toLocaleTimeString()}
+                </p>
+                {!current.isLive && (
+                  <button
+                    className="btn btn-sm btn-outline-primary-100 rounded-pill px-3 py-1 fs-8"
+                    onClick={() => dispatch(setSelectedDate(null))}
+                  >
+                    返回即時 Back to Live
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className='col-lg-5 text-lg-end mt-7 mt-lg-0'>
@@ -138,13 +158,25 @@ export default function WaveReportPage() {
                 </div>
                 <div className='d-flex align-items-center justify-content-center mt-2'>
                   <div className={`fs-3 fw-bold me-3 ${currentData.ratingColor}`}>
-                    {currentData.rating}
+                    {currentData.rating === 'Flat' ? '別浪費時間(Flat)' : currentData.rating}
                   </div>
                   <div className="bg-primary-100 text-white rounded-circle d-flex align-items-center justify-content-center shadow-lg"
                     style={{ width: '60px', height: '60px', fontSize: '24px', fontWeight: 'bold' }}>
                     {currentData.ratingGrade}
                   </div>
                 </div>
+                <div className='mt-4 text-neutral-40 bg-white bg-opacity-10 py-2 px-4 rounded-pill d-inline-block'>
+                  <span className='fs-7 fw-bold text-white'>
+                    <MdAccessTime className='me-2 text-primary-100' />
+                    最佳下浪：{recommendedSurfTime}
+                  </span>
+                  <small className='ms-2 opacity-50'>(漲潮前後 2h)</small>
+                </div>
+                {weatherWarning && (
+                  <div className={`mt-4 p-3 rounded-3 shadow-sm ${weatherWarning.level === 'danger' ? 'bg-danger text-white' : 'bg-warning text-dark'}`}>
+                    <small className="fw-bold">{weatherWarning.text}</small>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -193,19 +225,22 @@ export default function WaveReportPage() {
                 <h6 className='mb-0 fw-bold'>風力 Wind</h6>
               </div>
               <div className='mt-auto'>
-                <div className='d-flex align-items-center'>
-                  {isWaveLoading ? <ClipLoader size={20} /> : <h2 className='fw-bold mb-1 me-3'>{currentData.windSpeed}</h2>}
-                  <div
-                    className='bg-neutral-20 rounded-circle d-flex align-items-center justify-content-center'
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      transform: `rotate(${currentData.windDirection}deg)`,
-                      transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
-                    }}
-                  >
-                    <FaArrowUp className='fs-7' />
+                <div className='d-flex align-items-center flex-wrap gap-2'>
+                  <div className='d-flex align-items-center'>
+                    {isWaveLoading ? <ClipLoader size={20} /> : <h2 className='fw-bold mb-1 me-2'>{currentData.windSpeed}</h2>}
+                    <div
+                      className='bg-neutral-20 rounded-circle d-flex align-items-center justify-content-center'
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        transform: `rotate(${currentData.windDirection}deg)`,
+                        transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+                      }}
+                    >
+                      <FaArrowUp className='fs-8' />
+                    </div>
                   </div>
+                  <small className='text-primary-100 fw-bold'>{currentData.windType}</small>
                 </div>
                 <small className='text-muted'>km/h Real-time Direction</small>
               </div>
@@ -234,6 +269,43 @@ export default function WaveReportPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 一週預報區塊 - 質感卡片列表 */}
+      <section className='container mb-11'>
+        <div className="d-flex align-items-center mb-6">
+          <MdAccessTime className='text-primary-100 fs-3 me-2' />
+          <h2 className='fw-bold mb-0 fs-2'>一週預報 Weekly Forecast</h2>
+        </div>
+
+        <div className="row g-3 row-cols-2 row-cols-md-4 row-cols-lg-7">
+          {dailyForecast.map((day) => {
+            const isToday = current.isLive && day.date === new Date().toISOString().split('T')[0];
+            const isActive = selectedDate === day.date || isToday;
+
+            return (
+              <div key={day.date} className='col'>
+                <div
+                  className={`card h-100 border-0 shadow-sm rounded-4 p-3 text-center transition-hover pointer ${isActive ? 'bg-primary-100 text-white' : 'bg-white'}`}
+                  onClick={() => dispatch(setSelectedDate(day.date))}
+                >
+                  <div className={`fs-7 mb-2 ${isActive ? 'text-white-50' : 'text-muted'}`}>{day.date.split('-').slice(1).join('/')}</div>
+                  <div className='fw-bold fs-6 mb-3'>{day.dayOfWeek}</div>
+
+                  <div className='mb-3'>
+                    <MdWaves className={`fs-4 ${isActive ? 'text-white' : 'text-primary-100'}`} />
+                    <div className='fw-bold fs-4 mt-1'>{day.waveHeight}m</div>
+                  </div>
+
+                  <div className='mt-auto pt-3 border-top border-neutral-10'>
+                    <div className='fs-8 opacity-75 mb-1'>TEMP</div>
+                    <div className='fw-bold fs-7'>{Math.round(day.tempMax)}° / {Math.round(day.tempMin)}°</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
