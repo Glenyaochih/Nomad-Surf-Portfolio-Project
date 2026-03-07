@@ -12,26 +12,22 @@ import {
   setCheckProductOpen,
 } from '../../redux/slice/modalSlice';
 import {
-  adminGetProductsAsync,
+  getProductsAsync,
   setProductCategory,
-} from '../../redux/slice/admin/products/adminGetProductsSlice';
-import {
-  adminDelProductsAsync,
+  deleteProductsAsync,
   setDelProductInputChange,
-} from '../../redux/slice/admin/products/adminDelProductSlice';
-import {
   setTempProduct,
-  adminPutProductAsync,
+  updateProductAsync,
   setPutProductInputChange,
-} from '../../redux/slice/admin/products/adminPutProductSlice';
+} from '../../redux/slice/admin/products/adminProductsSlice';
 import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminProductsPage() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.adminGetProducts.products);
-  const tempProduct = useSelector((state) => state.adminPutProduct.tempProduct);
+  const products = useSelector((state) => state.adminProducts.products);
+  const tempProduct = useSelector((state) => state.adminProducts.tempProduct);
   const idContainer = useSelector(
-    (state) => state.adminDelProducts.idContainer
+    (state) => state.adminProducts.idContainer
   );
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -63,7 +59,7 @@ export default function AdminProductsPage() {
   };
 
   const confirmDelProduct = () => {
-    dispatch(adminDelProductsAsync());
+    dispatch(deleteProductsAsync());
   };
 
   // 產品編輯功能
@@ -78,18 +74,18 @@ export default function AdminProductsPage() {
   };
   //確認件送出
   const confirmEditProduct = () => {
-    dispatch(adminPutProductAsync());
+    dispatch(updateProductAsync());
   };
 
   // 產品篩選功能
   const categoryFilterHandler = (newCategory) => {
     dispatch(setProductCategory(newCategory));
-    dispatch(adminGetProductsAsync({ page: 1, category: newCategory }));
+    dispatch(getProductsAsync({ page: 1, category: newCategory }));
   };
 
   // useEffect hook 在組件掛載時獲取產品數據
   useEffect(() => {
-    dispatch(adminGetProductsAsync({}));
+    dispatch(getProductsAsync({}));
   }, [dispatch]);
 
   return (
@@ -160,10 +156,25 @@ export default function AdminProductsPage() {
             <table className='table productManager rounded-table table-container table-hover'>
               <thead>
                 <tr>
-                  <th className='' scope='col' style={{ width: '80px' }}>
+                  <th
+                    scope='col'
+                    className='position-sticky start-0'
+                    style={{
+                      width: '80px',
+                      zIndex: 200,
+                    }}
+                  >
                     #
                   </th>
-                  <th scope='col' style={{ width: '200px' }}>
+                  <th
+                    scope='col'
+                    className='position-sticky'
+                    style={{
+                      width: '200px',
+                      left: '80px',
+                      zIndex: 200,
+                    }}
+                  >
                     功能鍵
                   </th>
                   <th scope='col' style={{ width: '200px' }}>
@@ -214,11 +225,17 @@ export default function AdminProductsPage() {
                 {/* 遍歷產品並渲染每一行 */}
                 {products?.map((product, index) => (
                   <tr className='' key={product.id}>
-                    {/* 根據 editState 條件渲染：顯示產品信息或可編輯的輸入字段 */}
+                    {/* 根據 editState 條件渲染：顯示產品信息或可編輯的輸入字*/}
                     {product.id !== editState ? (
                       <>
                         {/* 產品選擇複選框和索引 */}
-                        <th scope='col' className='align-middle'>
+                        <th
+                          scope='col'
+                          className='align-middle position-sticky start-0 bg-white'
+                          style={{
+                            zIndex: 5,
+                          }}
+                        >
                           <div className='form-check'>
                             <input
                               onChange={(e) => {
@@ -238,7 +255,13 @@ export default function AdminProductsPage() {
                           </div>
                         </th>
                         {/* 編輯產品按鈕 */}
-                        <td className='align-middle'>
+                        <td
+                          className='align-middle position-sticky bg-white'
+                          style={{
+                            left: '80px',
+                            zIndex: 5,
+                          }}
+                        >
                           <button
                             className='btn'
                             onClick={() => {
@@ -327,11 +350,11 @@ export default function AdminProductsPage() {
                     ) : (
                       <>
                         {/* 編輯產品的行：顯示輸入字段 */}
-                        <th scope='row' className='align-middle'>
+                        <th scope='row' className='align-middle position-sticky start-0' style={{ zIndex: 100 }}>
                           <label className='mt-1'>{index + 1}</label>
                         </th>
                         {/* 確認編輯按鈕 */}
-                        <td className='align-middle'>
+                        <td className='align-middle position-sticky' style={{ left: '80px', zIndex: 100 }}>
                           <button
                             className='btn'
                             onClick={() => {

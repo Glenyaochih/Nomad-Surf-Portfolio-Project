@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
-import { adminLogoutAsync } from '../../redux/slice/admin/adminLogoutSlice';
+import { logoutAsync } from '../../redux/slice/admin/auth/adminAuthSlice';
 import AdminLoading from '../../components/loadings/AdminLoading';
 import MessageToast from '../../components/message/MessageToast';
 
@@ -14,7 +14,7 @@ export default function AdminIndexPage() {
 
   const logoutHandler = (e) => {
     e.preventDefault();
-    dispatch(adminLogoutAsync());
+    dispatch(logoutAsync());
   };
   return (
     <>

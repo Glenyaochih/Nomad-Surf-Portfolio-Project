@@ -3,24 +3,22 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdCheck, MdModeEditOutline } from 'react-icons/md';
 
-import { adminGetOrdersAsync } from '../../redux/slice/admin/orders/adminGetOrdersSlice';
 import {
-  adminPutOrderAsync,
+  getOrdersAsync,
+  updateOrderAsync,
   setPutOrderInputChange,
   setTempOrder,
-} from '../../redux/slice/admin/orders/adminPutOrderSlice';
-import {
-  adminDelAllOrdersAsync,
-  adminDelOrdersAsync,
+  deleteAllOrdersAsync,
+  deleteOrdersAsync,
   setDelOrdersInputChange,
-} from '../../redux/slice/admin/orders/adminDelOrdersSlice';
+} from '../../redux/slice/admin/orders/adminOrdersSlice';
 import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminOrdersPage() {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.adminGetOrders.orders);
-  const tempOrder = useSelector((state) => state.adminPutOrder.tempOrder);
-  const idContainer = useSelector((state) => state.adminDelOrders.idContainer);
+  const orders = useSelector((state) => state.adminOrders.orders);
+  const tempOrder = useSelector((state) => state.adminOrders.tempOrder);
+  const idContainer = useSelector((state) => state.adminOrders.idContainer);
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,10 +30,10 @@ export default function AdminOrdersPage() {
     dispatch(setDelOrdersInputChange({ checked, orderId }));
   };
   const confirmDelOrders = () => {
-    dispatch(adminDelOrdersAsync());
+    dispatch(deleteOrdersAsync());
   };
   const confirmDelAllOrders = () => {
-    dispatch(adminDelAllOrdersAsync());
+    dispatch(deleteAllOrdersAsync());
   };
 
   // === edit section --> adminPutProductSlices.js ===
@@ -53,11 +51,11 @@ export default function AdminOrdersPage() {
 
   //確認件送出
   const confirmEditOrder = () => {
-    dispatch(adminPutOrderAsync());
+    dispatch(updateOrderAsync());
   };
 
   useEffect(() => {
-    dispatch(adminGetOrdersAsync({}));
+    dispatch(getOrdersAsync({}));
   }, [dispatch]);
 
   return (

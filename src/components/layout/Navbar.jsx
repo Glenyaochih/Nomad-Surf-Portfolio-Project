@@ -1,11 +1,8 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { MdOutlineSearch, MdOutlineShoppingCart, MdMenu } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
+import { MdOutlineShoppingCart, MdMenu } from 'react-icons/md';
 import { FiUser } from 'react-icons/fi';
 import NavbarMarquee from '../carousel/NavbarMarquee';
-import {
-  setResetFilters,
-  setSearch,
-} from '../../redux/slice/front/products/frontProductsSlice';
+import { setResetFilters } from '../../redux/slice/front/products/frontProductsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCart } from '../../redux/slice/front/cart/cartSelectors';
 import {
@@ -14,18 +11,18 @@ import {
 } from '../../redux/slice/front/user/userSelectors';
 import { useEffect, useRef, useState } from 'react';
 import { Offcanvas } from 'bootstrap';
+import SearchBar from '../searchBar/searchBar';
 
 export default function TestNavbar() {
   const navbarOffcanvasLink = useRef(null);
   const navbarOffcanvasSelf = useRef(null);
-  const mobileSearchRef = useRef(null);
-  const searchRef = useRef(null);
+
   const dispatch = useDispatch();
   const cartList = useSelector(selectCart);
   const userIsLogin = useSelector(selectUserLogin);
   const user = useSelector(selectUser);
-  const navigate = useNavigate();
-  const [showInput, setShowInput] = useState(false);
+  const [showInput01, setShowInput01] = useState(false);
+  const [showInput02, setShowInput02] = useState(false);
 
   const routes = [
     {
@@ -34,6 +31,12 @@ export default function TestNavbar() {
       event: () => {
         dispatch(setResetFilters());
         handleOffcanvasClose();
+        setTimeout(() => {
+          const element = document.getElementById('latest-surfboards');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
       },
     },
     {
@@ -43,12 +46,20 @@ export default function TestNavbar() {
         handleOffcanvasClose();
       },
     },
-    // { path: 'wave', name: '即時浪況', event: '' },
-    // {
-    //   path: 'shower-map',
-    //   name: '沖澡地圖',
-    //   event: '',
-    // },
+    {
+      path: '/wave',
+      name: '即時浪況',
+      event: () => {
+        handleOffcanvasClose();
+      },
+    },
+    {
+      path: 'shower-map',
+      name: '沖澡地圖',
+      event: () => {
+        handleOffcanvasClose();
+      },
+    },
   ];
 
   const mobile_routes = [
@@ -67,17 +78,6 @@ export default function TestNavbar() {
       },
     },
   ];
-
-  //搜尋框
-  const handleSearch = (e) => {
-    dispatch(setSearch(e.target.value));
-  };
-  //enter後換到商品頁
-  const clickChangePage = (e) => {
-    if (e.key === 'Enter' && e.target.value) {
-      navigate('products');
-    }
-  };
   //取得Offcanvas開關
   useEffect(() => {
     navbarOffcanvasSelf.current = new Offcanvas(navbarOffcanvasLink.current);
@@ -89,30 +89,6 @@ export default function TestNavbar() {
   const handleOffcanvasClose = () => {
     navbarOffcanvasSelf.current.hide();
   };
-
-  //搜尋匡控制邏輯
-  const handleMouseEnter = () => {
-    setShowInput(true);
-  };
-
-  useEffect(() => {
-    if (showInput) {
-      const handleClickOutside = (e) => {
-        if (
-          mobileSearchRef.current &&
-          !mobileSearchRef.current.contains(e.target) &&
-          searchRef.current &&
-          !searchRef.current.contains(e.target)
-        ) {
-          setShowInput(false);
-        }
-      };
-      document.addEventListener('mousedown', handleClickOutside, true);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside, true);
-      };
-    }
-  }, [showInput]);
 
   return (
     <>
@@ -129,33 +105,13 @@ export default function TestNavbar() {
           {/* 手機版搜尋與購物車 */}
           <ul className=' d-flex align-items-center d-md-none ms-auto p-0'>
             <li>
-              <div
-                style={{ maxWidth: '270px' }}
-                ref={mobileSearchRef}
-                className='input-group rounded-pill'
-              >
-                {showInput && (
-                  <input
-                    type='text'
-                    className='form-control border-end-0 rounded-start-pill focus-ring search-input'
-                    placeholder='輸入關鍵字'
-                    aria-label='Input group example'
-                    aria-describedby='btnGroupAddon'
-                    onChange={handleSearch}
-                    onKeyDown={clickChangePage}
-                  />
-                )}
-                <button
-                  onClick={clickChangePage}
-                  onMouseEnter={handleMouseEnter}
-                  className={`input-group-text border-start-0 ${showInput ? '' : 'border-0'} rounded-end-pill`}
-                  id='btnGroupAddon'
-                >
-                  <MdOutlineSearch />
-                </button>
-              </div>
+              <SearchBar
+                showInput={showInput01}
+                setShowInput={setShowInput01}
+                searchBarType={'navbar-search'}
+              />
             </li>
-            {!showInput && (
+            {!showInput01 && (
               <li>
                 <NavLink to={'/cart'}>
                   <div className='p-3'>
@@ -174,7 +130,7 @@ export default function TestNavbar() {
                 </NavLink>
               </li>
             )}
-            {!showInput && (
+            {!showInput01 && (
               <li>
                 <button
                   className='navbar-toggler p-3'
@@ -246,26 +202,11 @@ export default function TestNavbar() {
               </ul>
               <ul className=' d-none d-lg-flex align-items-center ms-auto gap-7'>
                 <li>
-                  <div ref={searchRef} className='input-group rounded-pill'>
-                    {showInput && (
-                      <input
-                        type='text'
-                        className='form-control border-end-0 rounded-start-pill focus-ring search-input'
-                        placeholder='輸入關鍵字'
-                        aria-label='Input group example'
-                        aria-describedby='btnGroupAddon'
-                        onChange={handleSearch}
-                        onKeyDown={clickChangePage}
-                      />
-                    )}
-                    <button
-                      onMouseEnter={handleMouseEnter}
-                      className={`input-group-text border-start-0 ${showInput ? '' : 'border-0'} rounded-end-pill`}
-                      id='btnGroupAddon'
-                    >
-                      <MdOutlineSearch />
-                    </button>
-                  </div>
+                  <SearchBar
+                    showInput={showInput02}
+                    setShowInput={setShowInput02}
+                    searchBarType={'navbar-search'}
+                  />
                 </li>
                 <li>
                   {/* 如果登入成功顯示名字 */}

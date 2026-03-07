@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { BarLoader } from 'react-spinners';
 export default function AdminLoading() {
-  const getLoading = useSelector((state) => state.loading.isAdminLoading);
+  const getLoading = useSelector((state) => state.adminAuth.isAdminLoading);
 
   return (
     <>
