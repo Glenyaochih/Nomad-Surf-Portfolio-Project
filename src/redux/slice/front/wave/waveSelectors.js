@@ -3,12 +3,14 @@ import { createSelector } from '@reduxjs/toolkit';
 // 浪點清單 (包含理想陸風方向)
 export const SURF_SPOTS = [
     { id: 'wushi', name: '宜蘭 烏石港', lat: 24.87, lon: 121.83, offshoreAngle: 270 },
-    { id: 'waiao', name: '宜蘭 外澳', lat: 24.88, lon: 121.84, offshoreAngle: 270 },
+    { id: 'waiao', name: '宜蘭 外澳', lat: 24.878273627978025, lon: 121.84291934878927, offshoreAngle: 270 },
+    { id: 'miyue', name: '宜蘭 蜜月灣', lat: 24.933126171126684, lon: 121.88583970130608, offshoreAngle: 270 },
+    { id: 'wuwu', name: '宜蘭 無尾', lat: 24.6106871636795, lon: 121.86452146465591, offshoreAngle: 270 },
     { id: 'donghe', name: '台東 東河', lat: 22.97, lon: 121.31, offshoreAngle: 270 },
+    { id: 'jibeis', name: '花蓮 磯碕', lat: 23.70, lon: 121.55, offshoreAngle: 270 },
     { id: 'nanwan', name: '墾丁 南灣', lat: 21.96, lon: 120.76, offshoreAngle: 0 },
     { id: 'jialeshui', name: '墾丁 佳樂水', lat: 21.99, lon: 120.84, offshoreAngle: 315 },
     { id: 'daan', name: '台中 大安', lat: 24.39, lon: 120.58, offshoreAngle: 90 },
-    { id: 'jibeis', name: '花蓮 磯碕', lat: 23.70, lon: 121.55, offshoreAngle: 270 },
     { id: 'songbai', name: '大甲 松柏港', lat: 24.43190, lon: 120.61784, offshoreAngle: 90 },
     { id: 'waipu', name: '苗栗 外埔', lat: 24.64886, lon: 120.77033, offshoreAngle: 90 },
     { id: 'jiangjun', name: '台南 將軍', lat: 23.207563796734828, lon: 120.07981584315436, offshoreAngle: 90 },
@@ -18,11 +20,43 @@ export const SURF_SPOTS = [
  * 輔助邏輯函式 (不匯出，僅供內部 Selector 使用)
  */
 const analyzeWindRaw = (windSpeed, windDir, spot) => {
-    if (!windSpeed || windSpeed < 5) return { text: '無風 / 微風 Calm', type: 'calm' };
+    const s = parseFloat(windSpeed) || 0;
+    let strength = '平靜 Calm';
+    let colorClass = 'text-info';
+
+    if (s >= 40) {
+        strength = '強風 Gale';
+        colorClass = 'text-danger';
+    } else if (s >= 31) {
+        strength = '清勁 Fresh';
+        colorClass = 'text-warning';
+    } else if (s >= 20) {
+        strength = '和緩 Moderate';
+        colorClass = 'text-success';
+    } else if (s >= 13) {
+        strength = '輕微 Light';
+        colorClass = 'text-info';
+    }
+
     const diff = Math.abs((windDir - spot.offshoreAngle + 180 + 360) % 360 - 180);
-    if (diff < 45) return { text: '陸風 Offshore', type: 'offshore' };
-    if (diff > 135) return { text: '海風 Onshore', type: 'onshore' };
-    return { text: '側風 Cross-shore', type: 'cross' };
+    let typeText = '側風 Cross-shore';
+    let type = 'cross';
+
+    if (diff < 45) {
+        typeText = '陸風 Offshore';
+        type = 'offshore';
+    } else if (diff > 135) {
+        typeText = '海風 Onshore';
+        type = 'onshore';
+    }
+
+    return {
+        text: typeText,
+        type,
+        strength,
+        colorClass,
+        speed: s
+    };
 };
 
 const getWaveRatingRaw = (height, period, windSpeed, windType) => {
@@ -31,10 +65,19 @@ const getWaveRatingRaw = (height, period, windSpeed, windType) => {
     const p = parseFloat(period) || 0;
     const w = parseFloat(windSpeed) || 0;
 
-    if (h > 1.5 && windType === 'offshore' && w < 20 && p >= 6) return { text: 'Excellent', color: 'text-primary-100', grade: 'A' };
-    if (h > 0.8 && windType === 'offshore' && w < 20 && p >= 6) return { text: 'Good', color: 'text-success', grade: 'B' };
-    if (h > 0.5 && w < 20 && p >= 6) return { text: 'Good', color: 'text-success', grade: 'B' };
-    return { text: 'Flat', color: 'text-secondary', grade: 'D' };
+    // A: 門檻 - 15 節 (約 28 km/h)
+    const WIND_LIMIT = 28;
+
+    if (h > 1.5 && windType === 'offshore' && w < WIND_LIMIT && p >= 7)
+        return { text: 'Excellent', color: 'text-primary-100', grade: 'A' };
+
+    if (h > 0.8 && w < WIND_LIMIT && (windType === 'offshore' || w < 15))
+        return { text: 'Good', color: 'text-success', grade: 'B' };
+
+    if (h > 0.6 && w < WIND_LIMIT)
+        return { text: 'Fair', color: 'text-warning', grade: 'C' };
+
+    return { text: 'Flat / Poor', color: 'text-secondary', grade: 'D' };
 };
 
 const getWeatherWarningRaw = (code) => {

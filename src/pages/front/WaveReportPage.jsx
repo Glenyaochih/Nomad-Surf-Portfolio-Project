@@ -160,8 +160,9 @@ export default function WaveReportPage() {
                   <div className={`fs-3 fw-bold me-3 ${currentData.ratingColor}`}>
                     {currentData.rating === 'Flat' ? '別浪費時間(Flat)' : currentData.rating}
                   </div>
-                  <div className="bg-primary-100 text-white rounded-circle d-flex align-items-center justify-content-center shadow-lg"
-                    style={{ width: '60px', height: '60px', fontSize: '24px', fontWeight: 'bold' }}>
+                  <div className="bg-primary-100 text-white rounded-pill d-flex align-items-center justify-content-center shadow-lg px-4"
+                    style={{ height: '50px', minWidth: '100px', fontSize: '24px', fontWeight: 'bold' }}>
+                    <small className="fs-7 me-2 opacity-75 fw-normal">Grade</small>
                     {currentData.ratingGrade}
                   </div>
                 </div>
@@ -227,7 +228,13 @@ export default function WaveReportPage() {
               <div className='mt-auto'>
                 <div className='d-flex align-items-center flex-wrap gap-2'>
                   <div className='d-flex align-items-center'>
-                    {isWaveLoading ? <ClipLoader size={20} /> : <h2 className='fw-bold mb-1 me-2'>{currentData.windSpeed}</h2>}
+                    {isWaveLoading ? (
+                      <ClipLoader size={20} />
+                    ) : (
+                      <h2 className={`fw-bold mb-1 me-2 ${windAnalysis.colorClass || ''}`}>
+                        {currentData.windSpeed}
+                      </h2>
+                    )}
                     <div
                       className='bg-neutral-20 rounded-circle d-flex align-items-center justify-content-center'
                       style={{
@@ -240,7 +247,12 @@ export default function WaveReportPage() {
                       <FaArrowUp className='fs-8' />
                     </div>
                   </div>
-                  <small className='text-primary-100 fw-bold'>{currentData.windType}</small>
+                  <div className='d-flex flex-column'>
+                    <small className='text-primary-100 fw-bold'>{windAnalysis.text}</small>
+                    <small className={`${windAnalysis.colorClass || 'text-muted'} fw-bold`} style={{ fontSize: '0.7rem' }}>
+                      {windAnalysis.strength}
+                    </small>
+                  </div>
                 </div>
                 <small className='text-muted'>km/h Real-time Direction</small>
               </div>
@@ -322,8 +334,8 @@ export default function WaveReportPage() {
               <MapContainer
                 center={[selectedSpot.lat, selectedSpot.lon]}
                 zoom={13}
-                scrollWheelZoom={false}
-                zoomControl={false}
+                scrollWheelZoom={true}
+                zoomControl={true}
                 className='h-100 w-100 z-0'
               >
                 <ChangeView center={[selectedSpot.lat, selectedSpot.lon]} />
