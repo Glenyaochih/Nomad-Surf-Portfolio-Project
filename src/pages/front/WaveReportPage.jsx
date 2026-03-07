@@ -340,7 +340,7 @@ export default function WaveReportPage() {
               >
                 <ChangeView center={[selectedSpot.lat, selectedSpot.lon]} />
                 <TileLayer
-                  url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+                  url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
                   attribution='&copy; Stadia Maps, &copy; OpenStreetMap contributors'
                 />
                 <Marker position={[selectedSpot.lat, selectedSpot.lon]} icon={markerIcon}>
