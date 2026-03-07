@@ -1,22 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  adminGetProductsAsync,
+  getProductsAsync,
   setProductsCurrentPage,
-} from '../../redux/slice/admin/products/adminGetProductsSlice';
+} from '../../redux/slice/admin/products/adminProductsSlice';
 import {
-  adminGetCouponsAsync,
+  getCouponsAsync,
   setCouponsCurrentPage,
-} from '../../redux/slice/admin/coupons/adminGetCouponsSlice';
+} from '../../redux/slice/admin/coupons/adminCouponsSlice';
 
 export default function AdminPagination({ pageState }) {
   //從
   const productsPages = useSelector(
-    (state) => state.adminGetProducts.rangePages
+    (state) => state.adminProducts.rangePages
   );
   const currentCategory = useSelector(
-    (state) => state.adminGetProducts.category
+    (state) => state.adminProducts.category
   );
-  const couponsPages = useSelector((state) => state.adminGetCoupons.rangePages);
+  const couponsPages = useSelector((state) => state.adminCoupons.rangePages);
 
   const dispatch = useDispatch();
   let pages;
@@ -40,11 +40,11 @@ export default function AdminPagination({ pageState }) {
     switch (pageState) {
       case 'products':
         dispatch(setProductsCurrentPage(page));
-        dispatch(adminGetProductsAsync({ page: page, category: category }));
+        dispatch(getProductsAsync({ page: page, category: category }));
         break;
       case 'coupons':
         dispatch(setCouponsCurrentPage(page));
-        dispatch(adminGetCouponsAsync({ page: page }));
+        dispatch(getCouponsAsync({ page: page }));
         break;
       default:
         break;

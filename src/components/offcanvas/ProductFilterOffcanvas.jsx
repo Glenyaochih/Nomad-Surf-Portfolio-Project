@@ -110,6 +110,7 @@ export default function ProductFilterOffcanvas() {
         className='offcanvas offcanvas-end filter-offcanvas'
         tabIndex='-1'
         aria-labelledby='offcanvasRightLabel'
+        data-bs-backdrop='static'
       >
         <div className='offcanvas-header'>
           <h5 className='offcanvas-title' id='offcanvasRightLabel'>

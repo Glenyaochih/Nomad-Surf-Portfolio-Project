@@ -5,23 +5,21 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddCouponModalOpen } from '../../redux/slice/modalSlice';
 import { MdCheck, MdModeEditOutline } from 'react-icons/md';
-import { adminGetCouponsAsync } from '../../redux/slice/admin/coupons/adminGetCouponsSlice';
 import {
-  adminPutCouponAsync,
+  getCouponsAsync,
+  updateCouponAsync,
   setPutCouponInputChange,
   setTempCoupon,
-} from '../../redux/slice/admin/coupons/adminPutCouponSlice';
-import {
-  adminDelCouponsAsync,
+  deleteCouponsAsync,
   setDelCouponsInputChange,
-} from '../../redux/slice/admin/coupons/adminDelCouponsSlice';
+} from '../../redux/slice/admin/coupons/adminCouponsSlice';
 import AdminMessageModal from '../../components/modal/AdminMessageModal';
 
 export default function AdminCouponsPage() {
   const dispatch = useDispatch();
-  const coupons = useSelector((state) => state.adminGetCoupons.coupons);
-  const tempCoupon = useSelector((state) => state.adminPutCoupon.tempCoupon);
-  const idContainer = useSelector((state) => state.adminDelCoupons.idContainer);
+  const coupons = useSelector((state) => state.adminCoupons.coupons);
+  const tempCoupon = useSelector((state) => state.adminCoupons.tempCoupon);
+  const idContainer = useSelector((state) => state.adminCoupons.idContainer);
   const [editState, setEditState] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +45,7 @@ export default function AdminCouponsPage() {
 
   //確認刪除優惠卷
   const confirmDelCoupons = () => {
-    dispatch(adminDelCouponsAsync());
+    dispatch(deleteCouponsAsync());
   };
 
   //修改狀態控制
@@ -63,11 +61,11 @@ export default function AdminCouponsPage() {
 
   //確認件送出
   const confirmEditCoupon = () => {
-    dispatch(adminPutCouponAsync());
+    dispatch(updateCouponAsync());
   };
 
   useEffect(() => {
-    dispatch(adminGetCouponsAsync({ page: 1 }));
+    dispatch(getCouponsAsync({ page: 1 }));
   }, [dispatch]);
 
   return (

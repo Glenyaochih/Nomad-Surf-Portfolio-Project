@@ -7,7 +7,7 @@ import { store } from './redux/store';
 import './assets/scss/all.scss';
 import router from './routers';
 
-history.scrollRestoration = 'manual';
+history.scrollRestoration = 'manual'; //關閉歷史捲動位置
 
 createRoot(document.getElementById('root')).render(
   <IconContext value={{ className: 'react-icon' }}>

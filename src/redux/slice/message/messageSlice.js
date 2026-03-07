@@ -8,18 +8,17 @@ export const messageSlice = createSlice({
   initialState,
   reducers: {
     setCreateMessage: (state, action) => {
-      console.log(action.payload);
       if (action.payload.success) {
         state.messages.push({
           id: action.payload.id,
-          type: 'primary-100',
+          type: 'primary-60',
           title: '成功',
           text: action.payload.message,
         });
       } else {
         state.messages.push({
           id: action.payload.id,
-          type: 'accent-100',
+          type: 'accent-20',
           title: '錯誤',
           text: Array.isArray(action.payload.message)
             ? action.payload?.message.join('`')

@@ -82,7 +82,6 @@ export const getOrderAsync = createAsyncThunk(
     const id = getState().order.orderId;
     try {
       const res = await getOrderAPI.getOrder(id);
-      console.log(res);
       dispatch(getCartAsync());
       return res.data.order;
     } catch (error) {

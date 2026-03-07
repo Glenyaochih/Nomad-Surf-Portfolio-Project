@@ -14,15 +14,15 @@ import {
   setPutImagesInputChange,
   setPutProductInputChange,
   setPutSizesInputChange,
-} from '../../redux/slice/admin/products/adminPutProductSlice';
-import { adminUploadImageAsync } from '../../redux/slice/admin/products/adminUploadImageSlice';
+  uploadImageAsync,
+} from '../../redux/slice/admin/products/adminProductsSlice';
 
 export default function AdminEditProductModal() {
   const adminEditProductModalLink = useRef(null);
   const adminEditProductModalSelf = useRef(null);
   const dispatch = useDispatch();
   const modalOpen = useSelector((state) => state.modal.editProductModalOpen);
-  const tempProduct = useSelector((state) => state.adminPutProduct.tempProduct);
+  const tempProduct = useSelector((state) => state.adminProducts.tempProduct);
 
   //modal 相關
 
@@ -92,7 +92,7 @@ export default function AdminEditProductModal() {
   const imageUploadHandler = (e) => {
     const { name } = e.target;
     const file = e.target.files[0];
-    dispatch(adminUploadImageAsync({ file, name }));
+    dispatch(uploadImageAsync({ file, name }));
   };
 
   const handleImagesChange = (e, index) => {
@@ -387,7 +387,7 @@ export default function AdminEditProductModal() {
                   <div className='btn-group w-100'>
                     {tempProduct.imagesUrl.length < 5 &&
                       tempProduct.imagesUrl[
-                        tempProduct.imagesUrl.length - 1
+                      tempProduct.imagesUrl.length - 1
                       ] !== '' && (
                         <button
                           className='btn btn-outline-accent-300 btn-sm d-block'
