@@ -3,13 +3,28 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const getOrderAPI = {
-  postOrder: async (data) => {
-    return axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`, data);
+  postOrder: (data) => {
+    const req = axios.post(`${BASE_URL}/v2/api/${API_PATH}/order`, data);
+    return Promise.all([req]).then(([res]) => {
+      return {
+        data: res.data,
+      };
+    });
   },
-  getOrders: async () => {
-    return axios.get(`${BASE_URL}/v2/api/${API_PATH}/orders`);
+  getOrders: () => {
+    const req = axios.get(`${BASE_URL}/v2/api/${API_PATH}/orders`);
+    return Promise.all([req]).then(([res]) => {
+      return {
+        data: res.data,
+      };
+    });
   },
-  getOrder: async (id) => {
-    return axios.get(`${BASE_URL}/v2/api/${API_PATH}/order/${id}`);
+  getOrder: (id) => {
+    const req = axios.get(`${BASE_URL}/v2/api/${API_PATH}/order/${id}`);
+    return Promise.all([req]).then(([res]) => {
+      return {
+        data: res.data,
+      };
+    });
   },
 };
