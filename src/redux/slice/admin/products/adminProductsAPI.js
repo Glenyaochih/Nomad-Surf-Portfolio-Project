@@ -4,33 +4,29 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 export const adminProductsAPI = {
-    getProducts: async (page = 1, category = '') => {
+    getProducts: (page = 1, category = '') => {
         const url = category
             ? `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}&category=${category}`
             : `${BASE_URL}/v2/api/${API_PATH}/admin/products?page=${page}`;
-        return axios.get(url);
+        const req = axios.get(url);
+        return Promise.all([req]).then(([res]) => res);
     },
-    createProduct: async (productData) => {
-        return axios.post(
-            `${BASE_URL}/v2/api/${API_PATH}/admin/product`,
-            productData
-        );
+    createProduct: (productData) => {
+        const req = axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/product`, productData);
+        return Promise.all([req]).then(([res]) => res);
     },
-    updateProduct: async (id, productData) => {
-        return axios.put(
-            `${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`,
-            productData
-        );
+    updateProduct: (id, productData) => {
+        const req = axios.put(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`, productData);
+        return Promise.all([req]).then(([res]) => res);
     },
-    deleteProduct: async (id) => {
-        return axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`);
+    deleteProduct: (id) => {
+        const req = axios.delete(`${BASE_URL}/v2/api/${API_PATH}/admin/product/${id}`);
+        return Promise.all([req]).then(([res]) => res);
     },
-    uploadImage: async (file) => {
+    uploadImage: (file) => {
         const formData = new FormData();
         formData.append('file-to-upload', file);
-        return axios.post(
-            `${BASE_URL}/v2/api/${API_PATH}/admin/upload`,
-            formData
-        );
+        const req = axios.post(`${BASE_URL}/v2/api/${API_PATH}/admin/upload`, formData);
+        return Promise.all([req]).then(([res]) => res);
     },
 };
