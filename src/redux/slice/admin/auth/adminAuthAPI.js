@@ -3,16 +3,13 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const adminAuthAPI = {
-    login: (account) => {
-        const req = axios.post(`${BASE_URL}/v2/admin/signin`, account);
-        return Promise.all([req]).then(([res]) => res);
+    login: async (account) => {
+        return axios.post(`${BASE_URL}/v2/admin/signin`, account);
     },
-    logout: () => {
-        const req = axios.post(`${BASE_URL}/v2/logout`);
-        return Promise.all([req]).then(([res]) => res);
+    logout: async () => {
+        return axios.post(`${BASE_URL}/v2/logout`);
     },
-    checkAuth: () => {
-        const req = axios.post(`${BASE_URL}/v2/api/user/check`);
-        return Promise.all([req]).then(([res]) => res);
+    checkAuth: async () => {
+        return axios.post(`${BASE_URL}/v2/api/user/check`);
     },
 };
