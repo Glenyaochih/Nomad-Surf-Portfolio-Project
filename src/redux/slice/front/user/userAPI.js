@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const USER_BASE_URL = import.meta.env.VITE_USER_BASE_URL;
+
 export const getUserAPI = {
   userSignup: (data) => {
-    const req = axios.post('https://nomad-server-4254.onrender.com/signup', data);
+    const req = axios.post(`${USER_BASE_URL}/signup`, data);
     return Promise.all([req]).then(([res]) => {
       return {
         data: res.data,
@@ -10,7 +12,7 @@ export const getUserAPI = {
     });
   },
   userSignin: (data) => {
-    const req = axios.post('https://nomad-server-4254.onrender.com/signin', data);
+    const req = axios.post(`${USER_BASE_URL}/signin`, data);
     return Promise.all([req]).then(([res]) => {
       return {
         data: res.data,
