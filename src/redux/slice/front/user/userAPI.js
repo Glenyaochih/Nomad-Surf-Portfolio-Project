@@ -1,10 +1,20 @@
 import axios from 'axios';
 
 export const getUserAPI = {
-  userSignup: async (data) => {
-    return axios.post('https://nomad-server-4254.onrender.com/signup', data);
+  userSignup: (data) => {
+    const req = axios.post('https://nomad-server-4254.onrender.com/signup', data);
+    return Promise.all([req]).then(([res]) => {
+      return {
+        data: res.data,
+      };
+    });
   },
-  userSignin: async (data) => {
-    return axios.post('https://nomad-server-4254.onrender.com/signin', data);
+  userSignin: (data) => {
+    const req = axios.post('https://nomad-server-4254.onrender.com/signin', data);
+    return Promise.all([req]).then(([res]) => {
+      return {
+        data: res.data,
+      };
+    });
   },
 };
