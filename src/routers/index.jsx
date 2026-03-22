@@ -1,39 +1,48 @@
 import React, { Suspense } from 'react';
 import { createHashRouter } from 'react-router-dom';
 
+// 網路短暫不穩時自動重試一次 dynamic import
+function lazyWithRetry(factory) {
+  return React.lazy(() =>
+    factory().catch(
+      () => new Promise(resolve => setTimeout(resolve, 600)).then(() => factory())
+    )
+  );
+}
+
 // 動態導入所有頁面組件
-const App = React.lazy(() => import('../App'));
-const HomePage = React.lazy(() => import('../pages/front/HomePage'));
-const ProductListPage = React.lazy(
+const App = lazyWithRetry(() => import('../App'));
+const HomePage = lazyWithRetry(() => import('../pages/front/HomePage'));
+const ProductListPage = lazyWithRetry(
   () => import('../pages/front/ProductListPage')
 );
-const ProductDetailPage = React.lazy(
+const ProductDetailPage = lazyWithRetry(
   () => import('../pages/front/ProductDetailPage')
 );
-const ShoppingCartPage = React.lazy(
+const ShoppingCartPage = lazyWithRetry(
   () => import('../pages/front/ShoppingCartPage')
 );
-const ShowerMapPage = React.lazy(() => import('../pages/front/ShowerMapPage'));
-const WaveReportPage = React.lazy(
+const ShowerMapPage = lazyWithRetry(() => import('../pages/front/ShowerMapPage'));
+const WaveReportPage = lazyWithRetry(
   () => import('../pages/front/WaveReportPage')
 );
-const UserLoginPage = React.lazy(() => import('../pages/front/UserLoginPage'));
+const UserLoginPage = lazyWithRetry(() => import('../pages/front/UserLoginPage'));
 
-const Admin = React.lazy(() => import('../pages/admin/Admin'));
-const AdminProductsPage = React.lazy(
+const Admin = lazyWithRetry(() => import('../pages/admin/Admin'));
+const AdminProductsPage = lazyWithRetry(
   () => import('../pages/admin/AdminProductsPage')
 );
-const AdminOrdersPage = React.lazy(
+const AdminOrdersPage = lazyWithRetry(
   () => import('../pages/admin/AdminOrdersPage')
 );
-const AdminCouponsPage = React.lazy(
+const AdminCouponsPage = lazyWithRetry(
   () => import('../pages/admin/AdminCouponsPage')
 );
-const ConfirmOrder = React.lazy(() => import('../pages/front/ConfirmOrder'));
-const ConfirmPayment = React.lazy(
+const ConfirmOrder = lazyWithRetry(() => import('../pages/front/ConfirmOrder'));
+const ConfirmPayment = lazyWithRetry(
   () => import('../pages/front/ConfirmPayment')
 );
-const FinishedOrder = React.lazy(() => import('../pages/front/FinishedOrder'));
+const FinishedOrder = lazyWithRetry(() => import('../pages/front/FinishedOrder'));
 
 const route = [
   {
