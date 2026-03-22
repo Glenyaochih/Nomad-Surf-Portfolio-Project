@@ -6,7 +6,8 @@ import {
 } from 'react-icons/md';
 import { FaArrowUp, FaWind } from 'react-icons/fa';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWaveDataAsync, setSelectedSpotId, setSelectedDate } from '../../redux/slice/front/wave/waveSlice';
 import {
@@ -29,18 +30,42 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
 
+const markerIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 
 // 透過 ChangeView 元件實作地圖平移 (FlyTo) 功能
 // 當 center (經緯度) 改變時，利用 Leaflet 的 useMap hook 取得地圖實體並執行平滑移動
 function ChangeView({ center }) {
   const map = useMap();
-  map.flyTo(center, 13, { duration: 1.5 }); // 飛到指定座標，縮放等級 13，動畫持續 1.5 秒
+  useEffect(() => {
+    map.flyTo(center, 13, { duration: 1.5 });
+  }, [map, center]);
   return null;
 }
 
 export default function WaveReportPage() {
   const dispatch = useDispatch();
   const isWaveLoading = useSelector(selectIsWaveLoading);
+  const mapRef = useRef(null);
+
+  // 離開頁面時移除所有 tile layer，中止 in-flight 的地圖圖塊 HTTP 請求
+  // 避免 Leaflet 佔用網路頻寬，導致 React lazy import 失敗
+  useEffect(() => {
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.eachLayer(layer => {
+          mapRef.current.removeLayer(layer);
+        });
+      }
+    };
+  }, []);
 
   const selectedDate = useSelector(selectSelectedDate);
   const selectedSpot = useSelector(selectCurrentSpot);
@@ -58,15 +83,6 @@ export default function WaveReportPage() {
   }, [dispatch, selectedSpot]);
 
   const current = activeReport || {};
-
-  const markerIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
 
   const currentData = {
     location: selectedSpot.name,
@@ -89,9 +105,9 @@ export default function WaveReportPage() {
         <nav aria-label='breadcrumb'>
           <ol className='breadcrumb mb-0'>
             <li className='breadcrumb-item'>
-              <a className='fs-8 fs-lg-7 text-decoration-none' href='/'>
+              <Link className='fs-8 fs-lg-7 text-decoration-none' to='/'>
                 首頁
-              </a>
+              </Link>
             </li>
             <li className='breadcrumb-item active fs-8 fs-lg-7' aria-current='page'>
               即時浪況
@@ -332,6 +348,7 @@ export default function WaveReportPage() {
           <div className='card border-0 shadow-lg rounded-5 overflow-hidden'>
             <div style={{ height: '600px', width: '100%', position: 'relative' }}>
               <MapContainer
+                ref={mapRef}
                 center={[selectedSpot.lat, selectedSpot.lon]}
                 zoom={13}
                 scrollWheelZoom={true}
